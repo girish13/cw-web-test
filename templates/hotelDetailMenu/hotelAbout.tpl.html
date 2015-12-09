@@ -1,0 +1,26 @@
+<p>{{hotel.long_description}}<br></p>
+<div class = "row">
+    <div class = "col-md-4">
+        Days
+    </div>
+    <div class = "col-md-4">
+        Open time
+    </div>
+    <div class = "col-md-4">
+        Close time
+    </div>
+    <hr>
+</div>
+<div class="row" ng-repeat="hotelTimings in hotelSchedule" ng-show="{{hotelTimings.open}}">
+    <div class="col-md-4">
+        {{hotelTimings.days}}
+    </div>
+    <div class="col-md-4">
+        {{hotelTimings.open_time}}
+    </div>
+    <div class = "col-md-4">
+        {{hotelTimings.close_time}}
+    </div>
+    <hr>
+</div>
+

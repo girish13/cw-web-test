@@ -1,0 +1,95 @@
+<div ng-include = "'templates/header.tpl.html'"></div>
+
+
+<div class = "container">
+    <div class = "row">
+        <div class = "col-md-8">
+            <div class="row white-background-box">
+
+                <div class="col-md-3">
+                    <div >
+                        <img src="bhasduvbkj.png" style="width:170px;height :180px">
+                    </div>
+                </div>
+                <div class = "col-md-6">
+                    <h1>{{hotel.name}}</h1>
+                    <p>{{hotel.short_description}}</p>
+                    <p>Cuisines : {{hotel.cuisines}}</p>
+
+                    <p>Price : {{hotel.min_package_price}}-{{hotel.max_package_price}}</p>
+                    <p>Min. Order : {{hotel.min_order_value}} | Min Size : {{hotel.min_order_count}}</p>
+                    <p>{{hotel.locality_name}},{{hotel.city_name}}</p>
+
+                </div>
+                <div class = "col-md-3">
+                    <p>{{hotel.avg_rating}}</p>
+                    <p>{{hotel.review_count}} Reviews</p>
+                </div>
+            </div>
+
+            <div class="white-background-box">
+
+                <uib-tabset justified="true">
+                    <uib-tab ui-sref="hotel.packages" heading="Packages"></uib-tab>
+                    <uib-tab ui-sref="hotel.alacarte" heading="A-la-Carte"></uib-tab>
+                    <uib-tab ui-sref ="hotel.reviews" heading="Reviews"></uib-tab>
+                    <uib-tab ui-sref ="hotel.pictures" heading="Pictures"></uib-tab>
+                    <uib-tab ui-sref ="hotel.about" heading="About"></uib-tab>
+                </uib-tabset>
+
+                    <div class="hotel-tabs-content" ui-view></div>
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+        </div>
+        <div class="col-md-4 white-background-box">
+            <div class = "row">
+            <h2 class = "col-md-12">Current Order Summary</h2>
+            <hr>
+            <ol>
+                <li>
+                    <div class="col-md-12">
+                        <div class = "col-md-10">
+                            <h3>First Order X 10</h3>
+                            <p>order description</p>
+                        </div>
+                        <div class = "col-md-2"><a href>Edit</a></div>
+                    </div>
+                    <div class = "col-md-12">
+                        <div class = "col-md-3">Total :</div>
+                        <div class = "col-md-4 col-md-offset-5" style = "text-align:right">Rs. 1209</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-md-12">
+                        <div class = "col-md-10">
+                            <h3>First Order X 10</h3>
+                            <p>order description</p>
+                        </div>
+                        <div class = "col-md-2"><a href>Edit</a></div>
+                    </div>
+                    <div class = "col-md-12">
+                        <div class = "col-md-3">Total :</div>
+                        <div class = "col-md-4 col-md-offset-5" style = "text-align : right">Rs. 1209</div>
+                    </div>
+                </li>
+            </ol>
+            <div class = "col-md-12">
+                <hr>
+                <div class = "col-md-3">Total :</div>
+                <div class = "col-md-4 col-md-offset-5" style = "text-align : right">Rs. 1209</div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

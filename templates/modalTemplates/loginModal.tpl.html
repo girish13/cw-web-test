@@ -1,0 +1,149 @@
+<!--Login Modal -->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="login">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><img src="" alt="logo" width="250"></h4>
+            </div>
+            <div class="modal-body">
+                <div class = "row">
+                    <div class="col-md-6 hidden-xs" ng-init="flag = true">
+                        <h1>Some Beautiful content</h1>
+                        <button class = "btn btn-primary " ng-click="flag = !flag" ng-show="flag" >Register</button>
+                        <button class ="btn btn-primary " ng-click="flag = !flag" ng-show="!flag" >SignIn</button>
+                    </div>
+                    <div class="col-md-6">
+                        <div id =  "register animate-if" ng-show="!flag">
+                            <h4>Register Now!!</h4>
+                            <form id = "register-form" >
+                                <div class="form-group">
+                                    <div class="input-group" ng-class="{ 'has-error': home.errors.register_name }">
+                                        <input type="text" class="form-control" name="name" id ="name" value="" placeholder="Enter your name" aria-describedby="basic-addon2" ng-model="home.register.user.name">
+                                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-user"></i></span>
+                                    </div>
+                                    <span ng-show=" home.errors.register_name" class="help-block">{{home.errors.register_name}}</span>
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-error': home.errors.register_number }">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="phone" value="" placeholder="Phone number(10 digits)" aria-describedby="basic-addon2" ng-model="home.register.user.number">
+                                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-phone"></i></span>
+                                    </div>
+                                    <span ng-show="home.errors.register_number" class="help-block">{{home.errors.register_number}}</span>
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-error': home.errors.register_email }">
+                                    <div class="input-group">
+                                        <input type="email" class="form-control" name="email_login" id ="email_login" value="" placeholder="Enter email id" aria-describedby="basic-addon2" ng-model="home.register.user.email">
+                                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-envelope"></i></span>
+                                    </div>
+                                    <span ng-show="home.errors.register_email" class="help-block">{{home.errors.register_email}}</span>
+
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-error': home.errors.register_password }">
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" name="password_login" value="" placeholder="Password" aria-describedby="basic-addon2" ng-model="home.register.user.password">
+                                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>
+                                    </div>
+                                    <span ng-show="home.errors.register_password" class="help-block">{{home.errors.register_password}}</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    </div>
+                                    <div style="text-align:right;" class="col-xs-6 col-sm-6 col-md-6">
+                                        <!--<a href="#forgot-password" data-dismiss="modal" data-toggle="modal" data-target="#forgot-password" >Forgot/Reset Password?</a>-->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button style="display:block; width:100%;" ng-click = "home.register()" class="btn btn-primary">Register</button>
+                                    </div>
+                                    <span>Already Registered?<a href="#" ng-click="flag = !flag" > Click here</a></span>
+                                </div>
+                            </form>
+                        </div>
+                        <div id = "login animate-if" ng-if="flag">
+                            <h4>Sign In</h4>
+                            <form  id = "login-form">
+                                <span ng-show="home.errors.login_fail" class="help-block">{{home.errors.login_fail}}</span>
+                                <div class="form-group" ng-class="{ 'has-error': home.errors.login_email}">
+                                    <div class="input-group">
+                                        <input type="email" class="form-control" value="" placeholder="Enter email id" aria-describedby="basic-addon2" ng-model="home.login.user.email">
+                                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-user"></i></span>
+                                    </div>
+                                    <span ng-show="home.errors.login_email" class="help-block">{{home.errors.login_email}}</span>
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-error': home.errors.login_password }">
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" value="" placeholder="Password" aria-describedby="basic-addon2" ng-model="home.login.user.password">
+                                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>
+                                    </div>
+                                    <span ng-show="home.errors.login_password" class="help-block">{{home.errors.login_password}}</span
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <!--<div class="col-xs-6 col-sm-6 col-md-6">-->
+                                    <!--<div class="checkbox">-->
+                                    <!--<label>-->
+                                    <!--<input type="checkbox"> Remember me-->
+                                    <!--</label>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <div style="text-align:right;" class="col-xs-6 col-sm-6 col-md-6">
+                                        <!--<a href="#forgot-password" data-dismiss="modal" data-toggle="modal" data-target="#forgot-password" >Forgot/Reset Password?</a>-->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button style="display:block; width:100%;" ng-click="home.login()" class="btn btn-primary">Login</button>
+                                    </div>
+                                    <span>New user?<a href ng-click=" flag = !flag " >Click here</a></span>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!--<div class="modal-footer">-->
+
+            <!--&lt;!&ndash; <button type="button" style="margin-top:0px;" class="btn btn-tt">Register</button> &ndash;&gt;-->
+            <!--&lt;!&ndash; <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> &ndash;&gt;-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+<!-- login modal-->
+<!-- Forgot Password Modal -->
+<div class="modal fade" id="forgot-password" tabindex="-1" role="dialog" aria-labelledby="forgot-password">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="forgot-password"><img src="" alt="logo" width="250"></h4>
+            </div>
+            <div class="modal-body">
+                <h4>Reset Password</h4>
+                <!-- <hr> -->
+                <p>Enter your email address to receive a link for creating a new password</p>
+                <form action="">
+                    <p style="color:green">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="email" placeholder="Enter your email id" aria-describedby="basic-addon2">
+                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-user"></i></span>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button style="display:block; width:100%;"  class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- <div class="modal-footer">
+
+            </div> -->
+        </div>
+    </div>
+</div>
+<!-- Forgot Password Modal -->

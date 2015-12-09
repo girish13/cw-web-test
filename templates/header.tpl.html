@@ -1,0 +1,84 @@
+<header id="main-header" ng-controller="homeController">
+    <nav class=" navbar navbar-inverse mynavbar">
+        <div class="container">
+                    <a class="navbar-brand logo" href="#">
+                        <img src="" height = "50px" alt="Image Alternative text" title="Image Title" />
+                    </a>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="#" ng-if = "home.isAuthenticated()">
+                                    <!--<img class="" src="" alt="Image Alternative text" />-->
+                                    {{home.userName}}</a>
+                            </li>
+                            <li>
+                                <button data-toggle="modal" class = "btn btn-primary"  data-target="#login" ng-if = "!home.isAuthenticated()">Log In/Register</button>
+                            </li>
+                            <li>
+                                <button ng-click="home.logout()" class="btn btn-primary" ng-if = "home.isAuthenticated()">Log Out</button>
+                            </li>
+                            <li>
+                                <button class = "btn btn-primary">Contact Us</button>
+                            </li>
+                        </ul>
+
+        </div>
+    </nav>
+</header>
+<div class="color1 nav" >
+    <div class="container" ng-controller = "locationSearchController">
+        <div class = "row location-search-bar" ng-mouseenter="changeEdit()" ng-mouseleave="changeEdit()">
+
+                    <div class="form-group col-md-4">
+                        <label ng-show="edit">Select a Location :</label>
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gurgaon <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Gurgaon</a></li>
+                                </ul>
+                            </div><!-- /btn-group -->
+                            <input type="text" class="form-control" aria-label="" placeholder="Where?">
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class = "col-md-2">
+                        <label ng-show="edit">Number of persons :</label>
+                        <select class = "form-control">
+                            <option selected disabled>Persons?</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                    <div class = "col-md-3">
+                        <label ng-show="edit">Select a Date And Time :</label>
+                        <!--<div class="form-group">-->
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                            </p>
+                        <!--</div>-->
+                    </div>
+                    <div class = "col-md-2">
+                        <uib-timepicker ng-model="mytime" ng-change="changed()" show-spinners = "edit"  show-meridian="ismeridian"></uib-timepicker>
+                    </div>
+                    <div class = "col-md-1" ng-controller="orderModalInstance">
+                        <button href ng-click="open()" class = "btn btn-primary"><i class = "fa fa-shopping-bag"></i></button>
+                        <ng-include src = "'templates/modalTemplates/orderModal.tpl.html'"></ng-include>
+                    </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class = "row">
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Gurgaon</a></li>
+        <li class="active">CyberCity</li>
+    </ol>
+</div>
+</div>
+<ng-include src = "'./templates/modalTemplates/loginModal.tpl.html'"></ng-include>
