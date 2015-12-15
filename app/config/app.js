@@ -17,7 +17,13 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','sat
         .state('search',{
             url:'/search',
             templateUrl : 'templates/hotelSearch.tpl.html',
-            controller : 'hotelSearchController'
+            controller : 'hotelSearchController',
+            params : {
+                locality_id : null,
+                date : null,
+                mytime : null,
+                pax : null
+            }
         })
         .state('hotel', {
             //parent : 'common',
@@ -62,7 +68,7 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','sat
 
     //$locationProvider.html5Mode(true);
     $resourceProvider.defaults.stripTrailingSlashes = false;
-    $urlRouterProvider.otherwise('/hotel/packages');
+    $urlRouterProvider.otherwise('/');
 
     // $authProvider.facebook({
     //  clientId: '657854390977827'
@@ -71,11 +77,28 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','sat
     //$authProvider.google({
     //  clientId: 'Google Client ID'
     //});
-
+    //    $rootScope.cust_id = 0;
+    //    $rootScope.cust_name = "vishu";
     //$rootScope.baseUrl = 'http://192.168.0.105/cw-api-test/public/api/v001/';
     $authProvider.loginUrl = 'http://192.168.0.120/random/public/api/v1/auth/login';
     $authProvider.signupUrl = 'http://192.168.0.120/random/public/api/v1/auth/register';
-});
+})
+    .controller('authController',function($rootScope){
+       $rootScope.custId = 0;
+        //console.log($rootScope.custId);
+    });
+
+angular.module('app')
+    .directive('datepickerPopup', function (){
+        return {
+            restrict: 'EAC',
+            require: 'ngModel',
+            link: function(scope, element, attr, controller) {
+                //remove the default formatter from the input directive to prevent conflict
+                controller.$formatters.shift();
+            }
+        }
+    });
 //
 //.controller('RegisterCtrl', function ($state, $auth) {
 //    var vm = this;

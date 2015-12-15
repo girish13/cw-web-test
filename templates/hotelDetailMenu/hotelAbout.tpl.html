@@ -1,7 +1,13 @@
-<p>{{hotel.long_description}}<br></p>
+<div class="row">
+    <div class="col-md-12">
+        <p>{{hotel.long_description}}<br><br></p>
+    </div>
+</div>
+
+
 <div class = "row">
     <div class = "col-md-4">
-        Days
+        Days Open
     </div>
     <div class = "col-md-4">
         Open time
@@ -9,8 +15,9 @@
     <div class = "col-md-4">
         Close time
     </div>
-    <hr>
+    <div class="col-md-12"><hr></div>
 </div>
+
 <div class="row" ng-repeat="hotelTimings in hotelSchedule" ng-show="{{hotelTimings.open}}">
     <div class="col-md-4">
         {{hotelTimings.days}}
@@ -21,6 +28,6 @@
     <div class = "col-md-4">
         {{hotelTimings.close_time}}
     </div>
-    <hr>
+    <div class="col-md-12"><hr></div>
 </div>
 

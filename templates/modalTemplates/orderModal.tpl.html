@@ -1,12 +1,25 @@
 <script type="text/ng-template" id="orderModal.html">
+
     <div class="modal-header">
-        <h3 class="modal-title">I'm a modal!</h3>
+        <h3 class="modal-title">Order Summary</h3>
     </div>
     <div class="modal-body">
 
+        <div class="white-background-box">
+            {{orderObject}}
+        </div>
+
+        <div class = "white-background-box" ng-repeat="order in orders">
+            {{order[2].name}}  X {{order[6]}}
+            by <span>{{order[1].name}}</span>
+            price : {{order[2].price}}
+            Additional Price : {{order[5]}}
+            Tax   : {{totalTax}}
+            Total Price : {{totalPrice}}
+        </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-primary" type="button" ng-click="checkout()">Continue to CheckOut</button>
         <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     </div>
 </script>

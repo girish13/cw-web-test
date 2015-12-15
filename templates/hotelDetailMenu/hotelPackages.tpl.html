@@ -5,12 +5,40 @@
     <uib-accordion close-others="false">
         <uib-accordion-group ng-repeat="hotelPackage in hotelPackages">
             <uib-accordion-heading>
-                 {{hotelPackage.name}} {{hotelPackage.price}} per person
-                <p><br>{{hotelPackage.description}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></p>
+                 <span class="package_name">{{hotelPackage.name}}</span> <span class="package_price">{{hotelPackage.price}} per person</span>
+                <p class="package_des"><br>{{hotelPackage.description}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></p>
             </uib-accordion-heading>
-            <div class = "row white-background-box"  ng-repeat="package_item in hotelPackage.packageDetails">
-                <h1>{{package_item.name}}</h1>
-                <p>{{package_item.description}} <button ng-click="open(package_item)" class = "btn btn-primary" >Add</button></p>
+            <div class = "row"  ng-repeat="package_item in hotelPackage.packageDetails">
+                <div class="col-md-10">
+                    <div class="package_item_name">{{package_item.name}} <span class="package_error">{{packageError[package_item.id]}}</span> </div>
+                    <div class="package_item_des">{{package_item.description}}</div>
+                    <div class="selected_package_items">   {{itemsSelected[package_item.id]}} </div>
+
+
+                <span class="selected_package_items" ng-repeat="option in package[package_item.id]">
+                    {{itemOptionCategories[package_item.id][option[0].menu_item_option_id]}} :
+                    <span ng-repeat = "item in option">  {{ item.name }}  </span>
+                </span>
+
+                </div>
+                <div class=" col-md-2 choose_item_btn">
+                    <button ng-click="open(package_item,package)" class = "btn btn-primary" style="margin-left:15px;" ng-show="package_item.has_options" >Choose</button>
+                    <button class="btn btn-primary choose_item_btn" ng-show="!package_item.has_options">See Details</button>
+
+                </div>
+                <div class="row"><div class="col-md-12"> <hr> </div></div>
+
+            </div>
+            <div class = "row">
+                    <div class="col-md-10">
+                        <label class="col-md-4" style="line-height: 34px">Number Of Packages</label>
+                        <div class="col-md-2">
+                            <input class="form-control" type="text" ng-model = "numberOfPackages[hotelPackage.id]">
+                        </div>
+                    </div>
+                <div class="col-md-2">
+                    <button ng-click="addOrder(hotelPackage)" class="btn btn-primary">Add to Cart</button>
+                </div>
             </div>
         </uib-accordion-group>
     </uib-accordion>

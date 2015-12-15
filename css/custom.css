@@ -1,5 +1,20 @@
 @import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700);
 /* colors */
+::-moz-selection { /* Code for Firefox */
+    color: #fff;
+    background: #e33522;
+}
+
+::selection {
+    color: #fff;
+    background: #e33522;
+}
+.glyphicon-star{
+    color : #e33522;
+}
+.glyphicon-star-empty{
+    color : #7d7d7d;
+}
 .color1{
     /*background-color: #a94442;*/
 }
@@ -9,14 +24,15 @@
 .color3{
 
 }
+
 .navbar-inverse{
     z-index: 200;
-
     background-color: #fff;
     border-color : transparent;
 }
 body{
-    background-color: rgba(96,97,99,0.05) !important;
+    /*background-color: rgba(96,97,99,0.02) !important;*/
+    background-color: rgba(227, 53, 34,0.02)!important;
 }
 /* ui-bootstrap*/
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
@@ -24,6 +40,11 @@ body{
 /* fonts */
 html{
     font-family: 'PT Sans', sans-serif;
+}
+/* font size*/
+.headingBig{
+    color: #4d4d4d !important;
+    font-size: 30px;
 }
 
 
@@ -66,7 +87,7 @@ time, mark, audio, video {
     padding: 0;
     border: 0;
     font-size: 100%;
-    font: inherit;
+    /*font: inherit;*/
     font-family: 'PT Sans', sans-serif;
     vertical-align: baseline;
 }
@@ -95,6 +116,80 @@ table {
 }
 
 /* my styles */
+
+
+/* Header */
+.mynavbar {
+    /*margin : 0px !important;*/
+    border-radius: 0;
+    border: none;
+    /*margin-bottom: px;*/
+    /*padding: 5px;*/
+    /*background: #4d4d4d;*/
+    height: 60px;
+    /*background: -webkit-linear-gradient(right, #fff, #f0908f );*/
+    /*background-color: rgb(255,255,255);*/
+    /*z-index: 500;*/
+    box-shadow: 0 0 6px #bce8f1;
+
+}
+.navbar-right > li{
+    margin-top : 13px;
+    margin-left : 10px;
+}
+@media (min-width: 1200px)  {
+    .cart{
+        /*margin-left : 15px;*/
+        padding: 0;
+        padding-left: 55px!important;
+    }
+    .search{
+        /*margin-left : 10px;*/
+        padding: 0;
+        padding-left : 35px !important;
+    }
+
+}
+
+/* #e33532*/
+.logo {
+    padding : 0 !important;
+    display: block;
+    margin: 3px;
+    /*height : 60px;*/
+
+}
+.logo img {
+    width: auto;
+    height : 55px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .filters_box{
     margin-top : 0px!important;
 }
@@ -102,7 +197,8 @@ table {
     background-color: inherit;
 }
 .nav-tabs.nav-justified>.active>a, .nav-tabs.nav-justified>.active>a:focus, .nav-tabs.nav-justified>.active>a:hover{
-    border-bottom-color: rgba(255,231,231,0.3);
+    /*border-bottom-color: rgba(255,231,231,0.3);*/
+    border-bottom-color: white;
 }
 .hotel-tabs-content{
     margin-top : 20px;
@@ -119,6 +215,28 @@ table {
     margin-left: 0px;
     box-shadow: 0 0 4px #bce8f1;
 }
+.modal {
+    margin-top : 15vh;
+}
+.padding-10{
+    padding: 10px;
+}
+.padding-top-5{
+    padding-top: 5px;
+}
+.small-text{
+    font-size: 13px;
+}
+.italic{
+    font-style: italic;
+}
+.top-margin-25{
+    margin-top: 25px;
+}
+a:active,a:hover,a:focus{
+    outline: none !important;
+    text-decoration: none !important;
+}
 .breadcrumb{
     background-color: inherit;
 }
@@ -134,25 +252,9 @@ table {
     margin: 0px;
     width: auto;
 }
-/*.modal-dialog {*/
-    /*display: inline-block;*/
-    /*text-align: left;*/
-    /*vertical-align: middle;*/
-/*}*/
-.mynavbar {
-    border-radius: 0;
-    /*margin-bottom: px;*/
-    /*padding: 10px 0;*/
-    /*background: #4d4d4d;*/
-    /*height: 60px;*/
-}
 
-.logo {
-    display: block;
-}
-.logo img {
-    width: auto;
-}
+
+
 .user-top-menu{
     color : white;
 }
@@ -162,44 +264,6 @@ table {
 }
 .location-search-bar{
     max-height: 60px;
-}
-
-
-.list-horizontal > li,
-.list-inline > li {
-    float: left;
-    margin-right: 10px;
-    padding: 0;
-    display: block;
-}
-.list-horizontal > li:last-child,
-.list-inline > li:last-child {
-    margin-right: 0;
-}
-.list-horizontal.list-border > li,
-.list-inline.list-border > li {
-    margin-right: 10px;
-    padding-right: 10px;
-    border-right: 1px solid rgba(0,0,0,0.13);
-}
-.list-horizontal.list-border > li:last-child,
-.list-inline.list-border > li:last-child {
-    margin-right: 0;
-    padding-right: 0;
-    border: none;
-}
-.list-horizontal:after,
-.list-inline:after {
-    content: '.';
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-.list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
 
@@ -222,3 +286,83 @@ table {
 #gotop:hover{
     background: #fac11c;;
 }
+
+/* restaurant search view box */
+
+.restaurant-small-box{
+   /*font-size: 18px;*/
+}
+
+.rating{
+    text-decoration: none !important;
+}
+.restaurant-name{
+    font-size: 30px;
+    overflow: hidden;
+}
+.restaurant-des{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.restaurant-img{
+
+}
+.restaurant-img>img{
+    width:170px;height :180px;
+}
+.view-restaurant-btn{
+    margin-top : 85px;
+    /*position: relative;*/
+    /*bottom: 10px;*/
+    /*right: 20px;*/
+}
+
+
+
+/* restaurtant Packages list*/
+.panel-heading{
+    background-color: rgba(227, 53, 34,0.02)!important ;
+}
+.package_name{
+    font-size: 23px;
+    font-weight: 200;
+}
+.package_price{
+    font-size: 17px;
+    float: right;
+    font-style: italic;
+}
+.package_des{
+    font-size: 15px;
+
+}
+.choose_item_btn{
+    float: right;
+    /*margin-bottom: 20px;*/
+}
+.package_item_name{
+    padding: 10px;
+    font-size : 18px;
+}
+.alacarte_item_name{
+    padding-left: 10px;
+    font-size: 18px;
+}
+.package_item_des{
+    font-size : 14px;
+    padding-left: 10px;
+}
+.selected_package_items{
+    font-size : 13px;
+    font-style: italic;
+    padding-left: 10px;
+}
+.package_error{
+    color: #e33522;
+    font-size : 18px;
+
+}
+
+
+
+

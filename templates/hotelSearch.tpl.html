@@ -1,11 +1,10 @@
-<ng-include src="'templates/header.tpl.html'"></ng-include>
-
+<div ng-include = "'./templates/header.tpl.html'"></div>
+<div ng-include = "'./templates/searchBar.tpl.html'"></div>
 <div class = "container">
 
-    <div>Customize and choose from 57 packages from 7 restaurants</div>
+    <div class="headingBig">Customize and choose packages from {{restaurants.length}} restaurants </div>
     <hr>
 </div>
-
 
 <div class="container">
     <div class="row">
@@ -27,9 +26,17 @@
             <div class="filters_box white-background-box">
                 <div> Filters <hr>
                 </div>
+                <div class="row" ng-repeat="filtertype in filterTypes">
+                <div class="col-md-12" >
+                    <input class="form-control" placeholder="Search {{filtertype.type}}s" ng-model="text[filtertype.type]">
+                    <div ng-repeat="filter in filters[filtertype.type] | filter : text[filtertype.type]">
+                        <input type = "checkbox" data-checklist-model="selectedFilters" data-checklist-value="filter">
+                        {{filter.name}}
+                    </div>
+                </div>
+                </div>
             </div>
         </div>
-
         <div class = "col-md-8">
             <div class="row">
                 <div class = "col-md-2">
@@ -45,36 +52,29 @@
                     </tags-input>
                 </div>
             </div>
-            <div class="row white-background-box">
+            <div class="row white-background-box restaurant-small-box" ng-repeat="restaurant in restaurants">
 
                 <div class="col-md-3">
-                    <div >
-                        <img src="bhasduvbkj.png" style="width:170px;height :180px">
+                    <div class="restaurant-img">
+                        <img src="bhasduvbkj.png">
                     </div>
                 </div>
                 <div class = "col-md-6">
-                    <h1>Smoking toe's Pizza</h1>
-                    <p>italian cuisines top destination</p>
+                    <div class="restaurant-name">{{restaurant.name}}</div>
+                    <small class="italic small-text">{{restaurant.locality_name}},{{restaurant.city_name}}</small>
+                    <div class="restaurant-des">{{restaurant.short_description}}</div>
+                    <div class="">Cuisines : {{restaurant.cuisines}}</div>
+                    <div class="small-text padding-top-5 top-margin-25">Package Price : {{restaurant.min_package_price}} to {{restaurant.max_package_price}}
+                    <br>Minimum order Value : {{restaurant.min_order_value}} | Minimum Order Count : {{restaurant.min_order_count}}</div>
+
+
 
                 </div>
                 <div class = "col-md-3">
-
-                </div>
-            </div>
-            <div class="row white-background-box">
-
-                <div class="col-md-3">
-                    <div >
-                        <img src="bhasduvbkj.png" style="width:170px;height :180px">
-                    </div>
-                </div>
-                <div class = "col-md-6">
-                    <h1>Smoking toe's Pizza</h1>
-                    <p>italian cuisines top destination</p>
-
-                </div>
-                <div class = "col-md-3">
-
+                    <uib-rating ng-model="rate" ng-init="rate = restaurant.avg_rating" max="5" readonly="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+                       <br> <a class="rating padding-5" ui-sref="hotel.reviews({id : restaurant.restaurant_id})">{{restaurant.review_count}} Reviews</a>
+                        <br><br>
+                    <button class="btn btn-primary view-restaurant-btn" ui-sref="hotel.packages({id : restaurant.restaurant_id})">View Restaurant</button>
                 </div>
             </div>
 

@@ -1,9 +1,17 @@
-<!--<h1>pictures</h1>-->
-<!--{{hotelImages}}-->
+<div class="row">
+    <div class="col-md-4" ng-repeat="hotelImage in hotelImages">
+        <img src="{{hotelImage.photo_address}}" width = "100" height = "130">
+        <h1>{{hotelImage.title}}</h1>
+        <p>{{hotelImage.description}}</p>
+    </div>
 
 
-<div class="white-background-box col-md-3" ng-repeat="hotelImage in hotelImages">
-    <img src="{{hotelImage.photo_address}}" width = "100" height = "130">
-    <h1>{{hotelImage.title}}</h1>
-    <p>{{hotelImage.description}}</p>
+
 </div>
+
+
+
+
+
+
+

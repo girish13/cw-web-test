@@ -1,4 +1,4 @@
-app.controller('homeController', function ($state, $auth) {
+app.controller('homeController', function ($state, $auth,$scope) {
     var vm = this;
     vm.errors = {
         register_name : '',
@@ -96,4 +96,11 @@ app.controller('homeController', function ($state, $auth) {
         $auth.logout();
         $state.go('home');
     };
+
+    /* Homepage*/
+
+
+
+
+
 });

@@ -1,1 +1,27 @@
-<h1>Hotel Reviews</h1>
+<div class="row">
+    <div class="col-md-12">
+        Reviews({{hotelReviews.length}})
+        <hr>
+    </div>
+    <div class="col-md-12" ng-repeat="review in hotelReviews">
+        <div class="row">
+            <div class = "col-md-9 package_name">{{review.title}}</div>
+            <div class="col-md-3">
+                <br>
+                <uib-rating  ng-init = "rate = review.rating" ng-model="rate" max="5" readonly="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+            </div>
+            <div class="col-md-12">
+                <p>{{review.body}}</p>
+            </div>
+            <div class="col-md-12">
+                <br>
+               By {{review.customer_fname}} {{review.customar_lname}}    {{review.locality_name}},{{review.city_name}}
+                <hr>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+

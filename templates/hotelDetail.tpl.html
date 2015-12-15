@@ -1,31 +1,31 @@
 <div ng-include = "'templates/header.tpl.html'"></div>
-
+<div ng-include = "'templates/searchBar.tpl.html'"></div>
 
 <div class = "container">
     <div class = "row">
         <div class = "col-md-8">
-            <div class="row white-background-box">
+            <div class="row white-background-box restaurant-small-box">
 
                 <div class="col-md-3">
-                    <div >
-                        <img src="bhasduvbkj.png" style="width:170px;height :180px">
+                    <div class="restaurant-img">
+                        <img src="bhasduvbkj.png">
                     </div>
                 </div>
                 <div class = "col-md-6">
-                    <h1>{{hotel.name}}</h1>
-                    <p>{{hotel.short_description}}</p>
-                    <p>Cuisines : {{hotel.cuisines}}</p>
-
-                    <p>Price : {{hotel.min_package_price}}-{{hotel.max_package_price}}</p>
-                    <p>Min. Order : {{hotel.min_order_value}} | Min Size : {{hotel.min_order_count}}</p>
-                    <p>{{hotel.locality_name}},{{hotel.city_name}}</p>
-
+                    <div class="restaurant-name">{{hotel.name}}</div>
+                    <small class="italic small-text">{{hotel.locality_name}},{{hotel.city_name}}</small>
+                    <div class="restaurant-des">{{hotel.short_description}}</div>
+                    <div class="">Cuisines : {{hotel.cuisines}}</div>
+                    <div class="small-text padding-top-5 top-margin-25">Package Price : {{hotel.min_package_price}} to {{hotel.max_package_price}}
+                        <br>Minimum order Value : {{hotel.min_order_value}} | Minimum Order Count : {{hotel.min_order_count}}</div>
                 </div>
-                <div class = "col-md-3">
-                    <p>{{hotel.avg_rating}}</p>
-                    <p>{{hotel.review_count}} Reviews</p>
+                <div class = "col-md-3" ng-init="ratey = hotel.avg_rating">
+                    <!--{{hotel.avg_rating}}-->
+                    <uib-rating  ng-model="ratey" max="5" readonly="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+                    <br><span class="rating padding-5" ui-sref="reviews">{{hotel.review_count}} Reviews</span>
                 </div>
             </div>
+
 
             <div class="white-background-box">
 
@@ -52,7 +52,13 @@
 
 
         </div>
-        <div class="col-md-4 white-background-box">
+        <div class="col-md-4 white-background-box" ng-controller="orderController">
+
+            <textarea>
+                    {{order}}
+                </textarea>
+
+
             <div class = "row">
             <h2 class = "col-md-12">Current Order Summary</h2>
             <hr>
@@ -91,5 +97,6 @@
             </div>
         </div>
         </div>
+
     </div>
 </div>

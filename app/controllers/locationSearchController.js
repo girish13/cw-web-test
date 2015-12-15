@@ -1,10 +1,41 @@
-app.controller('locationSearchController',function($scope,$log){
+app.controller('locationSearchController',function($scope,$log,api,$state,$filter){
     $scope.edit = false;
     $scope.mytime = new Date();
-    $scope.ismeridian = true;
-    $scope.changed = function () {
-        $log.log('Time changed to: ' + $scope.mytime);
+    $scope.ismeridian = false;
+
+    $scope.selectedState = '3';
+    $scope.selectedCity = '1';
+    $scope.selectedLocality = '';
+    $scope.numberOfPersons = '';
+     //api calls
+
+    $scope.states = api.getStates.query(function(){
+        //console.log($scope.states);
+    });
+
+    $scope.cities = api.getCities.query({state_id : $scope.selectedState},function(){
+
+    });
+
+    $scope.localities = api.getLocalities.query({state_id: $scope.selectedState,city_id :$scope.selectedCity},function(){
+
+    });
+
+    $scope.updateLocation = function(){
+        if($scope.selectedLocality.id && $scope.dt && $scope.mytime && $scope.numberOfPersons){
+       $state.go('search',{locality_id : $scope.selectedLocality.id,date : $filter('date')($scope.dt,'yyyy/MM/dd'),mytime : $filter('date')($scope.mytime,'HH:mm'),pax : $scope.numberOfPersons});
+        }
     };
+
+
+    $scope.changed = function () {
+        //$log.log('Time changed to: ' + $scope.mytime);
+    };
+
+
+
+
+
 
     $scope.changeEdit = function(){
         //$scope.showSpinners = true;

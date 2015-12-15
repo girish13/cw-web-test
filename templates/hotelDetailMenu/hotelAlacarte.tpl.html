@@ -4,10 +4,34 @@
 
 
 <!--<uib-accordion close-others="false">-->
-    <div class="white-background-box" ng-repeat="hotelAlacarte in hotelAlacartes">
+    <div class="" ng-repeat="hotelAlacarte in hotelAlacartes">
         <!--<uib-accordion-heading>-->
-            {{hotelAlacarte.name}} {{hotelAlacarte.price}} per person
-            <p><br>{{hotelAlacarte.description}} <button ng-click="" class = "btn btn-primary" >Add to cart</button></p>
+        <div class="row">
+            <div class="package_name col-md-12">{{hotelAlacarte.name}}</div>
+            <!--<span>{{hotelAlacarte.price}} per person</span>-->
+            <p class="package_des col-md-12"><br>{{hotelAlacarte.description}}</p>
+            <!--<div class="row">-->
+                <div class="col-md-12"> <hr> </div>
+            <!--</div>-->
+        </div>
+                <div class="row" ng-repeat="package_item in hotelAlacarte.packageDetails">
+                    <div class="col-md-6">
+                        <div class="alacarte_item_name ">{{package_item.name}}</div>
+                         <div class="package_item_des">{{package_item.description}}</div>
+                    </div>
+                    <div class="col-md-2" style="line-height: 34px;">Rs.{{package_item.price}}</div>
+                    <label class="col-md-1" style="line-height: 34px;">Quantity</label>
+                    <div class="form-group col-md-1">
+                        <input type = "text" ng-model = "quantity[package_item.id]" class="form-control">
+                    </div>
+                    <div class="col-md-1">
+                        <button ng-click="add(hotelAlacarte,package_item)" class = "btn btn-primary" >Add</button>
+                    </div>
+                    <!--<div class="row">-->
+                        <div class="col-md-12"> <hr> </div>
+                    <!--</div>-->
+                </div>
+
         <!--</uib-accordion-heading>-->
     </div>
 <!--</uib-accordion>-->
