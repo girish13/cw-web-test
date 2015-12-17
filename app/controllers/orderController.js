@@ -1,9 +1,13 @@
-app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api,orderService){
+app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api,orderService,$state){
 
     $scope.hotels = {};
     $scope.package = {};
     $scope.taxDetails = {};
     //$scope.totalPrice = 0;
+
+    $scope.checkout = function(){
+        $state.go('checkout');
+    };
 
     angular.forEach($rootScope.order,function(value,key){
         $scope.totalPrice = (value[2].price + value[5])* value[6];
@@ -17,12 +21,19 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
             });
         });
         $scope.package[key] = value[2];
-
     });
 
-
-
+    $scope.showAlacarte = function(type){
+        //console.log(type);
+         return type == 'a-la-carte';
+    };
+    $scope.showPackages = function(type){
+        //console.log(type);
+        return type == 'package';
+    };
     $scope.orders = $rootScope.order;
+
+
 
 
     $scope.animationsEnabled = true;
@@ -59,7 +70,7 @@ app.controller('orderModalInstanceController',function($scope, $uibModalInstance
     $scope.orderObject = orderService.orderObject;
 
     $scope.checkout = function(){
-        orderService.checkout();
+         orderService.checkout();
     };
 
 

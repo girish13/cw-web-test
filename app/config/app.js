@@ -1,4 +1,4 @@
-var app = angular.module('app', ['checklist-model','ui.router','ui.filters','satellizer','ui.bootstrap','ngResource','ngTagsInput','ngAnimate'])
+var app = angular.module('app', ['checklist-model','ui.router','ui.filters','satellizer','ui.bootstrap','ngResource','ngTagsInput','ngAnimate','rzModule'])
 .run(function($rootScope) {
     $rootScope.$on('$stateChangeError', console.log.bind(console));
 })
@@ -58,6 +58,11 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','sat
         .state('hotel.about',{
             url : '/about',
             templateUrl : "templates/hotelDetailMenu/hotelAbout.tpl.html"
+        })
+        .state('checkout',{
+            url : '/checkout',
+            templateUrl : "templates/checkout.tpl.html",
+            controller : 'orderController'
         });
         //.state('dashboard', {
         //    url: '/dashboard',
@@ -99,6 +104,8 @@ angular.module('app')
             }
         }
     });
+//angular.module('app', ['rzModule']);
+
 //
 //.controller('RegisterCtrl', function ($state, $auth) {
 //    var vm = this;

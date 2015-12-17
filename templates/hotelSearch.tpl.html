@@ -35,6 +35,20 @@
                     </div>
                 </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--<div ui-slider="{range : true}" min="0" max = "2000" step="50" ng-model="priceRange"></div>-->
+                        <rzslider
+                                rz-slider-model="slider.min"
+                                rz-slider-high="slider.max"
+                                rz-slider-options="slider.options"></rzslider>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button style="width:100%" class="btn btn-primary" ng-click="filterRestaurants()">Apply Filters</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class = "col-md-8">

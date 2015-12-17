@@ -1,0 +1,100 @@
+<div ng-include = "'templates/header.tpl.html'"></div>
+
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="row white-background-box">
+    <div>
+        <span class="headingBig">Your Order</span>
+        <hr>
+    </div>
+    <div ng-repeat = "order in orders">
+        <div>
+            <div ng-if = "showPackages(order[2].type)">
+                {{order[2].name}} X {{order[6]}}  - Rs. {{order[2].price * order[6]}}
+
+                <div ng-repeat="item in order[2].packageDetails">
+                    {{item.name}} <br>
+                    <div ng-repeat="itemOption in order[4][item.id]">
+                            <span ng-repeat="itemOptionList in itemOption">
+                                {{ order[3][item.id][itemOptionList.menu_item_option_id]}} - {{itemOptionList.name}}
+                                <span ng-if = "itemOptionList.price" >
+                                    Rs. {{itemOptionList.price}}
+                                </span>
+                            </span>
+                    </div>
+                </div>
+                By {{order[1].name}}
+            </div>
+
+        </div>
+
+
+        <div ng-if="showAlacarte(order[2].type)">
+            <!--{{odr[2].name}}-->
+
+            {{order[3].name}} X {{order[4]}}  price : {{order[3].price * order[4]}}<br>
+            By {{order[1].name}}
+
+            <!--AddOn's Price - {{}}-->
+            <!--Tax - {{}}-->
+            <!--Total Price - {{}}-->
+        </div>
+    </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="row white-background-box">
+        <div class="headingBig col-md-12">
+            Fill in Your Details
+            <hr>
+        </div>
+
+        <div class="col-md-12">
+            <form id = "register-form" >
+                <div class="form-group">
+                    <div class="input-group" ng-class="{ 'has-error': home.errors.register_name }">
+                        <input type="text" class="form-control" name="name" id ="name" value="" placeholder="Enter your name" aria-describedby="basic-addon2" ng-model="home.register.user.name">
+                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-user"></i></span>
+                    </div>
+                    <span ng-show=" home.errors.register_name" class="help-block">{{home.errors.register_name}}</span>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': home.errors.register_number }">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="phone" value="" placeholder="Phone number(10 digits)" aria-describedby="basic-addon2" ng-model="home.register.user.number">
+                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-phone"></i></span>
+                    </div>
+                    <span ng-show="home.errors.register_number" class="help-block">{{home.errors.register_number}}</span>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': home.errors.register_email }">
+                    <div class="input-group">
+                        <input type="email" class="form-control" name="email_login" id ="email_login" value="" placeholder="Enter email id" aria-describedby="basic-addon2" ng-model="home.register.user.email">
+                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-envelope"></i></span>
+                    </div>
+                    <span ng-show="home.errors.register_email" class="help-block">{{home.errors.register_email}}</span>
+
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': home.errors.register_password }">
+                    <div class="input-group">
+                        <input type="password" class="form-control" name="password_login" value="" placeholder="Password" aria-describedby="basic-addon2" ng-model="home.register.user.password">
+                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>
+                    </div>
+                    <span ng-show="home.errors.register_password" class="help-block">{{home.errors.register_password}}</span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                    </div>
+                    <div style="text-align:right;" class="col-xs-6 col-sm-6 col-md-6">
+                        <!--<a href="#forgot-password" data-dismiss="modal" data-toggle="modal" data-target="#forgot-password" >Forgot/Reset Password?</a>-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button style="display:block; width:100%;" ng-click = "home.register()" class="btn btn-primary">Order Now</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>

@@ -22,8 +22,8 @@
 
                 </div>
                 <div class=" col-md-2 choose_item_btn">
-                    <button ng-click="open(package_item,package)" class = "btn btn-primary" style="margin-left:15px;" ng-show="package_item.has_options" >Choose</button>
-                    <button class="btn btn-primary choose_item_btn" ng-show="!package_item.has_options">See Details</button>
+                    <button ng-click="open(package_item,package)" class = "btn btn-primary" style="margin-left:15px;" ng-if="package_item.has_options" >Choose</button>
+                    <button class="btn btn-primary choose_item_btn" ng-if="!package_item.has_options">See Details</button>
 
                 </div>
                 <div class="row"><div class="col-md-12"> <hr> </div></div>

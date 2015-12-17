@@ -1,12 +1,24 @@
-app.controller('locationSearchController',function($scope,$log,api,$state,$filter){
+app.controller('locationSearchController',function($rootScope,$scope,$log,api,$state,$filter){
     $scope.edit = false;
     $scope.mytime = new Date();
     $scope.ismeridian = false;
+    $scope.times = [];
 
-    $scope.selectedState = '3';
-    $scope.selectedCity = '1';
-    $scope.selectedLocality = '';
-    $scope.numberOfPersons = '';
+    if($rootScope.searchDetails){
+        $scope.selectedState = '3';
+        $scope.selectedCity = '1';
+        $scope.selectedLocality = $rootScope.searchDetails.selectedLocality;
+        $scope.numberOfPersons = $rootScope.searchDetails.pax;
+        $scope.mytime = $rootScope.searchDetails.time;
+        $scope.dt = $rootScope.searchDetails.date;
+    }
+    else{
+        $scope.selectedState = '3';
+        $scope.selectedCity = '1';
+        $scope.selectedLocality = '';
+        $scope.numberOfPersons = '';
+    }
+
      //api calls
 
     $scope.states = api.getStates.query(function(){
@@ -23,6 +35,15 @@ app.controller('locationSearchController',function($scope,$log,api,$state,$filte
 
     $scope.updateLocation = function(){
         if($scope.selectedLocality.id && $scope.dt && $scope.mytime && $scope.numberOfPersons){
+            $rootScope.searchDetails = {};
+            $rootScope.searchDetails.selectedState = $scope.selectedState;
+            $rootScope.searchDetails.selectedCity = $scope.selectedCity;
+            $rootScope.searchDetails.selectedLocality = $scope.selectedLocality;
+            $rootScope.searchDetails.time =  '19:30';
+                //$filter('date')($scope.mytime,'HH:mm');
+            $rootScope.searchDetails.date = $scope.dt;
+            $rootScope.searchDetails.pax = $scope.numberOfPersons;
+            console.log($rootScope.searchDetails);
        $state.go('search',{locality_id : $scope.selectedLocality.id,date : $filter('date')($scope.dt,'yyyy/MM/dd'),mytime : $filter('date')($scope.mytime,'HH:mm'),pax : $scope.numberOfPersons});
         }
     };
@@ -43,9 +64,9 @@ app.controller('locationSearchController',function($scope,$log,api,$state,$filte
     };
 
     $scope.today = function() {
-        $scope.dt = new Date();
+        //$scope.dt = new Date();
     };
-    $scope.today();
+    //$scope.today();
 
     $scope.clear = function () {
         $scope.dt = null;
