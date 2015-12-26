@@ -1,22 +1,22 @@
 <header id="main-header" ng-controller="homeController">
-    <nav class=" navbar navbar-inverse mynavbar">
+    <nav class=" navbar navbar-inverse mynavbar navbar-fixed-top">
         <div class="container">
                     <a class="navbar-brand logo" href="#">
                         <img src="images/logo.png" alt="logo" title="CaterWow" />
                     </a>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="">
-                                <a href="#" ng-if = "home.isAuthenticated()">
-                                    <!--<img class="" src="" alt="Image Alternative text" />-->
-                                    {{home.userName}}</a>
-                            </li>
-                            <li>
-                                <button data-toggle="modal" class = "btn btn-primary"  data-target="#login" ng-if = "!home.isAuthenticated()">Log In/Register</button>
-                            </li>
-                            <li>
-                                <button ng-click="home.logout()" class="btn btn-primary" ng-if = "home.isAuthenticated()">Log Out</button>
-                            </li>
+                            <!--<li class="">-->
+                                <!--<a href="#" ng-if = "home.isAuthenticated()">-->
+                                    <!--&lt;!&ndash;<img class="" src="" alt="Image Alternative text" />&ndash;&gt;-->
+                                    <!--{{home.userName}}</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<button data-toggle="modal" class = "btn btn-primary"  data-target="#login" ng-if = "!home.isAuthenticated()">Log In/Register</button>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<button ng-click="home.logout()" class="btn btn-primary" ng-if = "home.isAuthenticated()">Log Out</button>-->
+                            <!--</li>-->
                             <li>
                                 <button class = "btn btn-primary">Contact Us</button>
                             </li>
@@ -26,4 +26,4 @@
     </nav>
 </header>
 
-<ng-include src = "'./templates/modalTemplates/loginModal.tpl.html'"></ng-include>
+<!--<ng-include src = "'./templates/modalTemplates/loginModal.tpl.html'"></ng-include>-->

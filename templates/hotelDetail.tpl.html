@@ -59,20 +59,27 @@
                 <!--</textarea>-->
 
             <!--{{orders}}-->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="text-middle">Order Summary</h3>
+                    <p class="text-middle" ng-controller="locationSearchController">Delivery location : {{selectedLocality.name}},Gurgaon</p>
+                    <hr></div>
+
+            </div>
             <div ng-repeat = "order in orders">
             <div>
                 <div ng-if = "showPackages(order[2].type)">
                     <div class="row">
 
                     <span class="col-md-7">{{order[2].name}}</span>   <span class="col-md-2"> X {{order[6]}}</span>    <span class="col-md-3">Rs. {{order[2].price * order[6]}}</span>
-                        <hr>
+                       <div class="col-md-12"><hr></div>
                     </div>
-                    <div ng-repeat="item in order[2].packageDetails">
-                        {{item.name}} <br>
+                    <div class="row" ng-repeat="item in order[2].packageDetails">
+                       <div class="col-md-12"> {{item.name}}</div>
                         <div ng-repeat="itemOption in order[4][item.id]">
                             <span ng-repeat="itemOptionList in itemOption">
-                                {{ order[3][item.id][itemOptionList.menu_item_option_id]}} - {{itemOptionList.name}}
-                                <span ng-if = "itemOptionList.price" >
+                                <span class="col-md-9 selected_package_items">{{ order[3][item.id][itemOptionList.menu_item_option_id]}} - {{itemOptionList.name}}</span>
+                                <span  class="col-md-3" ng-if = "itemOptionList.price" >
                                     Rs. {{itemOptionList.price}}
                                 </span>
                             </span>
@@ -101,7 +108,7 @@
             </div>
             </div>
             <div class="col-md-12">
-                <button ng-click="checkout()" style="width : 100%" class="btn btn-primary">Continue to Checkout</button>
+                <button ng-click="checkout()" style="width : 100%" ng-disabled = "orders.length < 1" class="btn btn-primary">Continue to Checkout</button>
             </div>
                 <!--{{alacarteOrders}}-->
 

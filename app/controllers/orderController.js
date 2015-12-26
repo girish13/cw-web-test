@@ -33,7 +33,8 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     };
     $scope.orders = $rootScope.order;
 
-
+    $scope.orderNow = orderService.checkout();
+    $scope.orderObject = orderService.orderObject;
 
 
     $scope.animationsEnabled = true;
@@ -63,14 +64,13 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
 
 });
 
-app.controller('orderModalInstanceController',function($scope, $uibModalInstance,orders,orderService){
+app.controller('orderModalInstanceController',function($scope, $uibModalInstance,orders,orderService,$state){
 
     $scope.orders = orders;
 
-    $scope.orderObject = orderService.orderObject;
 
     $scope.checkout = function(){
-         orderService.checkout();
+         $state.go('checkout');
     };
 
 

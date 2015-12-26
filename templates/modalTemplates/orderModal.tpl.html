@@ -5,17 +5,18 @@
     </div>
     <div class="modal-body">
 
-        <div class="white-background-box">
-            {{orderObject}}
-        </div>
+        <!--<div class="white-background-box">-->
+            <!--{{orderObject}}-->
+        <!--</div>-->
 
-        <div class = "white-background-box" ng-repeat="order in orders">
+        <div class = "row" ng-repeat="order in orders">
             {{order[2].name}}  X {{order[6]}}
             by <span>{{order[1].name}}</span>
             price : {{order[2].price}}
             Additional Price : {{order[5]}}
             Tax   : {{totalTax}}
             Total Price : {{totalPrice}}
+            <div class="col-md-12"><hr></div>
         </div>
     </div>
     <div class="modal-footer">

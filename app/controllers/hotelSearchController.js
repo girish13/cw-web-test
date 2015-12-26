@@ -17,7 +17,6 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
     $scope.pageNumber = 1;
     $scope.price_min = 0;
     $scope.price_max = 2000;
-    $scope.filter_string = null;
     $scope.slider ={
       min : $scope.price_min,
       max : $scope.price_max,
@@ -33,9 +32,10 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
      $scope.filterRestaurants = function() {
          $scope.price_max = $scope.slider.max;
          $scope.price_min = $scope.slider.min;
+         $scope.filter_string = null;
 
          angular.forEach($scope.selectedFilters,function(value,key){
-                if($scope.filter_string){
+             if($scope.filter_string){
                     $scope.filter_string += ',' + value.id;
                 }
              else {

@@ -1,6 +1,6 @@
 <div ng-include = "'templates/header.tpl.html'"></div>
 
-
+<div class="container" style="margin-top: 75px">
 <div class="row">
     <div class="col-md-7">
         <div class="row white-background-box">
@@ -42,7 +42,10 @@
         </div>
     </div>
         </div>
+
+        <button class="btn btn-primary" ng-click="orderNow()">Order Now</button>
     </div>
+
     <div class="col-md-5">
         <div class="row white-background-box">
         <div class="headingBig col-md-12">
@@ -76,8 +79,10 @@
                 </div>
                 <div class="form-group" ng-class="{ 'has-error': home.errors.register_password }">
                     <div class="input-group">
-                        <input type="password" class="form-control" name="password_login" value="" placeholder="Password" aria-describedby="basic-addon2" ng-model="home.register.user.password">
-                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>
+                        <textarea class="form-control" name="password_login" value="" placeholder="Your Address" ng-model="">
+                        </textarea>
+                        <span class="text-middle" ng-controller="locationSearchController">Delivery location : {{selectedLocality.name}},Gurgaon</span>
+                        <!--<span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>-->
                     </div>
                     <span ng-show="home.errors.register_password" class="help-block">{{home.errors.register_password}}</span>
                 </div>
@@ -97,4 +102,5 @@
         </div>
         </div>
     </div>
+</div>
 </div>

@@ -35,6 +35,7 @@ app.service('orderService',function($rootScope){
             this.temp.push(value[2].id);
             if(value[2].type == "package")
             {
+                console.log(value[4]);
                 this.temp.push(value[4]);
                 this.temp.push(parseInt(value[6],10));
             }
