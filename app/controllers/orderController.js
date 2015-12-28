@@ -23,8 +23,51 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
         $scope.package[key] = value[2];
     });
 
+    $scope.removeItem = function(item){
+        var index = $rootScope.order.indexOf(item);
+        $rootScope.order.splice(index, 1);
+    };
+
+    $scope.increaseQty = function(item){
+        var index = $rootScope.order.indexOf(item);
+        if($rootScope.order[index][2].type == 'a-la-carte'){
+           //if($rootScope.order[index][4] > 1)
+            $rootScope.order[index][4]++;
+        }
+        else if($rootScope.order[index][2].type == 'package'){
+            //if($rootScope.order[index][6] > 1)
+                $rootScope.order[index][6]++;
+        }
+        //console.log(item[4]);
+    };
+
+
+    $scope.decreaseQty = function(item){
+        var index = $rootScope.order.indexOf(item);
+        if($rootScope.order[index][2].type == 'a-la-carte'){
+            if($rootScope.order[index][4] > 1)
+            $rootScope.order[index][4]--;
+        }
+        else if($rootScope.order[index][2].type == 'package'){
+            if($rootScope.order[index][6] > 1)
+            $rootScope.order[index][6]--;
+        }
+        //console.log(item[4]);
+    };
+
+    $scope.editItem = function(item){
+      var index = $rootScope.order.indexOf(item);
+        console.log(item);
+        console.log(index);
+    };
+
+    $scope.editOrder = function(){
+        $state.go('editOrder');
+    };
+
+
+
     $scope.showAlacarte = function(type){
-        //console.log(type);
          return type == 'a-la-carte';
     };
     $scope.showPackages = function(type){

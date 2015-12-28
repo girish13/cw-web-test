@@ -52,16 +52,11 @@
 
 
         </div>
-        <div class="col-md-4 white-background-box" ng-controller="orderController">
-
-            <!--<textarea>-->
-                    <!--&lt;!&ndash;{{orders}}&ndash;&gt;-->
-                <!--</textarea>-->
-
-            <!--{{orders}}-->
+        <div class="col-md-4">
+            <div class="white-background-box row" ng-controller="orderController">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="text-middle">Order Summary</h3>
+                    <div class="text-middle"><span class="headingBig">Order Summary</span><a style="float: right;" ng-click="editOrder()" title = "Edit your Order" href><i class="fa fa-pencil-square-o fa-lg"></i></a></div>
                     <p class="text-middle" ng-controller="locationSearchController">Delivery location : {{selectedLocality.name}},Gurgaon</p>
                     <hr></div>
 
@@ -71,11 +66,15 @@
                 <div ng-if = "showPackages(order[2].type)">
                     <div class="row">
 
-                    <span class="col-md-7">{{order[2].name}}</span>   <span class="col-md-2"> X {{order[6]}}</span>    <span class="col-md-3">Rs. {{order[2].price * order[6]}}</span>
+                    <span class="col-md-6">{{order[2].name}}</span>
+                        <div class="col-md-2"><a href ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></a>{{order[6]}}<a href ng-click="increaseQty(order)"><i class="fa fa-plus-circle"></i></a></div>
+                        <span class="col-md-3">Rs. {{order[2].price * order[6]}}</span>
+                        <a href class="col-md-1" ng-click = "removeItem(order)"><i class="fa fa-times"></i></a>
                        <div class="col-md-12"><hr></div>
                     </div>
                     <div class="row" ng-repeat="item in order[2].packageDetails">
-                       <div class="col-md-12"> {{item.name}}</div>
+                       <div class="col-md-9"> {{item.name}}</div>
+                        <a class="col-md-3" ng-if="item.has_options" href ng-controller="hotelPackagesController" ng-click="open(item,order[4])"><i class="fa fa-pencil"></i>edit</a>
                         <div ng-repeat="itemOption in order[4][item.id]">
                             <span ng-repeat="itemOptionList in itemOption">
                                 <span class="col-md-9 selected_package_items">{{ order[3][item.id][itemOptionList.menu_item_option_id]}} - {{itemOptionList.name}}</span>
@@ -95,10 +94,11 @@
             <div ng-if="showAlacarte(order[2].type)">
                 <!--{{odr[2].name}}-->
                 <div class="row">
-                    <span class="col-md-7">{{order[3].name}}
+                    <span class="col-md-6">{{order[3].name}}
                     </span>
-                    <span class="col-md-2">X {{order[4]}}</span>
+                    <div class="col-md-2"><a href ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></a>{{order[4]}}<a href ng-click = "increaseQty(order)"><i class="fa fa-plus-circle"></i></a></div>
                     <span class="col-md-3">{{order[3].price * order[4]}}</span>
+                    <a href class="col-md-1" ng-click = "removeItem(order)"><i class="fa fa-times"></i></a>
                 </div>
                 By {{order[1].name}}
                 <div class="row"><div class="col-md-12"><hr></div></div>
@@ -110,15 +110,8 @@
             <div class="col-md-12">
                 <button ng-click="checkout()" style="width : 100%" ng-disabled = "orders.length < 1" class="btn btn-primary">Continue to Checkout</button>
             </div>
-                <!--{{alacarteOrders}}-->
-
-            <!--<div ng-repeat="order in ">-->
-
-
-
-            <!--</div>-->
-
-
+            </div>
+            <div ng-include = "'./templates/helpBox.tpl.html'"></div>
         </div>
 
     </div>

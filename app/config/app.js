@@ -63,6 +63,11 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','sat
             url : '/checkout',
             templateUrl : "templates/checkout.tpl.html",
             controller : 'orderController'
+        })
+        .state('editOrder',{
+            url : '/editorder',
+            templateUrl : "templates/editOrder.tpl.html",
+            controller : 'orderController'
         });
         //.state('dashboard', {
         //    url: '/dashboard',

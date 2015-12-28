@@ -63,9 +63,24 @@ app.controller('locationSearchController',function($rootScope,$scope,$log,api,$s
         //$scope.edit =  true;
     };
 
-    $scope.today = function() {
-        //$scope.dt = new Date();
-    };
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth();
+    var yyyy = today.getFullYear();
+
+    $scope.maxDate = new Date(2016, 3, 30);
+    //$scope.maxDate = yyyy + '/' + (mm+3) + '/' + dd;
+    //$scope.minDate = yyyy + '/' + mm + '/' + (dd+1);
+    $scope.minDate = new Date(2105, 12, 29);
+    //
+    //$scope.maxDate = new Date() + 90;
+    console.log($scope.maxDate);
+    //
+    //$scope.minDate = new Date() + 1;
+    console.log($scope.minDate);
+
+
+
     //$scope.today();
 
     $scope.clear = function () {

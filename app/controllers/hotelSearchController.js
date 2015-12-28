@@ -51,7 +51,7 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
              pax: $scope.pax,
              sort: $scope.sortType,
              page: $scope.pageNumber,
-             filters: "'" + $scope.filter_string + "'",
+             filters:$scope.filter_string,
              price_max: $scope.price_max,
              price_min: $scope.price_min
          }, function () {

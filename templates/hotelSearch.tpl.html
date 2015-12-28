@@ -6,20 +6,6 @@
     <hr>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-
-        </div>
-        <div class="col-md-8">
-
-        </div>
-    </div>
-</div>
-
-
-
-
 <div class = "container">
     <div class="row">
         <div class = "col-md-3">
@@ -77,7 +63,7 @@
                     </div>
                 </div>
                 <div class = "col-md-6">
-                    <div class="restaurant-name">{{restaurant.name}}</div>
+                    <div class="restaurant-name"><a ui-sref="hotel.packages({id : restaurant.restaurant_id})">{{restaurant.name}}</a></div>
                     <small class="italic small-text">{{restaurant.locality_name}},{{restaurant.city_name}}</small>
                     <div class="restaurant-des">{{restaurant.short_description}}</div>
                     <div class="">Cuisines : {{restaurant.cuisines}}</div>
@@ -94,7 +80,6 @@
                     <button class="btn btn-primary view-restaurant-btn" ui-sref="hotel.packages({id : restaurant.restaurant_id})">View Restaurant</button>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
