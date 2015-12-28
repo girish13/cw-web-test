@@ -145,6 +145,16 @@ html{
     margin-top : 13px;
     margin-left : 10px;
 }
+
+.navbar-toggle,.navbar-toggle:hover{
+    margin-top : 15px;
+    background-color  : #fff !important;
+    border: none !important;
+}
+.icon-bar{
+    background-color: #e33522 !important;
+    color : #e33532;
+}
 @media (min-width: 1200px)  {
     .cart{
         /*margin-left : 15px;*/

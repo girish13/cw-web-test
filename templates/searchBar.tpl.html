@@ -18,7 +18,8 @@
                 </div>
                 <div class = "col-md-2">
                     <label ng-show="edit">Number of persons :</label>
-                    <input class="form-control" type="number" ng-maxlength="3" ng-minlength="1" max = 75 min = 10 ng-model="numberOfPersons" placeholder="Persons?">
+                    <select class="form-control" ng-options="n+' persons' for n in [] | range:10:75" ng-model="numberOfPersons" ng-init="numberOfPersons = 10"></select>
+                    <!--<input class="form-control" type="number" ng-maxlength="3" ng-minlength="1" max = 75 min = 10 ng-model="numberOfPersons" placeholder="Persons?">-->
                     <!--<select class = "form-control">-->
                     <!--<option selected disabled>Persons?</option>-->
                     <!--<option>1</option>-->

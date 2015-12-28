@@ -21,13 +21,13 @@ app.controller('locationSearchController',function($rootScope,$scope,$log,api,$s
 
      //api calls
 
-    $scope.states = api.getStates.query(function(){
-        //console.log($scope.states);
-    });
-
-    $scope.cities = api.getCities.query({state_id : $scope.selectedState},function(){
-
-    });
+    //$scope.states = api.getStates.query(function(){
+    //    //console.log($scope.states);
+    //});
+    //
+    //$scope.cities = api.getCities.query({state_id : $scope.selectedState},function(){
+    //
+    //});
 
     $scope.localities = api.getLocalities.query({state_id: $scope.selectedState,city_id :$scope.selectedCity},function(){
 
@@ -43,7 +43,7 @@ app.controller('locationSearchController',function($rootScope,$scope,$log,api,$s
                 //$filter('date')($scope.mytime,'HH:mm');
             $rootScope.searchDetails.date = $scope.dt;
             $rootScope.searchDetails.pax = $scope.numberOfPersons;
-            console.log($rootScope.searchDetails);
+            //console.log($rootScope.searchDetails);
        $state.go('search',{locality_id : $scope.selectedLocality.id,date : $filter('date')($scope.dt,'yyyy/MM/dd'),mytime : $filter('date')($scope.mytime,'HH:mm'),pax : $scope.numberOfPersons});
         }
     };
@@ -67,21 +67,8 @@ app.controller('locationSearchController',function($rootScope,$scope,$log,api,$s
     var dd = today.getDate();
     var mm = today.getMonth();
     var yyyy = today.getFullYear();
-
-    $scope.maxDate = new Date(2016, 3, 30);
-    //$scope.maxDate = yyyy + '/' + (mm+3) + '/' + dd;
-    //$scope.minDate = yyyy + '/' + mm + '/' + (dd+1);
-    $scope.minDate = new Date(2105, 12, 29);
-    //
-    //$scope.maxDate = new Date() + 90;
-    console.log($scope.maxDate);
-    //
-    //$scope.minDate = new Date() + 1;
-    console.log($scope.minDate);
-
-
-
-    //$scope.today();
+    $scope.maxDate = new Date(yyyy, mm, (dd+90) );
+    $scope.minDate = new Date(yyyy, mm, (dd+1));
 
     $scope.clear = function () {
         $scope.dt = null;

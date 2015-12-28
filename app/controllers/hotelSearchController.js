@@ -42,7 +42,7 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
                     $scope.filter_string = value.id;
                 }
          });
-         console.log($scope.filter_string);
+         //console.log($scope.filter_string);
 
          $scope.restaurants = api.searchRestaurants.query({
              locality_id: $scope.locality_id,
@@ -55,7 +55,7 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
              price_max: $scope.price_max,
              price_min: $scope.price_min
          }, function () {
-               console.log($scope.restaurants);
+               //console.log($scope.restaurants);
          });
      };
 
@@ -64,7 +64,7 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
 
     $scope.filterTypes = api.getFilterTypes.query(function(){
         angular.forEach($scope.filterTypes,function(value,key){
-            console.log(value);
+            //console.log(value);
             $scope.filters[value.type] = api.getFilterByType.query({filter_type : value.type},function(){
                 //console.log($scope.filters[value.type]);
             });
