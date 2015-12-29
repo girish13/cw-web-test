@@ -1,8 +1,7 @@
 app.controller('locationSearchController',function($rootScope,$scope,$log,api,$state,$filter){
     $scope.edit = false;
-    $scope.mytime = new Date();
+    $scope.mytime = null;
     $scope.ismeridian = false;
-    $scope.times = [];
 
     if($rootScope.searchDetails){
         $scope.selectedState = '3';
@@ -29,6 +28,10 @@ app.controller('locationSearchController',function($rootScope,$scope,$log,api,$s
     //
     //});
 
+    $scope.times = api.getTime.query(function(){
+    });
+
+
     $scope.localities = api.getLocalities.query({state_id: $scope.selectedState,city_id :$scope.selectedCity},function(){
 
     });
@@ -39,12 +42,12 @@ app.controller('locationSearchController',function($rootScope,$scope,$log,api,$s
             $rootScope.searchDetails.selectedState = $scope.selectedState;
             $rootScope.searchDetails.selectedCity = $scope.selectedCity;
             $rootScope.searchDetails.selectedLocality = $scope.selectedLocality;
-            $rootScope.searchDetails.time =  '19:30';
+            $rootScope.searchDetails.time =  $scope.mytime;
                 //$filter('date')($scope.mytime,'HH:mm');
             $rootScope.searchDetails.date = $scope.dt;
             $rootScope.searchDetails.pax = $scope.numberOfPersons;
             //console.log($rootScope.searchDetails);
-       $state.go('search',{locality_id : $scope.selectedLocality.id,date : $filter('date')($scope.dt,'yyyy/MM/dd'),mytime : $filter('date')($scope.mytime,'HH:mm'),pax : $scope.numberOfPersons});
+       $state.go('search',{locality_id : $scope.selectedLocality.id,date : $filter('date')($scope.dt,'yyyy/MM/dd'),mytime : $scope.mytime,pax : $scope.numberOfPersons});
         }
     };
 

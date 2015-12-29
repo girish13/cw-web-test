@@ -2,51 +2,50 @@
 
 <div class="container" style="margin-top: 75px">
 <div class="row">
-    <div class="col-md-7">
-        <div class="row white-background-box">
-    <div>
-        <span class="headingBig">Your Order</span>
-        <hr>
-    </div>
-    <div ng-repeat = "order in orders">
-        <div>
-            <div ng-if = "showPackages(order[2].type)">
-                {{order[2].name}} X {{order[6]}}  - Rs. {{order[2].price * order[6]}}
+    <!--<div class="col-md-7">-->
+        <!--<div class="row white-background-box">-->
+    <!--<div>-->
+        <!--<span class="headingBig">Your Order</span>-->
+        <!--<hr>-->
+    <!--</div>-->
+    <!--<div ng-repeat = "order in orders">-->
+        <!--<div>-->
+            <!--<div ng-if = "showPackages(order[2].type)">-->
+                <!--{{order[2].name}} X {{order[6]}}  - Rs. {{order[2].price * order[6]}}-->
 
-                <div ng-repeat="item in order[2].packageDetails">
-                    {{item.name}} <br>
-                    <div ng-repeat="itemOption in order[4][item.id]">
-                            <span ng-repeat="itemOptionList in itemOption">
-                                {{ order[3][item.id][itemOptionList.menu_item_option_id]}} - {{itemOptionList.name}}
-                                <span ng-if = "itemOptionList.price" >
-                                    Rs. {{itemOptionList.price}}
-                                </span>
-                            </span>
-                    </div>
-                </div>
-                By {{order[1].name}}
-            </div>
+                <!--<div ng-repeat="item in order[2].packageDetails">-->
+                    <!--{{item.name}} <br>-->
+                    <!--<div ng-repeat="itemOption in order[4][item.id]">-->
+                            <!--<span ng-repeat="itemOptionList in itemOption">-->
+                                <!--{{ order[3][item.id][itemOptionList.menu_item_option_id]}} - {{itemOptionList.name}}-->
+                                <!--<span ng-if = "itemOptionList.price" >-->
+                                    <!--Rs. {{itemOptionList.price}}-->
+                                <!--</span>-->
+                            <!--</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--By {{order[1].name}}-->
+            <!--</div>-->
 
-        </div>
+        <!--</div>-->
 
 
-        <div ng-if="showAlacarte(order[2].type)">
-            <!--{{odr[2].name}}-->
+        <!--<div ng-if="showAlacarte(order[2].type)">-->
+            <!--&lt;!&ndash;{{odr[2].name}}&ndash;&gt;-->
 
-            {{order[3].name}} X {{order[4]}}  price : {{order[3].price * order[4]}}<br>
-            By {{order[1].name}}
+            <!--{{order[3].name}} X {{order[4]}}  price : {{order[3].price * order[4]}}<br>-->
+            <!--By {{order[1].name}}-->
 
-            <!--AddOn's Price - {{}}-->
-            <!--Tax - {{}}-->
-            <!--Total Price - {{}}-->
-        </div>
-    </div>
-        </div>
+            <!--&lt;!&ndash;AddOn's Price - {{}}&ndash;&gt;-->
+            <!--&lt;!&ndash;Tax - {{}}&ndash;&gt;-->
+            <!--&lt;!&ndash;Total Price - {{}}&ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+        <!--</div>-->
 
-        <button class="btn btn-primary" ng-click="orderNow()">Order Now</button>
-    </div>
-
-    <div class="col-md-5">
+        <!--<button class="btn btn-primary" ng-click="orderNow()">Order Now</button>-->
+    <!--</div>-->
+    <div class="col-md-8">
         <div class="row white-background-box">
         <div class="headingBig col-md-12">
             Fill in Your Details
@@ -78,12 +77,12 @@
 
                 </div>
                 <div class="form-group" ng-class="{ 'has-error': home.errors.register_password }">
-                    <div class="input-group">
+                    <!--<div class="input-group">-->
                         <textarea class="form-control" name="password_login" value="" placeholder="Your Address" ng-model="">
                         </textarea>
                         <span class="text-middle" ng-controller="locationSearchController">Delivery location : {{selectedLocality.name}},Gurgaon</span>
                         <!--<span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>-->
-                    </div>
+                    <!--</div>-->
                     <span ng-show="home.errors.register_password" class="help-block">{{home.errors.register_password}}</span>
                 </div>
                 <div class="row">
@@ -101,6 +100,15 @@
             </form>
         </div>
         </div>
+    </div>
+    <div class="col-md-4">
+        <div class="white-background-box row" ng-controller="orderController">
+           <ng-include src = "'./templates/orderSidebar.tpl.html'"></ng-include>
+            <!--<div class="col-md-12">-->
+                <!--&lt;!&ndash;<button ng-click="checkout()" style="width : 100%" ng-disabled = "orders.length < 1" class="btn btn-primary">Continue to Checkout</button>&ndash;&gt;-->
+            <!--</div>-->
+        </div>
+        <div ng-include = "'./templates/helpBox.tpl.html'"></div>
     </div>
 </div>
 </div>

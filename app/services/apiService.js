@@ -35,6 +35,11 @@ app.service('api',function($resource,$http,baseUrl,$log){
     this.getFilterByType = $resource(baseUrl+'getFilters/getFilterByType/:filter_type',{filter_type : '@filter_type'});
 
 
+    //utility apis
+
+    this.getTime = $resource(baseUrl+'util/getOrderTimeList');
+
+
     //console.log($resource(baseUrl+'1/RestaurantDisplay').query());
 
 

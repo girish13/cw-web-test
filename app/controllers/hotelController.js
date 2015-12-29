@@ -20,6 +20,7 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
     $scope.itemOptionCategories = {};
     $scope.additionalPrice = {};
     $scope.numberOfPackages = {};
+    $scope.addInfo = {};
 
     $scope.hotelPackages = api.getHotelMenuPackage.query({id: $rootScope.hotelId},{packages : 'package'},function(){
         angular.forEach($scope.hotelPackages,function(value,key){
@@ -63,7 +64,7 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
         });
         //console.log($scope.selectedPackage);
         if(angular.equals({}, $scope.packageError)){
-            orderService.addOrder($scope.hotelDetails[0],hotelPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice,$scope.numberOfPackages[hotelPackage.id]);
+            orderService.addOrder($scope.hotelDetails[0],hotelPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice,$scope.numberOfPackages[hotelPackage.id],$scope.addInfo[hotelPackage.id]);
         }
 
         //angular.forEach($scope.package);

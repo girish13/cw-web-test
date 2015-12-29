@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="text-middle"><span class="headingBig">Order Summary</span>
+            <!--<a style="float: right;" ng-click="editOrder()" title = "Edit your Order" href><i class="fa fa-pencil-square-o fa-lg"></i></a>-->
+        </div>
+        <p class="text-middle" ng-controller="locationSearchController">Delivery location : {{selectedLocality.name}},Gurgaon</p>
+    </div>
+
+</div>
+<div class="gap gap-small"></div>
+<div ng-if = "orders.length < 1">
+    <h4 class="col-md-12 text-middle">Sorry, Your haven't selected any Package yet</h4>
+</div>
+<div ng-if = "orders.length >= 1" class="row">
+    <div class="col-md-5">Package</div>
+    <div class="col-md-3">Quantity</div>
+    <div class="col-md-3">Price(&#8377;)</div>
+    <div class="col-md-12"><hr></div>
+</div>
+<div ng-if = "orders.length >= 1" ng-repeat = "order in orders">
+    <div>
+        <div ng-if = "showPackages(order[2].type)">
+            <div class="row">
+                <div class="col-md-5">{{order[2].name}}</div>
+                <div class="col-md-3"><a href ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></a>{{order[6]}}<a href ng-click="increaseQty(order)"><i class="fa fa-plus-circle"></i></a></div>
+                <div class="col-md-2">{{order[2].price * order[6]}}</div>
+                <div class="col-md-1"><a href class="col-md-1" ng-click = "removeItem(order)"><i class="fa fa-times"></i></a></div>
+                <div class="gap gap-small"></div>
+                <!--<div class="col-md-12"><hr></div>-->
+                <div class=" col-md-12 row" ng-repeat="item in order[2].packageDetails">
+                    <div class="">
+                        <div class="col-md-12">
+                            <span>{{item.name}}</span>
+                            <a ng-if="item.has_options" href style="float:right" ng-controller="hotelPackagesController" ng-click="open(item,order[4])"><i class="fa fa-pencil"></i>edit</a><hr style="margin-top: 5px;margin-bottom : 10px;">
+                        </div>
+                        <div class="col-md-12" ng-repeat="itemOption in order[4][item.id]">
+                            <div class="col-md-12" ng-repeat="itemOptionList in itemOption">
+                                <div class="row">
+                                    <div class="col-md-4 selected_package_items">{{ order[3][item.id][itemOptionList.menu_item_option_id]}}</div>
+                                    <div class="col-md-5 selected_package_items">{{itemOptionList.name}} </div>
+                                    <div  class="col-md-3" ng-if = "itemOptionList.price" >
+                                        Rs. {{itemOptionList.price}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gap gap-small"></div>
+                    </div>
+                </div>
+                <div class="gap gap-small"></div>
+            </div>
+
+            By {{order[1].name}}
+            <div class="col-md-12"><hr></div>
+        </div>
+
+    </div>
+
+
+    <div ng-if="showAlacarte(order[2].type)">
+        <!--{{odr[2].name}}-->
+        <div class="row">
+                    <span class="col-md-5">{{order[3].name}}
+                    </span>
+            <div class="col-md-3"><a href ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></a>{{order[4]}}<a href ng-click = "increaseQty(order)"><i class="fa fa-plus-circle"></i></a></div>
+            <span class="col-md-2">{{order[3].price * order[4]}}</span>
+            <a href class="col-md-1" ng-click = "removeItem(order)"><i class="fa fa-times"></i></a>
+        </div>
+        By {{order[1].name}}
+        <div class="row"><div class="col-md-12"><hr></div></div>
+        <!--AddOn's Price - {{}}-->
+        <!--Tax - {{}}-->
+        <!--Total Price - {{}}-->
+    </div>
+</div>

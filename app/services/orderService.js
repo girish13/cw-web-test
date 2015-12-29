@@ -3,7 +3,7 @@ app.service('orderService',function($rootScope){
     $rootScope.order = [];
     this.orderObject = [];
 
-    this.addOrder = function(hotelDetails,packageDetails,itemOptionCategories,selectedItems,additionalPrice,numberOfPackages){
+    this.addOrder = function(hotelDetails,packageDetails,itemOptionCategories,selectedItems,additionalPrice,numberOfPackages,addInfo){
         this.order1 = [];
         this.order1.push($rootScope.custId);
         this.order1.push(hotelDetails);
@@ -12,6 +12,7 @@ app.service('orderService',function($rootScope){
         this.order1.push(selectedItems);
         this.order1.push(additionalPrice);
         this.order1.push(numberOfPackages);
+        this.order1.push(addInfo);
         $rootScope.order.push(this.order1);
         console.log($rootScope.order);
     };

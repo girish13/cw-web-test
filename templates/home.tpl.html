@@ -30,13 +30,7 @@
                         <div class = "col-md-2">
                             <label ng-show="edit">Number of persons :</label>
                             <!--<input  type="number" ng-maxlength="3" ng-minlength="1" max = 75 min = 10 >-->
-                            <select class="form-control" ng-options="n+' persons' for n in [] | range:10:75" ng-model="numberOfPersons" ng-init="numberOfPersons = 10"></select>
-                            <!--<select class = "form-control">-->
-                            <!--<option selected disabled>Persons?</option>-->
-                            <!--<option>1</option>-->
-                            <!--<option>2</option>-->
-                            <!--<option>3</option>-->
-                            <!--</select>-->
+                            <select class="form-control" ng-options="n+' persons' for n in [] | range:10:75" ng-model="numberOfPersons" ><option value="" selected disabled>Persons?</option></select>
                         </div>
                         <div class = "col-md-3">
                             <label ng-show="edit">Select a Date And Time :</label>
@@ -53,7 +47,7 @@
                         <div class = "col-md-2">
 
                             <!--<uib-timepicker ng-model="mytime" ng-change="changed()" show-spinners = "edit"  show-meridian="ismeridian"></uib-timepicker>-->
-                            <!--<select class="form-control" ng-options="n+' persons' for n in [] | range:10:75" ng-model="numberOfPersons" ng-init="numberOfPersons = 10"></select>-->
+                            <select class="form-control" ng-options="n for n in times"  ng-model="mytime"><option value = "" disabled selected>Event Time</option></select>
                         </div>
                         <div class = "col-md-2">
                             <button class="btn btn-primary" ng-click="updateLocation()">Find Restaurants</button>
