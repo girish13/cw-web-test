@@ -1,6 +1,10 @@
 <div id = "packages" class = "tab-content">
     <!--{{hotelPackages}}-->
-
+    <div class="col-md-12" ng-if = "loadingRestaurantPackages">
+        <!--<div class="gap"></div>-->
+        <h4 class="text-middle"><i class="fa fa-spinner fa-pulse"></i></h4>
+        <h4 class="text-middle">Loading Packages</h4>
+    </div>
 
     <uib-accordion close-others="false">
         <uib-accordion-group ng-repeat="hotelPackage in hotelPackages">

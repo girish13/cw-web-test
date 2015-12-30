@@ -1,6 +1,12 @@
 app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,$rootScope){
     $scope.tags = [
     ];
+    //loading spinners
+    $scope.loadingRestaurants = true;
+    $scope.loadingFilters = {
+        Cuisine : true,
+        Other : true
+    };
     //$scope.loadTags = function(query) {
     //    return $http.get('/tags?query=' + query);
     //};
@@ -27,6 +33,7 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
     };
     $scope.restaurants = api.searchRestaurants.query({locality_id : $scope.locality_id,date : $scope.date,time : $scope.time ,pax : $scope.pax},function(){
         //console.log($scope.restaurants);
+        $scope.loadingRestaurants = false;
     });
 
      $scope.filterRestaurants = function() {
@@ -67,6 +74,7 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
             //console.log(value);
             $scope.filters[value.type] = api.getFilterByType.query({filter_type : value.type},function(){
                 //console.log($scope.filters[value.type]);
+               $scope.loadingFilters[value.type] = false;
             });
         });
     });

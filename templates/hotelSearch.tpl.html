@@ -24,6 +24,11 @@
                     <div class="form-group">
                         <label>Select {{filtertype.type}}</label>
                     <input class="form-control" placeholder="Search {{filtertype.type}}s" ng-model="text[filtertype.type]">
+                        <div class="col-md-12" ng-if = "loadingFilters[filtertype.type]">
+                            <div class="gap"></div>
+                            <h4 class="text-middle"><i class="fa fa-spinner fa-pulse"></i></h4>
+                            <h4 class="text-middle">Searching {{filtertype.type}}s</h4>
+                        </div>
                     <div ng-repeat="filter in filters[filtertype.type] | filter : text[filtertype.type]">
                         <input type = "checkbox" data-checklist-model="selectedFilters" data-checklist-value="filter">
                         {{filter.name}}
@@ -54,7 +59,11 @@
             </div>
         </div>
         <div class = "col-md-9 restaurants-list">
-
+                <div class="col-md-12" ng-if = "loadingRestaurants">
+                    <div class="gap"></div>
+                    <h1 class="text-middle"><i class="fa fa-spinner fa-pulse"></i></h1>
+                    <h1 class="text-middle">searching restaurants</h1>
+                </div>
             <div class="row white-background-box restaurant-small-box" ng-repeat="restaurant in restaurants">
 
                 <div class="col-md-3">

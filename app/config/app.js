@@ -87,8 +87,7 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','sat
     //$authProvider.google({
     //  clientId: 'Google Client ID'
     //});
-    //    $rootScope.cust_id = 0;
-    //    $rootScope.cust_name = "vishu";
+    //
     //$rootScope.baseUrl = 'http://192.168.0.105/cw-api-test/public/api/v001/';
     $authProvider.loginUrl = 'http://192.168.0.120/random/public/api/v1/auth/login';
     $authProvider.signupUrl = 'http://192.168.0.120/random/public/api/v1/auth/register';

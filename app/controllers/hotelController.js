@@ -22,10 +22,13 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
     $scope.numberOfPackages = {};
     $scope.addInfo = {};
 
+    //loading wheels
+    $scope.loadingRestaurantPackages = true;
+
     $scope.hotelPackages = api.getHotelMenuPackage.query({id: $rootScope.hotelId},{packages : 'package'},function(){
         angular.forEach($scope.hotelPackages,function(value,key){
             $scope.hotelPackages[key].packageDetails = api.getHotelMenuItem.query({id: $rootScope.hotelId},{menu_id : value.id},function(){
-
+                $scope.loadingRestaurantPackages = false;
             });
         });
     });
@@ -136,6 +139,10 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
     $scope.pre_package = pre_package;
     $scope.package_item = package_item;
 
+    //loading wheels
+    $scope.loadingModal = true;
+
+
     $scope.countCheck = function(id,categoryId){
         if($scope.isChecked[id]){
             if($scope.count[categoryId] < $scope.max_choice[categoryId])
@@ -187,6 +194,7 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
                         //else
                         //$scope.count[value.id] =
                          //console.log($scope.itemOptionCategoryList);
+                        $scope.loadingModal = false;
                     });
                 });
         ////console.log($scope.itemOptionCategoryList);
@@ -241,31 +249,6 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
             $scope.addModalItem();
             //do something
         }
-
-        //}
-        //console.log($scope.itemsSelected);
-        //console.log();
-
-        //$scope.cust_id = 0;
-        //$scope.hotelId = $rootScope.hotelId;
-        //$scope.menu_id = $scope.package_item.menu_id;
-        //$scope.item_id = $scope.package_item.id;
-        //$rootScope.order = [];
-        //$scope.order1 = [];
-        //$rootScope.order.push($rootscope.cust_id);
-        //$scope.order1.push($scope.hotelId);
-        ////$scope.order1.push($scope.menu_id);
-        //$scope.menu = [];
-        //$scope.menu.push($scope.menu_id);
-        ////$scope.menu.push($scope.item_id);
-        //$scope.item = [];
-        //$scope.item.push($scope.item_id);
-        //$scope.item.push($scope.selectedItems);
-        //$scope.menu.push($scope.item);
-        //$scope.order1.push($scope.menu);
-        //$rootScope.order.push($scope.order1);
-        //orderService.addOrder();
-        //console.log($rootScope.order);
     };
 
     $scope.cancel = function () {
@@ -274,11 +257,15 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
 });
 app.controller('hotelAlacarteController',function($scope, api,$rootScope,orderService){
     $scope.quantity = {};
+    //loading wheel
+    $scope.loadingRestaurantAlacarte = true;
+
 
     $scope.hotelAlacartes = api.getHotelMenuPackage.query({id: $rootScope.hotelId},{packages : 'a-la-carte'},function(){
         angular.forEach($scope.hotelAlacartes,function(value,key){
             $scope.hotelAlacartes[key].packageDetails = api.getHotelMenuItem.query({id: $rootScope.hotelId},{menu_id : value.id},function(){
                 //console.log($scope.hotelAlacartes[key].packageDetails);
+                $scope.loadingRestaurantAlacarte = false;
             });
         });
     });
@@ -290,12 +277,16 @@ app.controller('hotelAlacarteController',function($scope, api,$rootScope,orderSe
 
 });
 app.controller('hotelReviewsController',function($scope, api,$rootScope){
+    //loading wheels
+    $scope.loadingRestaurantReviews = true;
     $scope.hotelReviews = api.getHotelReviews.query({id: $rootScope.hotelId},function(){
-
+        $scope.loadingRestaurantReviews = false;
     });
 });
 app.controller('hotelPicturesController',function($scope, api,$rootScope){
+    //loading wheels
+    $scope.loadingRestaurantImages = true;
     $scope.hotelImages = api.getHotelImages.query({id: $rootScope.hotelId},function(){
-
+        $scope.loadingRestaurantImages = false;
     });
 });
