@@ -1012,3 +1012,12 @@ input[type="color"]:focus,
     /*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);*/
     outline: 0 none;
 }
+select:active, select:hover,select:focus,option:hover,option:active {
+    outline-color: #e33522 !important;
+    border-color: #e33522 !important;
+}
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}

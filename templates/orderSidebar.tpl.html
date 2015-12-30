@@ -24,10 +24,13 @@
                 <div class="col-md-5">{{order[2].name}}</div>
                 <div class="col-md-3"><a href ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></a>{{order[6]}}<a href ng-click="increaseQty(order)"><i class="fa fa-plus-circle"></i></a></div>
                 <div class="col-md-2">{{order[2].price * order[6]}}</div>
-                <div class="col-md-1"><a href class="col-md-1" ng-click = "removeItem(order)"><i class="fa fa-times"></i></a></div>
+                <div class="col-md-1"><a href ng-click = "removeItem(order)"><i class="fa fa-times"></i></a></div>
+                <a class="col-md-12 text-middle" href ng-click="isCollapsed = !isCollapsed" ng-show = "isCollapsed" >see details</a>
+                <a class="col-md-12 text-middle" href ng-click="isCollapsed = !isCollapsed" ng-show = "!isCollapsed" >hide details</a>
                 <div class="gap gap-small"></div>
                 <!--<div class="col-md-12"><hr></div>-->
-                <div class=" col-md-12 row" ng-repeat="item in order[2].packageDetails">
+                <div uib-collapse="isCollapsed">
+                    <div class=" col-md-12 row" ng-repeat="item in order[2].packageDetails">
                     <div class="">
                         <div class="col-md-12">
                             <span>{{item.name}}</span>
@@ -47,6 +50,7 @@
                         <div class="gap gap-small"></div>
                     </div>
                 </div>
+                </div>
                 <div class="gap gap-small"></div>
             </div>
 
@@ -60,11 +64,11 @@
     <div ng-if="showAlacarte(order[2].type)">
         <!--{{odr[2].name}}-->
         <div class="row">
-                    <span class="col-md-5">{{order[3].name}}
-                    </span>
+                    <div class="col-md-5">{{order[3].name}}
+                    </div>
             <div class="col-md-3"><a href ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></a>{{order[4]}}<a href ng-click = "increaseQty(order)"><i class="fa fa-plus-circle"></i></a></div>
-            <span class="col-md-2">{{order[3].price * order[4]}}</span>
-            <a href class="col-md-1" ng-click = "removeItem(order)"><i class="fa fa-times"></i></a>
+            <div class="col-md-2">{{order[3].price * order[4]}}</div>
+            <div class="col-md-1"><a href ng-click = "removeItem(order)"><i class="fa fa-times"></i></a></div>
         </div>
         By {{order[1].name}}
         <div class="row"><div class="col-md-12"><hr></div></div>

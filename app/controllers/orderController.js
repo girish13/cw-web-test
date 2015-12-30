@@ -23,6 +23,8 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
         $scope.package[key] = value[2];
     });
 
+    $scope.isCollapsed = true;
+
     $scope.removeItem = function(item){
         var index = $rootScope.order.indexOf(item);
         $rootScope.order.splice(index, 1);
