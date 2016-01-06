@@ -1,11 +1,12 @@
-<div ng-controller = "locationSearchController" class="container" style="margin-top: 75px">
-    <div class="color1 nav" >
-        <div class="" >
-            <div class = "row location-search-bar" ng-mouseenter="changeEdit()" ng-mouseleave="changeEdit()">
-                <!--<div class = "row col-md-11">-->
-                <div class="form-group col-md-3">
-                    <label ng-show="edit">Select a Location :</label>
-                    <div class="input-group">
+<header ng-controller = "locationSearchController">
+    <nav class="navbar bg-red location-search-bar" >
+        <div class="container" >
+            <div class = "row">
+                <div class="col-md-1 font20" style="line-height: 35px;">
+                    Order For :
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group search-bar-fields">
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Gurgaon <span class="caret"></span>
                             </button>
@@ -17,49 +18,31 @@
                     </div><!-- /input-group -->
                 </div>
                 <div class = "col-md-2">
-                    <label ng-show="edit">Number of persons :</label>
-                    <select class="form-control" ng-options="n+' persons' for n in [] | range:10:75" ng-model="numberOfPersons" ng-init="numberOfPersons = 10"></select>
-                    <!--<input class="form-control" type="number" ng-maxlength="3" ng-minlength="1" max = 75 min = 10 ng-model="numberOfPersons" placeholder="Persons?">-->
-                    <!--<select class = "form-control">-->
-                    <!--<option selected disabled>Persons?</option>-->
-                    <!--<option>1</option>-->
-                    <!--<option>2</option>-->
-                    <!--<option>3</option>-->
-                    <!--</select>-->
+                    <select class="form-control search-bar-fields" ng-options="n+' persons' for n in [] | range:10:75" ng-model="numberOfPersons"></select>
                 </div>
-                <div class = "col-md-2">
-                    <label ng-show="edit">Select a Date And Time :</label>
-                    <!--<div class="form-group">-->
-                    <p class="input-group">
+                <!--<div class = "col-md-2">-->
+                    <div class="col-md-2">
+                    <div class="input-group search-bar-fields">
                         <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" id = "date" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                             </span>
-                    </p>
-                    <!--</div>-->
+                    </div>
+                    </div>
+                <!--</div>-->
+                <div class = "col-md-2 ">
+                    <select class="form-control search-bar-fields" ng-options="n for n in times"  ng-model="mytime"><option value = "" disabled selected>Event Time</option></select>
                 </div>
-                <div class = "col-md-2">
-                    <!--<uib-timepicker ng-model="mytime" ng-change="changed()" show-spinners = "edit"  show-meridian="ismeridian"></uib-timepicker>-->
-                    <select class="form-control" ng-options="n for n in times"  ng-model="mytime"><option value = "" disabled selected>Event Time</option></select>
-                </div>
-                <div class = "col-md-2 search">
-                    <button class="btn btn-primary" ng-click="updateLocation()"><i class="fa fa-search"> </i> Find Restaurants</button>
+                <div class = " col-md-1">
+                    <button class=" btn btn-primary search-update-btn search-bar-fields font20" ng-click="updateLocation()">Update</button>
                 </div>
                 <!--</div>-->
-                <div class = "col-md-1  cart" ng-controller="orderController">
-                    <button href ng-click="open()" class = "btn btn-primary"><i class = "fa fa-shopping-bag"></i></button>
-                    <ng-include src = "'templates/modalTemplates/orderModal.tpl.html'"></ng-include>
-                </div>
+                <!--<div class = "col-md-1  cart" ng-controller="orderController">-->
+                    <!--<button href ng-click="open()" class = "btn btn-primary"><i class = "fa fa-shopping-bag"></i></button>-->
+                    <!--<ng-include src = "'templates/modalTemplates/orderModal.tpl.html'"></ng-include>-->
+                <!--</div>-->
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class = "row">
-            <ol class="breadcrumb">
-                <li>Home</li>
-                <li>Gurgaon</li>
-                <li class="active">{{selectedLocality.name}}</li>
-            </ol>
-        </div>
-    </div>
-</div>
+    </nav>
+
+</header>

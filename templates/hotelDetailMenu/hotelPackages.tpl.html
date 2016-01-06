@@ -6,23 +6,83 @@
         <h4 class="text-middle">Loading Packages</h4>
     </div>
 
+
+    <div class="package" ng-repeat="hotelPackage in hotelPackages">
+        <!--<div>-->
+            <div class = "float-left">
+               <div class="package_name"> {{hotelPackage.name}}</div>
+
+                <div class = "font15 italic" >{{hotelPackage.description}}</div>
+            </div>
+
+            <div class="package_price float-right">Rs. {{hotelPackage.price}} per person</div>
+            <!--<div class="clear"></div>-->
+            <div class="row"><div class="col-md-12"><hr class="no-margin"></div></div>
+        <!--</div>-->
+            <div style="clear: both"></div>
+                <div class="row itemseo">
+                <!--<div >-->
+                    <div class="col-md-6 padding-5" ng-repeat="package_item in hotelPackage.packageDetails" ng-click="open(package_item,package)">
+                        <div class="menu-item">
+                            <div class="font15 bold">{{package_item.name}} <span class="text-red">{{packageError[package_item.id]}}</span></div>
+                            <div class="package_item_des">{{package_item.description}}</div>
+                            <hr style="margin-bottom: 5px; margin-top: 5px;">
+                            <div class="selected_package_items">   {{itemsSelected[package_item.id]}}</div>
+                            <span class="font15 text-green" ng-repeat="option in package[package_item.id]">
+                            {{itemOptionCategories[package_item.id][option[0].menu_item_option_id]}} :
+                            <span class="font15 bold text-green" ng-repeat = "item in option">  {{ item.name }} |</span>
+                             </span>
+                        </div>
+                    <!--</div>-->
+                    </div>
+                </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <textarea class="form-control" placeholder="Additional Instruction (Optional)" ng-model = "addInfo[hotelPackage.id]"></textarea>
+                </div>
+            </div>
+            <div class="gap gap-mini"></div>
+            <!--<div style="clear: both"></div>-->
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="col-md-8 bold font20" style="line-height: 34px">Number Of Packages</div>
+                    <!--<span ng-controller="locationSearchController" ng-init = "numberOfPackages[hotelPackage.id] = numberOfPersons"></span>-->
+                    <div class="col-md-3">
+                        <input class="form-control padding-5" ng-init = "numberOfPackages[hotelPackage.id] = 1" type="number" max = 100 min = 1 ng-model = "numberOfPackages[hotelPackage.id]">
+                    </div>
+                    <!--<span ng-click="numberOfPackages[hotelPackage.id] = numberOfPackages[hotelPackage.id] + 1"> + </span>-->
+
+                    <!--<span ng-model = "numberOfPackages[hotelPackage.id]">{{numberOfPackages[hotelPackage.id]}}</span>-->
+
+                </div>
+                <div class="col-md-7">
+                    <button ng-click="addOrder(hotelPackage)" class="btn btn-primary my-btn text-middle bg-red full-width bold">Add To Order(Rs. {{hotelPackage.price * numberOfPackages[hotelPackage.id]}})</button>
+                </div>
+            </div>
+
+    <!--<div class="gap"></div>-->
+    </div>
+
+
+
+
+
+
+
+
+
     <uib-accordion close-others="false">
-        <uib-accordion-group ng-repeat="hotelPackage in hotelPackages">
+        <uib-accordion-group ng-repeat="">
             <uib-accordion-heading>
                  <span class="package_name">{{hotelPackage.name}}</span> <span class="package_price">{{hotelPackage.price}} per person</span>
                 <p class="package_des"><br>{{hotelPackage.description}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></p>
             </uib-accordion-heading>
-            <div class = "row"  ng-repeat="package_item in hotelPackage.packageDetails">
+            <div class = "row"  >
                 <div class="col-md-10">
-                    <div class="package_item_name">{{package_item.name}} <span class="package_error">{{packageError[package_item.id]}}</span> </div>
+                    <div class="package_item_name">{{package_item.name}}  </div>
                     <div class="package_item_des">{{package_item.description}}</div>
-                    <div class="selected_package_items">   {{itemsSelected[package_item.id]}} </div>
 
-
-                <span class="selected_package_items" ng-repeat="option in package[package_item.id]">
-                    {{itemOptionCategories[package_item.id][option[0].menu_item_option_id]}} :
-                    <span ng-repeat = "item in option">  {{ item.name }}  </span>
-                </span>
 
                 </div>
                 <div class=" col-md-2 choose_item_btn">
@@ -33,13 +93,7 @@
                 <div class="row"><div class="col-md-12"> <hr> </div></div>
 
             </div>
-            <div class="row">
-                <div class="col-md-12 form-group">
-                    <label>Additional Information</label>
-                    <textarea class="form-control" placeholder="Additional information" ng-model = "addInfo[hotelPackage.id]"></textarea>
-                </div>
-                <!--<hr>-->
-            </div>
+
             <div class = "row">
                     <div class="col-md-10">
                         <label class="col-md-4" style="line-height: 34px">Number Of Packages</label>
@@ -48,7 +102,7 @@
                         </div>
                     </div>
                 <div class="col-md-2">
-                    <button ng-click="addOrder(hotelPackage)" class="btn btn-primary">Add to Cart</button>
+                    <button  class="btn btn-primary">Add to Cart</button>
                 </div>
             </div>
         </uib-accordion-group>
@@ -56,10 +110,32 @@
 
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <ng-include src="'templates/modalTemplates/menuPackageModal.tpl.html'"></ng-include>
-<script type="text/ng-template" id="myPopoverTemplate.html">
-    <div>{{dynamicPopover.content}}</div>
-    <div class="form-group">
-        <label>portioning stuff</label>
-    </div>
-</script>
+<!--<script type="text/ng-template" id="myPopoverTemplate.html">-->
+    <!--<div>{{dynamicPopover.content}}</div>-->
+    <!--<div class="form-group">-->
+        <!--<label>portioning stuff</label>-->
+    <!--</div>-->
+<!--</script>-->

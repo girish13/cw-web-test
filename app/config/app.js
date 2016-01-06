@@ -1,9 +1,9 @@
-var app = angular.module('app', ['checklist-model','ui.router','ui.filters','satellizer','ui.bootstrap','ngResource','ngTagsInput','ngAnimate','rzModule'])
+var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.bootstrap','ngResource','ngAnimate','rzModule'])
 .run(function($rootScope) {
     $rootScope.$on('$stateChangeError', console.log.bind(console));
 })
 .value('baseUrl','http://52.34.246.229/cw-api-test/public/api/v001/')
-.config( function ($stateProvider, $urlRouterProvider, $authProvider,$locationProvider, $resourceProvider) {
+.config( function ($stateProvider, $urlRouterProvider,$locationProvider, $resourceProvider) {
     $stateProvider
         .state('common',{
             templateUrl: 'templates/header.tpl.html'
@@ -89,8 +89,8 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','sat
     //});
     //
     //$rootScope.baseUrl = 'http://192.168.0.105/cw-api-test/public/api/v001/';
-    $authProvider.loginUrl = 'http://192.168.0.120/random/public/api/v1/auth/login';
-    $authProvider.signupUrl = 'http://192.168.0.120/random/public/api/v1/auth/register';
+    //$authProvider.loginUrl = 'http://192.168.0.120/random/public/api/v1/auth/login';
+    //$authProvider.signupUrl = 'http://192.168.0.120/random/public/api/v1/auth/register';
 })
     .controller('authController',function($rootScope){
        $rootScope.custId = 0;

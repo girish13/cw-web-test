@@ -1,93 +1,161 @@
 <div ng-include = "'./templates/header.tpl.html'"></div>
 <div ng-include = "'./templates/searchBar.tpl.html'"></div>
-<div class = "container">
-    <div class="headingBig" ng-if = "restaurants.length == 0">Sorry, we couldn't find anything. Try searching again?</div>
-    <div class="headingBig" ng-if = "restaurants.length > 0">Customize and choose packages from {{restaurants.length}} restaurants </div>
-    <hr>
+<div class="container">
+    <!--<div class = "row">-->
+    <ol class="breadcrumb">
+        <li class="text-red">Home</li>
+        <li class="bold" ng-controller="locationSearchController">Browse Restaurants & Caterers in {{selectedLocality.name}}</li>
+        <li>Configure packages</li>
+        <li>Confirm Order</li>
+    </ol>
+    <!--</div>-->
 </div>
-
 <div class = "container">
     <div class="row">
         <div class = "col-md-3">
-            <div class="filters_box white-background-box">
-                <div class="headingBig"> Filters <hr>
+            <div class="col-md-12">
+                <div class="row">
+                <div class="search-message cw-text highlight-dark">
+                    Filters
+                    <span class="float-right" style="font-size: 10px; margin-top : 7px;">[clear all filters]</span>
                 </div>
                 <!--<div class="row">-->
-                    <div class="form-group">
-                        <label>Sort By :</label>
-                        <select ng-options="type for type in sortTypes" ng-model = "sortType" class="form-control"></select>
-                    </div>
-                <div class="gap gap-small"></div>
+                <div class="gap gap-mini"></div>
                 <!--</div>-->
                 <div class="row" ng-repeat="filtertype in filterTypes">
-                <div class="col-md-12" >
-                    <div class="form-group">
-                        <label>Select {{filtertype.type}}</label>
-                    <input class="form-control" placeholder="Search {{filtertype.type}}s" ng-model="text[filtertype.type]">
+                <div class="col-md-12">
+                    <!--<div class="form-group">-->
+                        <div class="bold filter-name">{{filtertype.type}}s </div>
+                    <!--<input class="form-control" placeholder="Search {{filtertype.type}}s" ng-model="text[filtertype.type]">-->
                         <div class="col-md-12" ng-if = "loadingFilters[filtertype.type]">
                             <div class="gap"></div>
                             <h4 class="text-middle"><i class="fa fa-spinner fa-pulse"></i></h4>
                             <h4 class="text-middle">Searching {{filtertype.type}}s</h4>
                         </div>
-                    <div ng-repeat="filter in filters[filtertype.type] | filter : text[filtertype.type]">
+                    <div class="filters" ng-class="{highlight: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-repeat="filter in filters[filtertype.type] | filter : text[filtertype.type]">
                         <input type = "checkbox" data-checklist-model="selectedFilters" data-checklist-value="filter">
-                        {{filter.name}}
+                        <a href>{{filter.name}}</a>
                     </div>
-                    </div>
+                    <!--</div>-->
                 </div>
                     <div class="gap gap-small"></div>
                 </div>
                 <!--{{selectedFilters}}-->
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Price :</label>
+                        <!--<div class="form-group">-->
+                            <div class="bold filter-name">Price (per person)</div>
                         <!--<div ui-slider="{range : true}" min="0" max = "2000" step="50" ng-model="priceRange"></div>-->
-                        <rzslider
+
+                        <div class="price-slider">
+                            <rzslider
                                 rz-slider-model="slider.min"
                                 rz-slider-high="slider.max"
                                 rz-slider-options="slider.options"></rzslider>
-                        </div>
+                        <!--</div>--></div>
                     </div>
                 </div>
                 <div class="gap gap-small"></div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button style="width:100%" class="btn btn-primary" ng-click="filterRestaurants()">Apply Filters</button>
+                        <!--<button style="width:100%" class="btn btn-primary" ng-click="filterRestaurants()">Apply Filters</button>-->
                     </div>
+                </div>
                 </div>
             </div>
         </div>
-        <div class = "col-md-9 restaurants-list">
+        <div class = "col-md-9">
+
+            <div class="col-md-6">
+                <div class="">
+                    <input class="form-control search-fields" placeholder="Search by dish or restaurant name">
+                </div>
+
+            </div>
+            <div class="col-md-offset-3 col-md-3">
+                <!--<div class="form-group">-->
+                    <!--<label>Sort By :</label>-->
+                    <select ng-options="'Sort by:  '+type for type in sortTypes" ng-model = "sortType" class="form-control search-fields text-capitalize"></select>
+                <!--</div>-->
+            </div>
                 <div class="col-md-12" ng-if = "loadingRestaurants">
                     <div class="gap"></div>
                     <h1 class="text-middle"><i class="fa fa-spinner fa-pulse"></i></h1>
                     <h1 class="text-middle">searching restaurants</h1>
                 </div>
-            <div class="row white-background-box restaurant-small-box" ng-repeat="restaurant in restaurants">
-
-                <div class="col-md-3">
-                    <div class="restaurant-img">
-                        <img src="bhasduvbkj.png">
-                    </div>
+            <div class="col-md-12">
+                <div class = "search-message cw-text highlight" ng-hide="loadingRestaurants">
+                        <div class="" ng-if = "restaurants.length == 0">Sorry, we couldn't find anything. Try searching again?</div>
+                        <div class="" ng-if = "restaurants.length > 0">Customize and order meal packages from <span class="text-red bold">{{restaurants.length}}</span> restaurants and caterers in your area </div>
                 </div>
-                <div class = "col-md-6">
-                    <div class="restaurant-name"><a ui-sref="hotel.packages({id : restaurant.restaurant_id})">{{restaurant.name}}</a></div>
-                    <small class="italic small-text">{{restaurant.locality_name}},{{restaurant.city_name}}</small>
-                    <div class="restaurant-des">{{restaurant.short_description}}</div>
-                    <div class="">Cuisines : {{restaurant.cuisines}}</div>
-                    <div class="small-text padding-top-5 top-margin-25">Package Price : {{restaurant.min_package_price}} to {{restaurant.max_package_price}}
-                    <br>Minimum order Value : {{restaurant.min_order_value}} | Minimum Order Count : {{restaurant.min_order_count}}</div>
+            </div>
+            <div class="col-md-12">
+             <div class="row restaurant-small-box" ng-repeat="restaurant in restaurants">
+
+
+                 <div class="col-md-12">
+                     <div class="float-left">
+                         <div>
+                             <a class="font25 text-capitalize" ui-sref="hotel.packages({id : restaurant.restaurant_id})">{{restaurant.name}}</a>
+                             <p class="restaurant-des font-20 italic">{{restaurant.short_description}}</p>
+                         </div>
+                     </div>
+                     <div class="float-right">
+                         <div>
+                             <uib-rating ng-model="rate" ng-init="rate = restaurant.avg_rating" max="5" readonly="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+                         </div>
+                         <p><a class="rating padding-5" ui-sref="hotel.reviews({id : restaurant.restaurant_id})">[{{restaurant.review_count}} Reviews]</a></p>
+                     </div>
+                 </div>
+                 <div class="col-md-12"><hr style="margin-top : 5px;margin-bottom:5px;"></div>
+                 <div class="col-md-3">
+                     <div class="restaurant-img">
+                         <img src="a.png">
+                     </div>
+                 </div>
+                 <div class="col-md-9">
+                     <div class="bold font15">{{restaurant.cuisines}}</div>
+                     <div class="font15">Price (per person): {{restaurant.min_package_price}} - {{restaurant.max_package_price}}</div>
+                     <div class="gap gap-small"></div>
+                     <div class=""><hr style="margin-top: 5px;margin-bottom: 5px;"></div>
+                     <div class="">
+                         <div class="font-15 float-left" style="line-height: 34px;">{{restaurant.min_order_count}} packages min.</div>
+                          <div class="float-right"><button class="btn btn-primary" ui-sref="hotel.packages({id : restaurant.restaurant_id})">View Packages</button></div>
+                     </div>
+
+                 </div>
 
 
 
-                </div>
-                <div class = "col-md-3">
-                    <uib-rating ng-model="rate" ng-init="rate = restaurant.avg_rating" max="5" readonly="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
-                       <br> <a class="rating padding-5" ui-sref="hotel.reviews({id : restaurant.restaurant_id})">{{restaurant.review_count}} Reviews</a>
-                        <br><br>
-                    <button class="btn btn-primary view-restaurant-btn" ui-sref="hotel.packages({id : restaurant.restaurant_id})">View Restaurant</button>
-                </div>
+
+
+
+
+
+
+                <!--<div class="col-md-3">-->
+                    <!--<div class="restaurant-img">-->
+                        <!--<img src="bhasduvbkj.png">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class = "col-md-6">-->
+                    <!--<div class="restaurant-name"></div>-->
+                    <!--<small class="italic small-text">{{restaurant.locality_name}},{{restaurant.city_name}}</small>-->
+                    <!--<div class="restaurant-des"></div>-->
+                    <!--<div class="">Cuisines : {{restaurant.cuisines}}</div>-->
+                    <!--<div class="small-text padding-top-5 top-margin-25">Package Price : {{restaurant.min_package_price}} to {{restaurant.max_package_price}}-->
+                    <!--<br>Minimum order Value : {{restaurant.min_order_value}} | Minimum Order Count : </div>-->
+
+
+
+                <!--</div>-->
+                <!--<div class = "col-md-3">-->
+                    <!--<uib-rating ng-model="rate" ng-init="rate = restaurant.avg_rating" max="5" readonly="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>-->
+                       <!--<br> <a class="rating padding-5" ui-sref="hotel.reviews({id : restaurant.restaurant_id})">{{restaurant.review_count}} Reviews</a>-->
+                        <!--<br><br>-->
+                    <!---->
+                <!--</div>-->
+            </div>
             </div>
         </div>
     </div>

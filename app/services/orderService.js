@@ -28,8 +28,8 @@ app.service('orderService',function($rootScope){
         console.log($rootScope.order);
     };
 
-    this.checkout = function(){
-        this.orderObject.push($rootScope.custId);
+    this.checkout = function(cust){
+        this.orderObject.push(cust);
         angular.forEach($rootScope.order,function(value,key){
             this.temp =  [];
             this.temp.push(value[1].restaurant_id);
@@ -39,6 +39,7 @@ app.service('orderService',function($rootScope){
                 console.log(value[4]);
                 this.temp.push(value[4]);
                 this.temp.push(parseInt(value[6],10));
+                this.temp.push(value[7]);
             }
             else if(value[2].type == "a-la-carte"){
                 this.temp.push(value[3].id);
@@ -46,6 +47,8 @@ app.service('orderService',function($rootScope){
             }
             this.orderObject.push(this.temp);
         },this);
+        this.orderObject.push($rootScope.searchDetails);
+        console.log(this.orderObject);
  };
 
 });

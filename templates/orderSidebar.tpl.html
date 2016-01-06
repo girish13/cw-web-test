@@ -1,63 +1,66 @@
 <div class="row">
     <div class="col-md-12">
-        <div class="text-middle"><span class="headingBig">Order Summary</span>
-            <!--<a style="float: right;" ng-click="editOrder()" title = "Edit your Order" href><i class="fa fa-pencil-square-o fa-lg"></i></a>-->
+        <div class="search-message cw-text highlight-dark">
+            My Order
+            <!--<span class="float-right" style="font-size: 10px; margin-top : 7px;">[clear all filters]</span>-->
         </div>
-        <p class="text-middle" ng-controller="locationSearchController">Delivery location : {{selectedLocality.name}},Gurgaon</p>
+        <!--<div class="text-middle"><span class="">Order Summary</span>-->
+            <!--&lt;!&ndash;<a style="float: right;" ng-click="editOrder()" title = "Edit your Order" href><i class="fa fa-pencil-square-o fa-lg"></i></a>&ndash;&gt;-->
+        <!--</div>-->
+        <!--<p class="text-middle" ng-controller="locationSearchController">Delivery location : {{selectedLocality.name}},Gurgaon</p>-->
     </div>
 
 </div>
-<div class="gap gap-small"></div>
+<div class="gap gap-mini"></div>
 <div ng-if = "orders.length < 1">
     <h4 class="col-md-12 text-middle">Sorry, Your haven't selected any Package yet</h4>
 </div>
-<div ng-if = "orders.length >= 1" class="row">
-    <div class="col-md-5">Package</div>
-    <div class="col-md-3">Quantity</div>
-    <div class="col-md-3">Price(&#8377;)</div>
-    <div class="col-md-12"><hr></div>
-</div>
-<div ng-if = "orders.length >= 1" ng-repeat = "order in orders">
-    <div>
-        <div ng-if = "showPackages(order[2].type)">
+<!--<div ng-if = "orders.length >= 1" class="row">-->
+    <!--<div class="col-md-5">Package</div>-->
+    <!--<div class="col-md-3">Quantity</div>-->
+    <!--<div class="col-md-3">Price(&#8377;)</div>-->
+    <!--<div class="col-md-12"><hr></div>-->
+<!--</div>-->
+<div class="col-md-12" ng-if = "orders.length >= 1" ng-repeat = "order in orders">
+    <div class="row">
+        <div class="col-md-12" ng-if = "showPackages(order[2].type)">
             <div class="row">
-                <div class="col-md-5">{{order[2].name}}</div>
-                <div class="col-md-3"><a href ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></a>{{order[6]}}<a href ng-click="increaseQty(order)"><i class="fa fa-plus-circle"></i></a></div>
-                <div class="col-md-2">{{order[2].price * order[6]}}</div>
-                <div class="col-md-1"><a href ng-click = "removeItem(order)"><i class="fa fa-times"></i></a></div>
+                <span class="col-md-7 padding-5">{{order[2].name}}  By <span class="bold">{{order[1].name}}</span></span>
+                <div class="col-md-2 padding-5"><a href ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></a>{{order[6]}}<a href ng-click="increaseQty(order)"><i class="fa fa-plus-circle"></i></a></div>
+                <div class="col-md-2 padding-5">{{order[2].price * order[6]}}</div>
+                <div class="col-md-1 padding-5"><a href ng-click = "removeItem(order)"><i class="fa fa-times"></i></a></div>
                 <a class="col-md-12 text-middle" href ng-click="isCollapsed = !isCollapsed" ng-show = "isCollapsed" >see details</a>
                 <a class="col-md-12 text-middle" href ng-click="isCollapsed = !isCollapsed" ng-show = "!isCollapsed" >hide details</a>
-                <div class="gap gap-small"></div>
+                <div class="gap gap-mini"></div>
                 <!--<div class="col-md-12"><hr></div>-->
                 <div uib-collapse="isCollapsed">
                     <div class=" col-md-12 row" ng-repeat="item in order[2].packageDetails">
                     <div class="">
                         <div class="col-md-12">
-                            <span>{{item.name}}</span>
-                            <a ng-if="item.has_options" href style="float:right" ng-controller="hotelPackagesController" ng-click="open(item,order[4])"><i class="fa fa-pencil"></i>edit</a><hr style="margin-top: 5px;margin-bottom : 10px;">
+                            <span class="bold">- {{item.name}}</span><a ng-if="item.has_options" href ng-controller="hotelPackagesController" ng-click="open(item,order[4])"> <i class="fa fa-pencil"> </i></a>
+                            <!--<hr style="margin-top: 5px;margin-bottom : 10px;">-->
                         </div>
-                        <div class="col-md-12" ng-repeat="itemOption in order[4][item.id]">
-                            <div class="col-md-12" ng-repeat="itemOptionList in itemOption">
-                                <div class="row">
-                                    <div class="col-md-4 selected_package_items">{{ order[3][item.id][itemOptionList.menu_item_option_id]}}</div>
-                                    <div class="col-md-5 selected_package_items">{{itemOptionList.name}} </div>
-                                    <div  class="col-md-3" ng-if = "itemOptionList.price" >
-                                        Rs. {{itemOptionList.price}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="gap gap-small"></div>
+                        <span class="col-md-12" ng-repeat="itemOption in order[4][item.id]" ng-if="item.has_options">
+                            <span class="col-md-12" ng-repeat="itemOptionList in itemOption">
+                                <!--<div class="row">-->
+                                    <span class="selected_package_items">{{ order[3][item.id][itemOptionList.menu_item_option_id]}} : {{itemOptionList.name}}   <span  class="" ng-if = "itemOptionList.price" >
+                                        (Rs. {{itemOptionList.price}})
+                                    </span> </span>
+
+                                <!--</div>-->
+                            </span>
+                        </span>
+                        <div class="gap gap-mini"></div>
+                        <div class="col-md-12"><hr style="margin-top: 5px; margin-bottom: 5px;"></div>
                     </div>
                 </div>
                 </div>
                 <div class="gap gap-small"></div>
             </div>
 
-            By {{order[1].name}}
-            <div class="col-md-12"><hr></div>
-        </div>
 
+           <div class="row"><div class="col-md-12"><hr style="margin-top: 5px; margin-bottom: 5px;"></div></div>
+        </div>
     </div>
 
 
@@ -76,4 +79,21 @@
         <!--Tax - {{}}-->
         <!--Total Price - {{}}-->
     </div>
+
+    <div class="font15">
+        <div class="float-left">Subtotal</div>
+        <div class="float-right">Rs. {{}}</div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="font15">
+        <div class="float-left">Taxes</div>
+        <div class="float-right">Rs. {{}}</div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="search-message font15 highlight-dark bold padding-5">
+        <div class="float-left">TOTAL ORDER</div>
+        <div class="float-right">Rs {{totalCost}}</div>
+    </div>
+
+    <!--</div>-->
 </div>

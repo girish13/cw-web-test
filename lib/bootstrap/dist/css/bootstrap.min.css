@@ -52,7 +52,7 @@ h2,h3{page-break-after:avoid}
 }
 .img-thumbnail,body{background-color:#fff}
 .btn,.btn-danger.active,.btn-danger:active,.btn-default.active,.btn-default:active,.btn-info.active,.btn-info:active,.btn-primary.active,.btn-primary:active,.btn-warning.active,.btn-warning:active,.btn.active,.btn:active,.dropdown-menu>.disabled>a:focus,.dropdown-menu>.disabled>a:hover,.form-control,.navbar-toggle,.open>.dropdown-toggle.btn-danger,.open>.dropdown-toggle.btn-default,.open>.dropdown-toggle.btn-info,.open>.dropdown-toggle.btn-primary,.open>.dropdown-toggle.btn-warning{background-image:none}
-@font-face{font-family:'Glyphicons Halflings';src:url(http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.eot);src:url(http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'),url(http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff2) format('woff2'),url(http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff) format('woff'),url(http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.ttf) format('truetype'),url(http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg')}
+/*@font-face{font-family:'Glyphicons Halflings';src:url(http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.eot);src:url(http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'),url(http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff2) format('woff2'),url(http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff) format('woff'),url(http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.ttf) format('truetype'),url(http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg')}*/
 .glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:400;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .glyphicon-asterisk:before{content:"\2a"}
 .glyphicon-plus:before{content:"\2b"}
@@ -897,7 +897,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group{z-index:2;margin-left:-1px}
 .nav{margin-bottom:0;padding-left:0;list-style:none}
 .nav>li>a{padding:10px 15px}
-.nav>li>a:focus,.nav>li>a:hover{text-decoration:none;background-color:#eee}
+/*.nav>li>a:focus,.nav>li>a:hover{text-decoration:none;background-color:#eee}*/ /*my override*/
 .nav>li.disabled>a{color:#777}
 .nav>li.disabled>a:focus,.nav>li.disabled>a:hover{color:#777;text-decoration:none;background-color:transparent;cursor:not-allowed}
 .nav .open>a,.nav .open>a:focus,.nav .open>a:hover{background-color:#eee;border-color:#e33522}
@@ -1032,7 +1032,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .navbar-inverse .navbar-brand{color:#9d9d9d}
 .navbar-inverse .navbar-brand:focus,.navbar-inverse .navbar-brand:hover{color:#fff;background-color:transparent}
 .navbar-inverse .navbar-nav>li>a,.navbar-inverse .navbar-text{color:#9d9d9d}
-.navbar-inverse .navbar-nav>li>a:focus,.navbar-inverse .navbar-nav>li>a:hover{color:#fff;background-color:transparent}
+.navbar-inverse .navbar-nav>li>a:focus,.navbar-inverse .navbar-nav>li>a:hover{}/* my override */
 .navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.active>a:focus,.navbar-inverse .navbar-nav>.active>a:hover{color:#fff;background-color:#080808}
 .navbar-inverse .navbar-nav>.disabled>a,.navbar-inverse .navbar-nav>.disabled>a:focus,.navbar-inverse .navbar-nav>.disabled>a:hover{color:#444;background-color:transparent}
 .navbar-inverse .navbar-toggle{border-color:#333}

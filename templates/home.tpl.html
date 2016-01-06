@@ -2,229 +2,281 @@
 <div class="container-fluid" id = "search">
     <div ng-include = "'./templates/header.tpl.html'"></div>
     <!--<div ng-include = "'./templates/searchBar.tpl.html'" id = "searchBar" style="display : block; position: fixed; top : 60px"></div>-->
-    <div id = "searchBox" class="" ng-controller = "locationSearchController">
+    <div id = "" class="highlight-content" ng-controller = "locationSearchController">
         <!--<div class="row">-->
             <!--<div class="">-->
                 <!--<div class="row">-->
-                <div class="headingBig text-middle">
-                    Order food for your group
-                </div>
-                <p class="text-middle">Easy catering for your next get-together. Save Time. Save Money. Celebrate More</p>
-                <div class="gap gap-small"></div>
+                <!--<div class="headingBig text-middle">-->
+                    <!--Order food for your group-->
                 <!--</div>-->
-                    <!--<div class="row">-->
-                    <!--<div>-->
-                        <div class="form-group col-md-3">
-                            <label ng-show="edit">Select a Location :</label>
-                            <div class="input-group">
+        <div class="main-text">
+            <div style="margin-bottom : 10px;" class="bg-red text-middle bold font35">
+            The easiest way to order <span class="underline">food & catering for groups</span>
+        </div>
+            <div class="bg-red text-middle font20">
+            at <span class="bold">bulk discounted rates</span> from your <span class="bold" >favourite restaurants</span>
+        </div>
+        </div>
+        <div class="gap gap-small"></div>
+
+               <div id="searchBox">
+                   <!--<h4 class="text-middle">Tell us a little about the occasion</h4>-->
+                    <div class="row">
+                        <div class="col-md-9">
+                            <!--<label ng-show="edit">Select a Location :</label>-->
+                            <div class="input-group shadow search-box-fields">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Gurgaon <span class="caret"></span>
+                                    <button type="button" class="btn btn-default dropdown-toggle search-box-fields" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Gurgaon <span class="caret"></span>
                                     </button>
                                     <!--<ul class="dropdown-menu">-->
                                     <!--<li ng-repeat="city in cities">{{city.name}}</li>-->
                                     <!--</ul>-->
                                 </div><!-- /btn-group -->
-                                <input type="text" class="form-control" ng-model="selectedLocality" uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue | limitTo:8" placeholder="Enter Locality">
+                                <input type="text" class="form-control search-box-fields" ng-model="selectedLocality" uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue | limitTo:8" placeholder="Enter Locality">
                             </div><!-- /input-group -->
                         </div>
-                        <div class = "col-md-2">
-                            <label ng-show="edit">Number of persons :</label>
-                            <!--<input  type="number" ng-maxlength="3" ng-minlength="1" max = 75 min = 10 >-->
-                            <select class="form-control" ng-options="n+' persons' for n in [] | range:10:75" ng-model="numberOfPersons" ><option value="" selected disabled>Persons?</option></select>
-                        </div>
-                        <div class = "col-md-3">
-                            <label ng-show="edit">Select a Date And Time :</label>
-                            <!--<div class="form-group">-->
-                            <p class="input-group">
-                                <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" id = "date" ng-model="dt" placeholder="Event Date" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                                            </span>
-                            </p>
-                            <!--</div>-->
-                        </div>
-
-                        <div class = "col-md-2">
-
-                            <!--<uib-timepicker ng-model="mytime" ng-change="changed()" show-spinners = "edit"  show-meridian="ismeridian"></uib-timepicker>-->
-                            <select class="form-control" ng-options="n for n in times"  ng-model="mytime"><option value = "" disabled selected>Event Time</option></select>
-                        </div>
-                        <div class = "col-md-2">
-                            <button class="btn btn-primary" ng-click="updateLocation()">Find Restaurants</button>
-                        </div>
+                        <!--<div class = "col-md-3">-->
+                            <!--<label ng-show="edit">Number of persons :</label>-->
+                            <!--&lt;!&ndash;<input  type="number" ng-maxlength="3" ng-minlength="1" max = 75 min = 10 >&ndash;&gt;-->
+                            <!--<select class="form-control shadow" ng-options="n+' persons' for n in [] | range:10:75" ng-model="numberOfPersons" ><option value="" selected disabled>Persons?</option></select>-->
                         <!--</div>-->
+                        <!--<div class = "col-md-3">-->
+                            <!--<label ng-show="edit">Select a Date And Time :</label>-->
+                            <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                            <!--<p class="input-group">-->
+                                <!--<input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" id = "date" ng-model="dt" placeholder="Event Date" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />-->
+                                        <!--<span class="input-group-btn">-->
+                                            <!--<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>-->
+                                            <!--</span>-->
+                            <!--</p>-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--</div>-->
+
+                        <!--<div class = "col-md-2">-->
+
+                            <!--&lt;!&ndash;<uib-timepicker ng-model="mytime" ng-change="changed()" show-spinners = "edit"  show-meridian="ismeridian"></uib-timepicker>&ndash;&gt;-->
+                            <!--<select class="form-control" ng-options="n for n in times"  ng-model="mytime"><option value = "" disabled selected>Event Time</option></select>-->
+                        <!--</div>-->
+                        <div class = "col-md-3">
+                            <button class="btn btn-primary full-width shadow search-box-fields" ng-click="updateLocation()">Get Started</button>
+                        </div>
+                    </div>
+                   <!--</div>-->
+                   <!--<div class="gap gap-small"></div>-->
+                   <!--</div>-->
+                   <!--<div class="row">-->
+                   <!--<div>-->
+               </div>
                     <!--</div>-->
                 <!--</div>-->
             <!--</div>-->
         <!--</div>-->
     </div>
-    <div >
+    <div>
         <wrap-owlcarousel class="owl-carousel" data-options="{autoPlay: 5000, stopOnHover: true,slideSpeed : 300, paginationSpeed : 400, singleItem : true,loop :true}">
             <div class="main-carousel-image">
-                <img src="http://caterwow.com/site/wp-content/uploads/2015/10/buffet-1920x10241.jpg"/>
+                <img src="./images/buffet-58725.jpg"/>
             </div>
             <div class="main-carousel-image">
-                <img src="http://caterwow.com/site/wp-content/uploads/2015/10/buffet-1920x10241.jpg"/>
+                <img src="./images/buffet-315691.jpg"/>
             </div>
-            <div class="main-carousel-image">
-                <img src="http://caterwow.com/site/wp-content/uploads/2015/10/buffet-1920x10241.jpg"/>
+            <div class="main-carousel-image" >
+                <img src="./images/nuts-570108.jpg"/>
             </div>
         </wrap-owlcarousel>
     </div>
 </div>
-<div class="gap"></div>
+<div class="gap gap-small"></div>
 <div class="container">
     <div class="row">
 
-        <div class="col-md-12 headingBig" style="text-align: center">How It Works</div>
+        <h1 class="col-md-12 headingBig bold font45 text-middle">How it works</h1>
         <div class="gap gap-small"></div>
-        <div class="col-md-2">
-            <div><img src="abc.jpg" width = "175" height = "150"></div>
-            <div class="btn btn-primary">Choose</div>
-            <p>100s of catering packages from your favorite restaurants</p>
+        <div class="col-md-4">
+            <div class="center">
+                <div class="how-blocks">
+                    <div><img src = "abc.png" width = "225" height="225"></div>
+                    <h4 class="">CHOOSE A BULK DISCOUNTED PACKAGE</h4>
+                    <p class="">Pick from a wide range of pre-planned meal packages from popular restaurants. Choose one or mix multiple packages for more variety.</p>
+                </div>
+            </div>
         </div>
-        <span class="col-md-1"><i class="fa fa-arrow-right fa-5x"></i></span>
-        <div class="col-md-2">
-            <div><img src="abc.jpg" width = "175" height = "150"></div>
-            <div class="btn btn-primary">Customize</div>
-            <p>Customize as per your according to your guests preferences. Snacks & Starters included</p>
+        <div class="col-md-4">
+            <div class="center">
+                <div class="how-blocks">
+                    <div class="center"><img src = "abc.png" width = "225" height="225"></div>
+                    <h4 class="">CUSTOMIZE TO YOUR TASTE & REQUIREMENTS</h4>
+                    <p class="">Customize as per your requirement. Have a special request, no problem. CaterWow ensures every package is customized to your specific requirement.</p>
+                </div>
+            </div>
         </div>
-        <span class="col-md-1"><i class="fa fa-arrow-right fa-5x"></i></span>
-        <div class="col-md-2">
-            <div><img src="abc.jpg" width = "175" height = "150"></div>
-            <div class="btn btn-primary">Services</div>
-            <p>Need to rent outler & serveware. Or need servers Choose the service you need.</p>
-        </div>
-        <span class="col-md-1"><i class="fa fa-arrow-right fa-5x"></i></span>
-        <div class="col-md-2">
-            <div><img src="abc.jpg" width = "175" height = "150"></div>
-            <div class="btn btn-primary">Served</div>
-            <p>CaterWow coordinates it all. Food served 15 minutes before</p>
+        <div class="col-md-4">
+            <div class="center">
+                <div class="how-blocks">
+                    <div class="center"><img src = "abc.png" width = "225" height="225"></div>
+                    <h4 class="">GROUP MEALS SERVED TO PERFECTION</h4>
+                    <p class="">Hungary groups, on time. everytime. Be a great host and save money Don't forget to ask the CaterWow executive to help you lay the table.</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <div class="gap"></div>
-<section id="features" class="parallax parallax-image light-bg" style="background-color: #e8e8e8; background-image:url('');">
-    <div class="overlay"></div>
-    <div class="container">
-        <div  class="parallax-content">
-            <div class="title-area animated fade_ani" id = "whywe">
-                <h2 class="title headingBig" style = "text-align: center">Why choose CaterWow? </h2>
-
-                <p class="subtitle" style = "text-align: center">The next generation of events planning is here.</p>
-
-            </div> <!-- .section-title -->
-            <div class="gap gap-small"></div>
-            <div class="row animated fade_ani" id = "ans-1">
-                <div class="feature-box col-md-4 col-sm-6 col-xs-12"><div class="feature-box-2"><h3>Delicious food</h3><p>
-                    <span style="font-family: 'PT Sans', sans-serif;">
-                        <span style="color: #e74c3c;">
-                            Freshly prepared for your guests.</span>
-                        Cooked by professional restaurant chefs using the best ingredients to get that perfect taste.</span>
-                </p></div></div>
-
-                <div class="feature-box col-md-4 col-sm-6 col-xs-12"><div class="feature-box-2"><h3>Wide variety</h3><p>
-                    <span style="font-family: 'PT Sans', sans-serif;"><span style="color: #e74c3c;">All your favourite cuisines at one place.</span>
-                        Choose from a variety of cuisines. Mix &amp; Match to suit your guest's preferences</span>
-                </p></div></div>
-
-                <div class="feature-box col-md-4 col-sm-6 col-xs-12"><div class="feature-box-2"><h3>Affordable Pricing</h3><p>
-<span style="font-family: 'PT Sans', sans-serif;"><span style="color: #e74c3c;">Options for all budgets.</span>
-With pricing starting as low as Rs.299 per person for an entire meal. Host a party without breaking your wallet.</span>
-                </p></div></div>
-                <div class = "animated fade_ani" id = "ans-2">
-                    <div class="feature-box col-md-4 col-sm-6 col-xs-12"><div class="feature-box-2"><h3>Reliable Delivery</h3><p>
-                        <span style="font-family: 'PT Sans', sans-serif;"><span style="color: #e74c3c;">
-                            Delivered on doorstep in convenient packaging.</span>
-                            Assured on-time delivery. Carefully designed packaging that keeps food hot and guests happy.</span>
-                    </p></div></div>
-
-                    <div class="feature-box col-md-4 col-sm-6 col-xs-12"><div class="feature-box-2"><h3>Convenience of online</h3><p>
-                        <span style="font-family: 'PT Sans', sans-serif;"><span style="color: #e74c3c;">Save time and cost.</span>
-                            Compare, order and customize packages online, all from the comfort of your home or office.</span>
-                    </p></div></div>
-
-                    <div class="feature-box col-md-4 col-sm-6 col-xs-12"><div class="feature-box-2"><h3>Safe &amp; Secure</h3><p>
-                        <span style="font-family: 'PT Sans', sans-serif;"><span style="color: #e74c3c;">Verified &amp; Audited.</span>
-                            Trusted partners with quality assurance. Verified service staff.</span>
-                    </p></div></div>								</div>
-            </div>
-        </div> <!-- .parallax-content -->
+<div class="gap"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 bg-red">
+            <h1 class="text-middle bold padding-10">Whatever the occasion is, celebrate with CaterWow</h1>
+            <h3 class="text-middle padding-10">House parties, birthdays, anniversaries, festival gatherings, office lunches,<br>
+            kitty parties or just a get together without any reason.</h3>
+            <br>
+        </div>
     </div>
-</section>
-<!--<div class="gap"></div>-->
-<section id="host-enjoy" class="parallax parallax-image light-bg" style="background-color: #ffffff; background-image:url('http://52.74.93.39/site/wp-content/uploads/2015/10/dryfruittray-crop.jpg');">
+</div>
+<div class="gap"></div>
+<div class="gap"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 margin-center-27">
+            <h2 class="float-left">Curated, pre-planned and online</h2>
+            <p class="float-left cw-text text-left">No more calling up multiple caterers for menus, choosing 4 items from 20 page long menu booklets, or haggling for discounts. Browse through our curated pre-planned menus. Served from popular restaurants at pre-negotiated bulk discounted prices</p>
+            <div style="clear: both"></div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="center">
+                <img src="./images/1.png" >
+            </div>
+        </div>
+        <div class="col-md-3" >
+            <div class="center">
+                <img src="./images/2.png" >
+            </div>
+        </div>
+    </div>
+    <div class="gap"></div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="center">
+                <img src="./images/3.png">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="center">
+                <img src="./images/4.png">
+            </div>
+        </div>
+        <div class="col-md-6 margin-center-27">
+            <h2 class="float-right">Wide variety with affordable pricing</h2>
+            <p class="float-right cw-text text-right">Choose from a variety of cuisines and package types. Authentic chinese, lebanese, only starters, high tea or a 5 course meal, we have it all. Get quality food from speciality restaurants. Our deep discounted packages are designed to fit every budget.</p>
+        </div>
+    </div>
+</div>
+<div class="gap gap-big"></div>
+<!--<div class="container-fluid">-->
+    <section class="parallax parallax-image light-bg" style="background-color: #ffffff; background-image:url('./images/nuts-570108.jpg');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div  class="parallax-content">
+                <div class="row">
+                    <p class="text-middle font20 bold" style="margin-top: 80px;"><span class="bg-red padding-5">Choose, customise and order in just 5 minutes. Delivered 15 minutes before your event starts.</span></p>
+                    <p class="text-middle padding-10 font45 bold" style="margin-bottom: 80px; line-height: 50px; "><span class="bg-red padding-5">As a host, you should enjoy too.</span></p>
+                </div>
+            </div> <!-- .parallax-content -->
+        </div>
+    </section>
+<!--</div>-->
+
+<div class="gap"></div>
+<div class="container">
+    <div class="row">
+        <h1 class="col-md-12 bold font50 text-middle">Choose from the best restaurants</h1>
+        <p class="text-middle cw-text">We're proud to work with a carefully curated selection of restaurants<br> whose food we genuinely love - and we're sure you will, too.</p>
+        <div class="gap small-gap"></div>
+        <div class="col-md-2"><img src = "abc.png" width = "125" height = "125"></div>
+        <div class="col-md-2"><img src = "abc.png" width = "125" height = "125"></div>
+        <div class="col-md-2"><img src = "abc.png" width = "125" height = "125"></div>
+        <div class="col-md-2"><img src = "abc.png" width = "125" height = "125"></div>
+        <div class="col-md-2"><img src = "abc.png" width = "125" height = "125"></div>
+        <div class="col-md-2"><img src = "abc.png" width = "125" height = "125"></div>
+        <div class="gap"></div>
+        <div class="col-md-2"><img src = "abc.png" width = "125" height = "125"></div>
+        <div class="col-md-2"><img src = "abc.png" width = "125" height = "125"></div>
+        <div class="col-md-2"><img src = "abc.png" width = "125" height = "125"></div>
+        <div class="col-md-2"><img src = "abc.png" width = "125" height = "125"></div>
+        <div class="col-md-2"><img src = "abc.png" width = "125" height = "125"></div>
+        <div class="col-md-2"><img src = "abc.png" width = "125" height = "125"></div>
+
+    </div>
+</div>
+<div class="gap"></div>
+<section id="host-enjoy" class="parallax parallax-image light-bg" style="background-color: #ffffff; background-image:url('./images/space-desk-workspace-coworking.jpg');">
     <div class="overlay"></div>
     <div class="container animated fade_ani" id = "choose">
         <div  class="parallax-content">
             <div class="row">
-                <p style="text-align: center; color: white; font-size: 18px; font-family: 'PT Sans', sans-serif; padding-top: 80px;">Choose, customise and order in just 5 minutes. Delivered 30 minutes before your event starts.</p>
-                <p style="font-size: 48px; color: white; font-family: 'Raleway', sans-serif; text-align: center; font-weight: bold; padding-bottom: 80px; line-height: 40px;">As a host, you should enjoy too.</p>								</div>
+                <p class="text-middle padding-10 font35 bold" style="margin-top: 60px; line-height: 50px; "><span class="bg-red padding-5">We'll deliver to your office, too.</span></p>
+                <div class="center">
+                <div class="text-middle padding-10 cw-text" style="width : 700px;margin-bottom: 60px; background-color : rgba(255,255,255,0.85);">Organising lunch for the team? Need food for thought at a meeting? <br> We have a team of specialists whose mission is to take the hassle out of <br>doing just that. Just get in touch and we'll take care of it.
+                    <br>
+                    <button class="btn btn-primary my-btn margin-center-27">Get in touch</button>
+                </div>
+                </div>
+            </div>
         </div> <!-- .parallax-content -->
     </div>
 </section>
 <div class="gap"></div>
-<div class="container">
+<div class="container-fluid bg-dark">
     <div class="row">
-
-        <div class="col-md-12 headingBig" style="text-align: center">Featured Partners</div>
-        <div class="gap gap-small"></div>
-        <wrap-owlcarousel class="owl-carousel" data-options="{autoPlay: 5000, stopOnHover: true,slideSpeed : 300, paginationSpeed : 400, singleItem : false}">
-            <div>
-                <img src="img/1.jpg" width="100px" height="200px"/>
+        <div class="col-md-10">
+            <div class="gap gap-mini"></div>
+            <div class="col-md-12">
+                <div class="float-left font20 bold">SIGN UP FOR SOME GREAT PARTY TIPS(and exclusive offers, obviously)</div>
+                <div style="clear: both"></div>
+                <div class="gap gap-mini"></div>
+                   <div class="row">
+                        <div class="form-group col-md-4">
+                            <input class="form-control" placeholder="Email" type="email">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input class="form-control" placeholder="Full Name" type="text">
+                        </div>
+                       <div class="col-md-4">
+                           <input type="submit" class="btn my-btn" value="SIGN ME UP">
+                       </div>
+                   </div>
+                <hr>
             </div>
-            <div>
-                <img src="img/2.jpg" width="100px" height="200px"/>
+            <!--<div class="col-md-12"><hr style="width: 2px; color: black; background-color: black"></div>-->
+            <div class="col-md-12">
+                <div class="float-left font20 bold">CONNECT WITH US</div>
+                <div style="clear: both"></div>
+                <div class="gap gap-mini"></div>
+                <!--<div></div>-->
+                <div class="row">
+                    <div class="col-md-4">
+                    <img src="a.png" class="float-left col-md-3" width = "70" height = "70">
+                    <img src="a.png" class="float-left col-md-3" width = "70" height = "70">
+                    <img src="a.png" class="float-left col-md-3" width = "70" height = "70">
+                    <img src="a.png" class="float-left col-md-3" width = "70" height = "70">
+                </div>
+                </div>
+                <hr>
             </div>
-            <div>
-                <img src="img/1.jpg" width="100px" height="200px"/>
-            </div>
-            <div>
-                <img src="img/2.jpg" width="100px" height="200px"/>
-            </div>
-            <div>
-                <img src="img/1.jpg" width="100px" height="200px"/>
-            </div>
-            <div>
-                <img src="img/2.jpg" width="100px" height="200px"/>
-            </div>
-        </wrap-owlcarousel>
-        <!--<div class="col-md-3"></div>-->
-
-    </div>
-</div>
-<div class="gap"></div>
-<section class="sign-up section-padding text-center" id="download">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <h3 class="headingBig">Subscribe for CaterWow Newsletter</h3>
+            <div class="gap gap-large"></div>
+        </div>
+        <div class="col-md-2" style="border-left: 2px solid black">
+                <div class="gap"></div>
+               <div class="cw-text bold"> Have you seen our blog?</div>
                 <div class="gap gap-small"></div>
-                <form class="signup-form" action="#" method="POST" role="form">
-                    <div class="form-input-group">
-                        <i class="fa fa-envelope"></i><input type="text" class="" placeholder="Name" required>
-                    </div>
-                    <div class="form-input-group">
-                        <i class="fa fa-lock"></i><input type="text" class="" placeholder="Enter your email" required>
-                    </div>
-                    <button type="submit" class="btn-fill sign-up-btn btn-primary">Subscribe</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-<div class="gap"></div>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12" style="text-align: center">
-            <span>About Us</span>
-            <span>Team</span>
-            <span>Jobs</span>
-            <span>FAQs</span>
+               <div></div> GO TO CATERWOW BLOG
+            <div class="gap"></div>
+
         </div>
     </div>
 </div>
-
 
 
 

@@ -4,7 +4,7 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     $scope.package = {};
     $scope.taxDetails = {};
     //$scope.totalPrice = 0;
-
+    $scope.cust = {};
     $scope.checkout = function(){
         $state.go('checkout');
     };
@@ -78,8 +78,13 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     };
     $scope.orders = $rootScope.order;
 
-    $scope.orderNow = orderService.checkout();
+    //$scope.orderNow = orderService.checkout();
     $scope.orderObject = orderService.orderObject;
+
+    $scope.placeOrder = function(){
+        console.log($scope.cust);
+        orderService.checkout($scope.cust);
+    };
 
 
     $scope.animationsEnabled = true;
