@@ -20,8 +20,8 @@
                     <div class="col-md-12">
                         <div class="float-left">
                             <div>
-                                <a class="font25 text-capitalize" ui-sref="hotel.packages({id : restaurant.restaurant_id})">{{hotel.name}}</a>
-                                <p class="restaurant-des font-20 italic">{{hotel.short_description}}</p>
+                                <a class="font25 text-capitalize text-black" ui-sref="hotel.packages({id : restaurant.restaurant_id})">{{hotel.name}}</a>
+                                <p class="restaurant-des font15 italic text-black">{{hotel.short_description}}</p>
                             </div>
                         </div>
                         <div class="float-right">
@@ -31,19 +31,19 @@
                             <p><a class="rating padding-5" ui-sref="hotel.reviews({id : restaurant.restaurant_id})">[{{hotel.review_count}} Reviews]</a></p>
                         </div>
                     </div>
-                    <div class="col-md-12"><hr style="margin-top : 5px;margin-bottom:5px;"></div>
+                    <div class="col-md-12"><hr class="bg-darke-grey" style="margin-top : 5px;margin-bottom:5px;"></div>
                     <div class="col-md-3">
                         <div class="restaurant-img2">
-                            <img src="a.png">
+                            <img src="a.png" class="img-responsive">
                         </div>
                     </div>
                     <div class="col-md-9">
-                        <div class="bold font15">{{hotel.cuisines}}</div>
-                        <div class="font15">Price (per person): {{hotel.min_package_price}} - {{hotel.max_package_price}}</div>
+                        <div class="bold font15 text-black">{{hotel.cuisines}}</div>
+                        <div class="font15 text-black">Price (per person): {{hotel.min_package_price}} - {{hotel.max_package_price}}</div>
                         <div class="gap gap-small"></div>
-                        <div class=""><hr style="margin-top: 5px;margin-bottom: 5px;"></div>
+                        <div class=""><hr class="bg-light-grey" style="margin-top: 5px;margin-bottom: 5px;"></div>
                         <div class="">
-                            <div class="font-15 float-left" style="line-height: 34px;">{{hotel.min_order_count}} packages min.</div>
+                            <div class="font-15 float-left text-black bold" style="line-height: 34px;">{{hotel.min_order_count}} packages min.</div>
                             <!--<div class="float-right"><button class="btn btn-primary" ui-sref="hotel.packages({id : restaurant.restaurant_id})">View Packages</button></div>-->
                         </div>
 
@@ -89,14 +89,18 @@
     <div class="row">
         <div class="col-md-9">
             <div class="gap gap-mini"></div>
+            <div class="row">
+                <div class="col-md-12">
             <div class="col-md-6 no-left-padding">
                 <div ui-sref ="hotel.packages" class="cw-text text-left res-view-btns active-menu">Packages</div>
             </div>
             <div class="col-md-3 no-left-padding">
-                <div ui-sref ="hotel.reviews" class="cw-text text-middle res-view-btns">Reviews</div>
+                <div ui-sref ="hotel.reviews" class="cw-text text-middle res-view-btns text-dark-grey">Reviews</div>
             </div>
             <div class="col-md-3 no-left-padding">
-                <div ui-sref ="hotel.about" class="cw-text text-middle res-view-btns">Restaurant Info</div>
+                <div ui-sref ="hotel.about" class="cw-text text-middle res-view-btns text-dark-grey">Restaurant Info</div>
+            </div>
+                </div>
             </div>
             <div class="gap gap-small"></div>
             <div class="hotel-tabs-content" ui-view></div>
@@ -109,8 +113,8 @@
                     <button ng-click="checkout()" style="width : 100%" ng-if = "orders.length >= 1" class="btn btn-primary my-btn bold">Confirm Order</button>
                 </div>
                 <div class="col-md-12">
-                    <div class="bold underline" style="font-size: 14px;">NO PAYMENT REQUIRED RIGHT NOW</div>
-                    <div class="bold" style="font-size: 11px; padding-bottom:10px">Upon confirmation of order, our team will get in touch with you to collect 30% advance payment</div>
+                    <div class="bold underline text-dark-grey" style="font-size: 14px;">NO PAYMENT REQUIRED RIGHT NOW</div>
+                    <div class="bold text-dark-grey" style="font-size: 11px; padding-bottom:10px">Upon confirmation of order, our team will get in touch with you to collect 30% advance payment</div>
                 </div>
             </div>
             <div ng-include = "'./templates/helpBox.tpl.html'"></div>

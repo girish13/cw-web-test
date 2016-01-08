@@ -21,6 +21,7 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
     $scope.additionalPrice = {};
     $scope.numberOfPackages = {};
     $scope.addInfo = {};
+    $scope.isPackageCollapsed = {};
 
     //loading wheels
     $scope.loadingRestaurantPackages = true;
@@ -32,6 +33,11 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
             });
         });
     });
+
+    $scope.openM = function(package_item,package){
+        if(package_item.has_options)
+        $scope.open(package_item,package);
+    };
 
     $scope.selection = [];
     //
@@ -95,7 +101,7 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
             animation: $scope.animationsEnabled,
             templateUrl: 'packageSelector.html',
             controller: 'packageSelectorModalController',
-            size: 'lg' ,
+            size: 'md' ,
             resolve: {
                 package_item : function(){
                     return package_item;
@@ -194,8 +200,8 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
                         //else
                         //$scope.count[value.id] =
                          //console.log($scope.itemOptionCategoryList);
-                        $scope.loadingModal = false;
                     });
+                    $scope.loadingModal = false;
                 });
         ////console.log($scope.itemOptionCategoryList);
         //if($scope.pre_package[$scope.package_item.id]) {

@@ -2,32 +2,35 @@
     <!--{{hotelPackages}}-->
     <div class="col-md-12" ng-if = "loadingRestaurantPackages">
         <!--<div class="gap"></div>-->
-        <h4 class="text-middle"><i class="fa fa-spinner fa-pulse"></i></h4>
-        <h4 class="text-middle">Loading Packages</h4>
+        <h4 class="text-middle text-dark-grey"><i class="fa fa-spinner fa-pulse"></i></h4>
+        <h4 class="text-middle text-dark-grey">Loading Packages</h4>
     </div>
 
 
     <div class="package" ng-repeat="hotelPackage in hotelPackages">
-        <!--<div>-->
+        <span class="pointer" ng-init="isPackageCollapsed[hotelPackage.id] = true" ng-click="isPackageCollapsed[hotelPackage.id] = !isPackageCollapsed[hotelPackage.id]">
             <div class = "float-left">
-               <div class="package_name"> {{hotelPackage.name}}</div>
+               <div class="package_name text-black"> {{hotelPackage.name}}</div>
 
-                <div class = "font15 italic" >{{hotelPackage.description}}</div>
+                <div class = "font15 italic text-light-grey" >{{hotelPackage.description}}</div>
             </div>
 
             <div class="package_price float-right">Rs. {{hotelPackage.price}} per person</div>
-            <!--<div class="clear"></div>-->
-            <div class="row"><div class="col-md-12"><hr class="no-margin"></div></div>
+                        <div class="row"><div class="col-md-12"><hr class="bg-grey no-margin"></div></div>
+                        <div style="clear: both"></div>
+
+        </span>
+        <span uib-collapse="isPackageCollapsed[hotelPackage.id]">
         <!--</div>-->
-            <div style="clear: both"></div>
                 <div class="row itemseo">
                 <!--<div >-->
-                    <div class="col-md-6 padding-5" ng-repeat="package_item in hotelPackage.packageDetails" ng-click="open(package_item,package)">
+                    <div class="col-md-6 padding-5" ng-repeat="package_item in hotelPackage.packageDetails" ng-click="openM(package_item,package)">
                         <div class="menu-item">
-                            <div class="font15 bold">{{package_item.name}} <span class="text-red">{{packageError[package_item.id]}}</span></div>
-                            <div class="package_item_des">{{package_item.description}}</div>
-                            <hr style="margin-bottom: 5px; margin-top: 5px;">
-                            <div class="selected_package_items">   {{itemsSelected[package_item.id]}}</div>
+                            <div class="font15 bold text-dark-grey">{{package_item.name}} <span class="text-red float-right"  ng-if="!package[package_item.id]">{{packageError[package_item.id]}}</span></div>
+                            <div class="package_item_des text-dark-grey">{{package_item.description}}</div>
+                            <hr class="bg-light-grey" style="margin-bottom: 5px; margin-top: 5px;">
+                            <!--<div class="selected_package_items">   {{itemsSelected[package_item.id]}}</div>-->
+                            <span ng-if="package_item.has_options"><span class="font15 text-light-grey" ng-if="!package[package_item.id]">No Option Selected</span></span>
                             <span class="font15 text-green" ng-repeat="option in package[package_item.id]">
                             {{itemOptionCategories[package_item.id][option[0].menu_item_option_id]}} :
                             <span class="font15 bold text-green" ng-repeat = "item in option">  {{ item.name }} |</span>
@@ -60,7 +63,7 @@
                     <button ng-click="addOrder(hotelPackage)" class="btn btn-primary my-btn text-middle bg-red full-width bold">Add To Order(Rs. {{hotelPackage.price * numberOfPackages[hotelPackage.id]}})</button>
                 </div>
             </div>
-
+        </span>
     <!--<div class="gap"></div>-->
     </div>
 
@@ -72,41 +75,41 @@
 
 
 
-    <uib-accordion close-others="false">
-        <uib-accordion-group ng-repeat="">
-            <uib-accordion-heading>
-                 <span class="package_name">{{hotelPackage.name}}</span> <span class="package_price">{{hotelPackage.price}} per person</span>
-                <p class="package_des"><br>{{hotelPackage.description}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></p>
-            </uib-accordion-heading>
-            <div class = "row"  >
-                <div class="col-md-10">
-                    <div class="package_item_name">{{package_item.name}}  </div>
-                    <div class="package_item_des">{{package_item.description}}</div>
+    <!--<uib-accordion close-others="false">-->
+        <!--<uib-accordion-group ng-repeat="">-->
+            <!--<uib-accordion-heading>-->
+                 <!--<span class="package_name">{{hotelPackage.name}}</span> <span class="package_price">{{hotelPackage.price}} per person</span>-->
+                <!--<p class="package_des"><br>{{hotelPackage.description}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></p>-->
+            <!--</uib-accordion-heading>-->
+            <!--<div class = "row"  >-->
+                <!--<div class="col-md-10">-->
+                    <!--<div class="package_item_name">{{package_item.name}}  </div>-->
+                    <!--<div class="package_item_des">{{package_item.description}}</div>-->
 
 
-                </div>
-                <div class=" col-md-2 choose_item_btn">
-                    <button ng-click="open(package_item,package)" class = "btn btn-primary" style="margin-left:15px;" ng-if="package_item.has_options" >Choose</button>
-                    <button class="btn btn-primary choose_item_btn" ng-if="!package_item.has_options">See Details</button>
+                <!--</div>-->
+                <!--<div class=" col-md-2 choose_item_btn">-->
+                    <!--<button ng-click="open(package_item,package)" class = "btn btn-primary" style="margin-left:15px;" ng-if="package_item.has_options" >Choose</button>-->
+                    <!--<button class="btn btn-primary choose_item_btn" ng-if="!package_item.has_options">See Details</button>-->
 
-                </div>
-                <div class="row"><div class="col-md-12"> <hr> </div></div>
+                <!--</div>-->
+                <!--<div class="row"><div class="col-md-12"> <hr> </div></div>-->
 
-            </div>
+            <!--</div>-->
 
-            <div class = "row">
-                    <div class="col-md-10">
-                        <label class="col-md-4" style="line-height: 34px">Number Of Packages</label>
-                        <div class="col-md-2">
-                            <input class="form-control" type="number" max = 100 min = 1 ng-model = "numberOfPackages[hotelPackage.id]">
-                        </div>
-                    </div>
-                <div class="col-md-2">
-                    <button  class="btn btn-primary">Add to Cart</button>
-                </div>
-            </div>
-        </uib-accordion-group>
-    </uib-accordion>
+            <!--<div class = "row">-->
+                    <!--<div class="col-md-10">-->
+                        <!--<label class="col-md-4" style="line-height: 34px">Number Of Packages</label>-->
+                        <!--<div class="col-md-2">-->
+                            <!--<input class="form-control" type="number" max = 100 min = 1 ng-model = "numberOfPackages[hotelPackage.id]">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--<div class="col-md-2">-->
+                    <!--<button  class="btn btn-primary">Add to Cart</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</uib-accordion-group>-->
+    <!--</uib-accordion>-->
 
 
 </div>

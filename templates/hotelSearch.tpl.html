@@ -2,7 +2,7 @@
 <div ng-include = "'./templates/searchBar.tpl.html'"></div>
 <div class="container">
     <!--<div class = "row">-->
-    <ol class="breadcrumb">
+    <ol class="breadcrumb text-dark-grey">
         <li class="text-red">Home</li>
         <li class="bold" ng-controller="locationSearchController">Browse Restaurants & Caterers in {{selectedLocality.name}}</li>
         <li>Configure packages</li>
@@ -22,51 +22,47 @@
                 <!--<div class="row">-->
                 <div class="gap gap-mini"></div>
                 <!--</div>-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--<div class="form-group">-->
+                            <div class="bold filter-name pointer text-dark-grey" ng-init="isCollapsed['price'] = false" ng-click="isCollapsed['price'] = !isCollapsed['price']">Price (per person)</div>
+                            <!--<div ui-slider="{range : true}" min="0" max = "2000" step="50" ng-model="priceRange"></div>-->
+
+                            <div uib-collapse="isCollapsed['price']" class="price-slider text-dark-grey">
+                                <rzslider
+                                        rz-slider-model="slider.min"
+                                        rz-slider-high="slider.max"
+                                        rz-slider-options="slider.options"></rzslider>
+                                <!--</div>--></div>
+                        </div>
+                    </div>
+                    <div class="gap gap-mini"></div>
                 <div class="row" ng-repeat="filtertype in filterTypes">
                 <div class="col-md-12">
                     <!--<div class="form-group">-->
-                        <div class="bold filter-name">{{filtertype.type}}s </div>
+                        <div class="bold filter-name pointer text-dark-grey" ng-init="isCollapsed[filtertype.type] = false" ng-click="isCollapsed[filtertype.type] = !isCollapsed[filtertype.type]">{{filtertype.type}}s</div>
                     <!--<input class="form-control" placeholder="Search {{filtertype.type}}s" ng-model="text[filtertype.type]">-->
                         <div class="col-md-12" ng-if = "loadingFilters[filtertype.type]">
                             <div class="gap"></div>
                             <h4 class="text-middle"><i class="fa fa-spinner fa-pulse"></i></h4>
-                            <h4 class="text-middle">Searching {{filtertype.type}}s</h4>
+                            <h4 class="text-middle text-dark-grey">Searching {{filtertype.type}}s</h4>
                         </div>
-                    <div class="filters" ng-class="{highlight: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-repeat="filter in filters[filtertype.type] | filter : text[filtertype.type]">
-                        <input type = "checkbox" data-checklist-model="selectedFilters" data-checklist-value="filter">
-                        <a href>{{filter.name}}</a>
+                    <div class="filters" uib-collapse="isCollapsed[filtertype.type]" ng-class="{highlight: isFilterChecked[filter.id] || hover}" ng-click="isFilterChecked[filter.id] = !isFilterChecked[filter.id]" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-repeat="filter in filters[filtertype.type] | filter : text[filtertype.type]">
+                        <input style="visibility: hidden;"  type = "checkbox" data-checklist-model="selectedFilters" ng-model="isFilterChecked[filter.id]" data-checklist-value="filter">
+                        <span href class="text-dark-grey font15 text-capitalize">{{filter.name}}</span>
                     </div>
                     <!--</div>-->
                 </div>
                     <div class="gap gap-small"></div>
                 </div>
                 <!--{{selectedFilters}}-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <!--<div class="form-group">-->
-                            <div class="bold filter-name">Price (per person)</div>
-                        <!--<div ui-slider="{range : true}" min="0" max = "2000" step="50" ng-model="priceRange"></div>-->
 
-                        <div class="price-slider">
-                            <rzslider
-                                rz-slider-model="slider.min"
-                                rz-slider-high="slider.max"
-                                rz-slider-options="slider.options"></rzslider>
-                        <!--</div>--></div>
-                    </div>
-                </div>
-                <div class="gap gap-small"></div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <!--<button style="width:100%" class="btn btn-primary" ng-click="filterRestaurants()">Apply Filters</button>-->
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
         <div class = "col-md-9">
 
-            <div class="col-md-6">
+            <div class="col-md-6" style="visibility: hidden">
                 <div class="">
                     <input class="form-control search-fields" placeholder="Search by dish or restaurant name">
                 </div>
@@ -75,13 +71,13 @@
             <div class="col-md-offset-3 col-md-3">
                 <!--<div class="form-group">-->
                     <!--<label>Sort By :</label>-->
-                    <select ng-options="'Sort by:  '+type for type in sortTypes" ng-model = "sortType" class="form-control search-fields text-capitalize"></select>
+                    <select ng-change="filterRestaurants()" ng-options="'Sort by:  '+type for type in sortTypes" ng-model = "sortType" class="form-control search-fields text-capitalize text-dark-grey"></select>
                 <!--</div>-->
             </div>
                 <div class="col-md-12" ng-if = "loadingRestaurants">
                     <div class="gap"></div>
-                    <h1 class="text-middle"><i class="fa fa-spinner fa-pulse"></i></h1>
-                    <h1 class="text-middle">searching restaurants</h1>
+                    <h1 class="text-middle text-dark-grey"><i class="fa fa-spinner fa-pulse"></i></h1>
+                    <h1 class="text-middle text-dark-grey">searching restaurants</h1>
                 </div>
             <div class="col-md-12">
                 <div class = "search-message cw-text highlight" ng-hide="loadingRestaurants">
@@ -96,8 +92,8 @@
                  <div class="col-md-12">
                      <div class="float-left">
                          <div>
-                             <a class="font25 text-capitalize" ui-sref="hotel.packages({id : restaurant.restaurant_id})">{{restaurant.name}}</a>
-                             <p class="restaurant-des font-20 italic">{{restaurant.short_description}}</p>
+                             <a class="font25 text-capitalize text-black" ui-sref="hotel.packages({id : restaurant.restaurant_id})">{{restaurant.name}}</a>
+                             <p class="restaurant-des font15 italic text-light-grey">{{restaurant.short_description}}</p>
                          </div>
                      </div>
                      <div class="float-right">
@@ -107,20 +103,20 @@
                          <p><a class="rating padding-5" ui-sref="hotel.reviews({id : restaurant.restaurant_id})">[{{restaurant.review_count}} Reviews]</a></p>
                      </div>
                  </div>
-                 <div class="col-md-12"><hr style="margin-top : 5px;margin-bottom:5px;"></div>
+                 <div class="col-md-12"><hr class = "bg-dark-grey" style="margin-top : 5px;margin-bottom:5px; height : 1px;"></div>
                  <div class="col-md-3">
                      <div class="restaurant-img">
-                         <img src="a.png">
+                         <img src="a.png" class="img-responsive">
                      </div>
                  </div>
                  <div class="col-md-9">
-                     <div class="bold font15">{{restaurant.cuisines}}</div>
-                     <div class="font15">Price (per person): {{restaurant.min_package_price}} - {{restaurant.max_package_price}}</div>
+                     <div class="bold font15 text-dark-grey">{{restaurant.cuisines}}</div>
+                     <div class="font15 text-dark-grey">Price (per person): {{restaurant.min_package_price}} - {{restaurant.max_package_price}}</div>
                      <div class="gap gap-small"></div>
-                     <div class=""><hr style="margin-top: 5px;margin-bottom: 5px;"></div>
+                     <div class=""><hr class="bg-light-grey" style="margin-top: 5px;margin-bottom: 5px;"></div>
                      <div class="">
-                         <div class="font-15 float-left" style="line-height: 34px;">{{restaurant.min_order_count}} packages min.</div>
-                          <div class="float-right"><button class="btn btn-primary" ui-sref="hotel.packages({id : restaurant.restaurant_id})">View Packages</button></div>
+                         <div class="font-15 float-left text-dark-grey" style="line-height: 34px;">{{restaurant.min_order_count}} packages min.</div>
+                          <div class="float-right"><button class="btn bg-red my-btn" ui-sref="hotel.packages({id : restaurant.id})">View Packages</button></div>
                      </div>
 
                  </div>

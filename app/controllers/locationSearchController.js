@@ -36,6 +36,16 @@ app.controller('locationSearchController',function($rootScope,$scope,$log,api,$s
 
     });
 
+    $scope.getStarted =function(){
+        if($scope.selectedLocality.id){
+        $rootScope.searchDetails = {};
+        $rootScope.searchDetails.selectedState = $scope.selectedState;
+        $rootScope.searchDetails.selectedCity = $scope.selectedCity;
+        $rootScope.searchDetails.selectedLocality = $scope.selectedLocality;
+        $state.go('search');
+        }
+    };
+
     $scope.updateLocation = function(){
         if($scope.selectedLocality.id && $scope.dt && $scope.mytime && $scope.numberOfPersons){
             $rootScope.searchDetails = {};

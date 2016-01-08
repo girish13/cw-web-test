@@ -68,6 +68,23 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.
             url : '/editorder',
             templateUrl : "templates/editOrder.tpl.html",
             controller : 'orderController'
+        })
+        .state('faq',{
+            url : '/faqs',
+            templateUrl : "templates/staticTemplates/faq.tpl.html"
+        })
+        .state('terms',{
+            url : '/TermsAndConditions',
+            templateUrl : "templates/staticTemplates/termsAndConditions.tpl.html"
+        })
+        .state('policy',{
+            url : '/PrivacyPolicies',
+            templateUrl : "templates/staticTemplates/privacyPolicy.tpl.html"
+        })
+        .state('partnerSignUp',{
+            url : '/PartnerWithUs',
+            templateUrl : "templates/partnerSignUp.tpl.html",
+            controller : "partnerSignUpController"
         });
         //.state('dashboard', {
         //    url: '/dashboard',
@@ -96,18 +113,21 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.
        $rootScope.custId = 0;
         //console.log($rootScope.custId);
     });
-
-angular.module('app')
-    .directive('datepickerPopup', function (){
-        return {
-            restrict: 'EAC',
-            require: 'ngModel',
-            link: function(scope, element, attr, controller) {
-                //remove the default formatter from the input directive to prevent conflict
-                controller.$formatters.shift();
-            }
-        }
-    });
+app.run(function($rootScope,$state){
+    $rootScope.$state = $state;
+});
+//
+//angular.module('app')
+//    .directive('datepickerPopup', function (){
+//        return {
+//            restrict: 'EAC',
+//            require: 'ngModel',
+//            link: function(scope, element, attr, controller) {
+//                //remove the default formatter from the input directive to prevent conflict
+//                controller.$formatters.shift();
+//            }
+//        }
+//    });
 app.directive('wrapOwlcarousel', function () {
     return {
         restrict: 'E',
@@ -125,6 +145,9 @@ app.filter('range', function() {
             input.push(i);
         return input;
     };
+});
+app.controller('partnerSignUpController',function($scope){
+
 });
 //angular.module('app', ['rzModule']);
 

@@ -6,6 +6,7 @@
     <title>CaterWow</title>
     <link rel="shortcut icon" type="image/x-icon" href="http://res.cloudinary.com/hrscywv4p/image/upload/c_limit,h_64,w_64/v1/263138/Mnemonic_gwg7hr.png">
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="bootstrap/css/bootstrap-glyphicons.css">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <!--<link rel="stylesheet" href="lib/ui-tags/ng-tags-input.css">-->
     <link rel="stylesheet" href="lib/rzslider/rzslider.css">
@@ -21,9 +22,9 @@
     <!--<base href="/">-->
 </head>
 
-<body ng-app="app" class = "body-wrap bg-light-body">
+<body ng-app="app" class = "body-wrap">
 
-<div id="scroll-bar" ui-view></div>
+<div id="scroll-bar" class="bg-white" ng-class="{'bg-light-body' : $state.current.name !== 'home'}" ui-view></div>
 
 
 <script src="lib/jquery/dist/jquery.min.js"></script>
@@ -35,7 +36,7 @@
 <!--<script src="lib/satellizer/satellizer.min.js"></script>-->
 <!--<script src="https://cdn.jsdelivr.net/satellizer/0.13.1/satellizer.min.js"></script>-->
 <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
-<script src="lib/angular-ui/ui-bootstrap-tpls-0.14.3.min.js"></script>
+<script src="lib/angular-ui/ui-bootstrap-tpls-0.14.3.js"></script>
 <!--<script src="lib/ui-tags/ng-tags-input.js"></script>-->
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-resource.js"></script>
 <!--<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.min.js'></script>-->

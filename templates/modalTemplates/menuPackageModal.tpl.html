@@ -2,32 +2,40 @@
     <div class="modal-header">
         <h3 class="modal-title">{{package_item.name}}</h3>
     </div>
-    <div class="modal-body" ng-if = "loadingModal">
+    <div class="modal-body text-dark-grey" ng-if = "loadingModal" >
             <h4 class="text-middle"><i class="fa fa-spinner fa-pulse"></i></h4>
             <h4 class="text-middle">Loading..</h4>
     </div>
-    <div class="modal-body" ng-if = "!loadingModal">
-        <h1 style="color: red">{{error}}</h1>
-
-        {{package_item.description}}
-        <!--{{itemOptions}}-->
-        <div class="row">
-        <div ng-model="dish" class = "col-md-4" ng-repeat="itemOptionCategory in itemOptionCategories">
-            <h1>{{itemOptionCategory.menu_item_option_name}}</h1>
-            <p>{{itemOptionCategory.description}}</p>
-            <div class = "" ng-repeat="itemOption in itemOptionCategoryList[itemOptionCategory.id]">
-                <label class = "checkbox" for = "{{itemOption.id}}"></label>
-                <input type="checkbox" ng-disabled="(count[itemOptionCategory.id]>=max_choice[itemOptionCategory]) && !isChecked[itemOption.id]" ng-model = "isChecked[itemOption.id]"  ng-click = "countCheck(itemOption.id,itemOptionCategory.id)"  data-checklist-model="selectedItem[itemOptionCategory.id]" data-checklist-value="itemOption" id = "{{itemOption.id}}">
-                {{itemOption.name}}
+    <div class="modal-body padding-5 text-dark-grey" ng-if = "!loadingModal" style="overflow: auto; height : 400px;">
+        <div class="">
+            <div class="col-md-12 text-dark-grey font20">{{package_item.description}}
             </div>
-            {{count[itemOptionCategory.id]}}
-            {{min_choice[itemOptionCategory.id]}}
-            {{max_choice[itemOptionCategory.id]}}
-            <hr>
-           Choose At most : {{itemOptionCategory.max_choice}}, At least: {{itemOptionCategory.min_choice}}
+        </div>
+        <!--{{itemOptions}}-->
+        <!--<div class="row">-->
+            <div ng-model="dish" class = "col-md-12" ng-repeat="itemOptionCategory in itemOptionCategories">
+            <!--{{itemOptionCategory}}-->
+                <div class="filter-name bold text-dark-grey font20" style="padding: 5px !important;">{{itemOptionCategory.name}}</div>
+                <div class="col-md-12 text-left font15 text-light-grey">{{itemOptionCategory.description}}
+                    <!--<span ng-if="itemOptionCategory.min_choice == 1">( Required - Choose {{itemOptionCategory.max_choice}}</span><span ng-if="itemOptionCategory.min_choice == 0">( Optional -</span>-->
+                    <span>( Choose At least : {{itemOptionCategory.min_choice}}, At most : {{itemOptionCategory.max_choice}} )</span>
+                    <div class="text-red font15">{{error[itemOptionCategory.id]}}</div>
+                </div>
+
+                <div class="col-md-12"><hr class="no-margin"></div>
+                <div class = "filters col-md-6 text-left" ng-class="{highlight: isChecked[itemOption.id] || hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-repeat="itemOption in itemOptionCategoryList[itemOptionCategory.id]">
+                <!--<label class = "checkbox" for = "{{itemOption.id}}"></label>-->
+                    <input type="checkbox"  ng-model = "isChecked[itemOption.id]"  ng-click = "countCheck(itemOption.id,itemOptionCategory.id)"  data-checklist-model="selectedItem[itemOptionCategory.id]" data-checklist-value="itemOption" id = "{{itemOption.id}}">
+                <span class="text-dark-grey font15 text-capitalize">{{itemOption.name}}</span>
+             </div>
+            <!--{{count[itemOptionCategory.id]}}-->
+            <!--{{min_choice[itemOptionCategory.id]}}-->
+            <!--{{max_choice[itemOptionCategory.id]}}-->
+
+           <!--Choose At most : {{itemOptionCategory.max_choice}}, At least: {{itemOptionCategory.min_choice}}-->
             <!--{{selectedItem[itemOptionCategory.id]}}-->
-        </div>
-        </div>
+            </div>
+        <!--</div>-->
         <!--{{pre_package}}-->
     </div>
     <div class="modal-footer">

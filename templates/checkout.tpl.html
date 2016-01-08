@@ -45,7 +45,7 @@
 
         <!--<button class="btn btn-primary" ng-click="orderNow()">Order Now</button>-->
     <!--</div>-->
-    <div class="col-md-8">
+    <div class="col-md-9">
         <div class="row white-background-box">
         <div class="headingBig col-md-12">
             Fill in Your Details
@@ -53,38 +53,51 @@
         </div>
 
         <div class="col-md-12">
-            <form id = "register-form" >
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="name" id ="name" value="" placeholder="Enter your name" aria-describedby="basic-addon2" ng-model="cust.name">
+            <form>
+                <div class="form-group col-md-6">
+                    <div class="input-group ">
+                        <input type="text" class="form-control" name="fname" value="" placeholder="First name" aria-describedby="basic-addon2" ng-model="cust.first_name">
                         <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-user"></i></span>
                     </div>
                     <!--<span ng-show=" home.errors.register_name" class="help-block">{{home.errors.register_name}}</span>-->
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-6">
+                    <div class="input-group ">
+                        <input type="text" class="form-control" name="lname"  value="" placeholder="Last name" aria-describedby="basic-addon2" ng-model="cust.last_name">
+                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-user"></i></span>
+                    </div>
+                    <!--<span ng-show=" home.errors.register_name" class="help-block">{{home.errors.register_name}}</span>-->
+                </div>
+                <div class="form-group col-md-6">
                     <div class="input-group">
                         <input type="text" class="form-control" name="phone" value="" placeholder="Phone number(10 digits)" aria-describedby="basic-addon2" ng-model="cust.number">
                         <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-phone"></i></span>
                     </div>
                     <!--<span ng-show="home.errors.register_number" class="help-block">{{home.errors.register_number}}</span>-->
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-6">
                     <div class="input-group">
-                        <input type="email" class="form-control" name="email_login" id ="email_login" value="" placeholder="Enter email id" aria-describedby="basic-addon2" ng-model="cust.email">
+                        <input type="email" class="form-control" name="email_login" value="" placeholder="Email address" aria-describedby="basic-addon2" ng-model="cust.email">
                         <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-envelope"></i></span>
                     </div>
                     <!--<span ng-show="home.errors.register_email" class="help-block">{{home.errors.register_email}}</span>-->
 
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-6">
+                    <span class="form-control" ng-controller="locationSearchController">{{selectedLocality.name}}</span>
+                </div>
+                <div class="form-group col-md-6">
+                    <span class="form-control">Gurgaon</span>
+                </div>
+                <div class="form-group col-md-12">
                     <!--<div class="input-group">-->
                         <textarea class="form-control" name="address" placeholder="Delivery Address" ng-model="cust.address"></textarea>
-                        <span class="text-middle" ng-controller="locationSearchController">Delivery locality : {{selectedLocality.name}},Gurgaon</span>
+                        <!--<span class="text-middle" ng-controller="locationSearchController">Delivery locality : {{selectedLocality.name}},Gurgaon</span>-->
                         <!--<span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>-->
                     <!--</div>-->
                     <!--<span ng-show="home.errors.register_password" class="help-block">{{home.errors.register_password}}</span>-->
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-12">
                     <!--<div class="input-group">-->
                     <textarea class="form-control" name="instructions" placeholder="Instructions" ng-model="cust.instruction"></textarea>
                     <!--<span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>-->
@@ -100,15 +113,15 @@
         </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="white-background-box row no-padding" ng-controller="orderController">
            <ng-include src = "'./templates/orderSidebar.tpl.html'"></ng-include>
             <!--<div class="col-md-12">-->
                 <!--&lt;!&ndash;<button ng-click="checkout()" style="width : 100%" ng-disabled = "orders.length < 1" class="btn btn-primary">Continue to Checkout</button>&ndash;&gt;-->
             <!--</div>-->
             <div class="col-md-12">
-                <div class="bold underline" style="font-size: 14px;">NO PAYMENT REQUIRED RIGHT NOW</div>
-                <div class="bold" style="font-size: 11px; padding-bottom:10px">Upon confirmation of order, our team will get in touch with you to collect 30% advance payment</div>
+                <div class="bold underline text-dark-grey" style="font-size: 14px;">NO PAYMENT REQUIRED RIGHT NOW</div>
+                <div class="bold text-dark-grey" style="font-size: 11px; padding-bottom:10px">Upon confirmation of order, our team will get in touch with you to collect 30% advance payment</div>
             </div>
         </div>
         <div ng-include = "'./templates/helpBox.tpl.html'"></div>

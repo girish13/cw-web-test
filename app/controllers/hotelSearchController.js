@@ -7,6 +7,8 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
         Cuisine : true,
         Other : true
     };
+    $scope.isFilterChecked = {};
+    $scope.isCollapsed = {};
     //$scope.loadTags = function(query) {
     //    return $http.get('/tags?query=' + query);
     //};
@@ -34,9 +36,20 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
     $scope.restaurants = api.searchRestaurants.query({locality_id : $scope.locality_id,date : $scope.date,time : $scope.time ,pax : $scope.pax},function(){
         //console.log($scope.restaurants);
         $scope.loadingRestaurants = false;
+        $scope.$watch('selectedFilters',function(newVal,oldVal){
+                //console.log("changed");
+                $scope.filterRestaurants();
+            },true
+        );
+        $scope.$watch('slider',function(newVal,oldVal){
+                //console.log("changed");
+                $scope.filterRestaurants();
+            },true
+        );
     });
 
      $scope.filterRestaurants = function() {
+         $scope.loadingRestaurants = true;
          $scope.price_max = $scope.slider.max;
          $scope.price_min = $scope.slider.min;
          $scope.filter_string = null;
@@ -62,6 +75,7 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
              price_max: $scope.price_max,
              price_min: $scope.price_min
          }, function () {
+             $scope.loadingRestaurants = false;
                //console.log($scope.restaurants);
          });
      };
@@ -79,8 +93,10 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
         });
     });
 
-
-
-
-
+    //$scope.$watchGroup(['sortType','selectedFilters','price_min','price_max'],$scope.filterRestaurants());
+    //$scope.$watch('price_max',function(newVal,oldVal){
+    //        //console.log("changed");
+    //        $scope.filterRestaurants();
+    //    }
+    //);
 });

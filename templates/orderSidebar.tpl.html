@@ -13,7 +13,7 @@
 </div>
 <div class="gap gap-mini"></div>
 <div ng-if = "orders.length < 1">
-    <h4 class="col-md-12 text-middle">Sorry, Your haven't selected any Package yet</h4>
+    <h4 class="col-md-12 text-middle text-dark-grey">Sorry, Your haven't selected any Package yet</h4>
 </div>
 <!--<div ng-if = "orders.length >= 1" class="row">-->
     <!--<div class="col-md-5">Package</div>-->
@@ -21,7 +21,7 @@
     <!--<div class="col-md-3">Price(&#8377;)</div>-->
     <!--<div class="col-md-12"><hr></div>-->
 <!--</div>-->
-<div class="col-md-12" ng-if = "orders.length >= 1" ng-repeat = "order in orders">
+<div class="col-md-12 text-dark-grey" ng-if = "orders.length >= 1" ng-repeat = "order in orders">
     <div class="row">
         <div class="col-md-12" ng-if = "showPackages(order[2].type)">
             <div class="row">
