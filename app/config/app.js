@@ -115,6 +115,7 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.
     });
 app.run(function($rootScope,$state){
     $rootScope.$state = $state;
+    $rootScope.imagePath = '';
 });
 //
 //angular.module('app')

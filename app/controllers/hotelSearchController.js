@@ -2,6 +2,7 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
     $scope.tags = [
     ];
     //loading spinners
+    $scope.imagesPath = $rootScope.imagePath;
     $scope.loadingRestaurants = true;
     $scope.loadingFilters = {
         Cuisine : true,

@@ -1,5 +1,6 @@
 app.controller('hotelController',function($rootScope,$scope,$stateParams,api){
     $rootScope.custId = 0; // to be removed
+    $scope.imagesPath = $rootScope.imagePath;
 $rootScope.hotelId = $stateParams.id;
 $scope.hotelDetails = api.getHotel.query({id : $rootScope.hotelId},function(){
     angular.forEach($scope.hotelDetails[0],function(value,key){
