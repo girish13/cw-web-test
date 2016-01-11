@@ -746,7 +746,7 @@ textarea{
     /*width: auto;*/
 }
 .main-carousel-image>img{
-    width : 100%;
+    width : auto;
     height : 510px;
 }
 

@@ -8,19 +8,25 @@
 
 
     <div class="package" ng-repeat="hotelPackage in hotelPackages">
-        <span class="pointer" ng-init="isPackageCollapsed[hotelPackage.id] = true" ng-click="isPackageCollapsed[hotelPackage.id] = !isPackageCollapsed[hotelPackage.id]">
+        <div class="pointer" ng-init="isPackageCollapsed[hotelPackage.id] = true" ng-click="isPackageCollapsed[hotelPackage.id] = !isPackageCollapsed[hotelPackage.id]">
             <div class = "float-left">
                <div class="bold font20 text-red"> {{hotelPackage.name}}</div>
             </div>
-            <div class="package_price float-right">Rs. {{hotelPackage.price}} per person</div>
+            <div class="package_price float-right" ng-mouseover="showPriceDetails = true" ng-mouseleave="showPriceDetails = false" ng-if = "hotelPackage.price">Rs. {{hotelPackage.price}} per person <span  ><i class="fa fa-info-circle text-red"></i></span> </div>
+            <div class="package_price float-right" ng-mouseover="showPriceDetails = true" ng-mouseleave="showPriceDetails = false" ng-if = "!hotelPackage.price">Rs. {{hotelPackage.price_min}} - {{hotelPackage.price_max}} per person <span ng-click = "showPriceDetails = true" ng-mouseleave="showPriceDetails = false"><i class="fa fa-info-circle text-red"></i></span>  </div>
+            <div ng-init = "showPriceDetails = false" ng-show = "showPriceDetails">
+                <span ng-repeat="pricerange in hotelPackage.pricing">
+                    {{pricerange.min_pax}} - {{pricerange.max_pax}} packages : Rs. {{pricerange.price_per_person}} <br>
+                </span>
+            </div>
             <div style="clear: both"></div>
             <div class = "package_item_des float-left font13" >{{hotelPackage.description}}</div>
 
                         <div class="row"><div class="col-md-12"><hr class="bg-grey no-margin"></div></div>
                         <div style="clear: both"></div>
 
-        </span>
-        <span uib-collapse="isPackageCollapsed[hotelPackage.id]">
+        </div>
+        <div uib-collapse="isPackageCollapsed[hotelPackage.id]">
         <!--</div>-->
                 <div class="row itemseo">
                 <!--<div >-->
@@ -34,7 +40,7 @@
                             <span ng-if="package_item.has_options"><span class="text-light-grey" ng-if="!package[package_item.id]">No Option Selected</span></span>
                             <span class="text-green" ng-repeat="option in package[package_item.id]">
                             {{itemOptionCategories[package_item.id][option[0].menu_item_option_id]}} :
-                            <span class="bold text-green" ng-repeat = "item in option">  {{ item.name }} |</span>
+                            <span class="bold text-green" ng-repeat = "item in option">  {{ item.name }} <span ng-if = "item.price">(Rs. {{item.price}} extra)</span>|</span>
                              </span>
                             </div>
                         </div>
@@ -54,7 +60,7 @@
                     <div class="col-md-8 bold font20" style="line-height: 34px">Number Of Packages</div>
                     <!--<span ng-controller="locationSearchController" ng-init = "numberOfPackages[hotelPackage.id] = numberOfPersons"></span>-->
                     <div class="col-md-3">
-                        <input class="form-control padding-5" ng-init = "numberOfPackages[hotelPackage.id] = 1" type="number" max = 100 min = 1 ng-model = "numberOfPackages[hotelPackage.id]">
+                        <input class="form-control padding-5"  ng-init = "numberOfPackages[hotelPackage.id] = pax" type="number" max = 100 min = 10 ng-change = "calculateTotalPrice(hotelPackage)" ng-model = "numberOfPackages[hotelPackage.id]">
                     </div>
                     <!--<span ng-click="numberOfPackages[hotelPackage.id] = numberOfPackages[hotelPackage.id] + 1"> + </span>-->
 
@@ -62,10 +68,10 @@
 
                 </div>
                 <div class="col-md-7">
-                    <button ng-click="addOrder(hotelPackage)" class="btn btn-primary my-btn text-middle bg-red full-width bold">Add To Order(Rs. {{hotelPackage.price * numberOfPackages[hotelPackage.id]}})</button>
+                    <button ng-click="addOrder(hotelPackage)" class="btn btn-primary my-btn text-middle bg-red full-width bold">Add To Order <span ng-if="totalPrice[hotelPackage.id]">(Rs. {{totalPrice[hotelPackage.id]}})</span></button>
                 </div>
             </div>
-        </span>
+        </div>
     <!--<div class="gap"></div>-->
     </div>
 

@@ -25,13 +25,10 @@
     <div class="row">
         <div class="col-md-12" ng-if = "showPackages(order[2].type)">
             <div class="row">
-                <span class="col-md-7 padding-5">{{order[2].name}}  By <span class="bold">{{order[1].name}}</span></span>
-                <div class="col-md-2 padding-5"><a href ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></a>{{order[6]}}<a href ng-click="increaseQty(order)"><i class="fa fa-plus-circle"></i></a></div>
-                <div class="col-md-2 padding-5">{{order[2].price * order[6]}}</div>
+                <div class="col-md-8 padding-5 pointer" ng-click="isCollapsed = !isCollapsed"><span ng-show = "isCollapsed"><i class="fa fa-caret-right"> </i> </span> <span ng-show = "!isCollapsed"><i class="fa fa-caret-down"> </i> </span> {{order[2].name}}  By <span class="bold">{{order[1].name}}</span></div>
+                <div class="col-md-3 padding-5">Rs. {{order[2].price * order[6]}}</div>
                 <div class="col-md-1 padding-5"><a href ng-click = "removeItem(order)"><i class="fa fa-times"></i></a></div>
-                <a class="col-md-12 text-middle" href ng-click="isCollapsed = !isCollapsed" ng-show = "isCollapsed" >see details</a>
-                <a class="col-md-12 text-middle" href ng-click="isCollapsed = !isCollapsed" ng-show = "!isCollapsed" >hide details</a>
-                <div class="gap gap-mini"></div>
+                <!--<div class="gap gap-tiny"></div>-->
                 <!--<div class="col-md-12"><hr></div>-->
                 <div uib-collapse="isCollapsed">
                     <div class=" col-md-12 row" ng-repeat="item in order[2].packageDetails">
@@ -55,7 +52,17 @@
                     </div>
                 </div>
                 </div>
-                <div class="gap gap-small"></div>
+                <div>
+                </div>
+                <!--<div class="col-md-12">-->
+                    <div class="col-md-3">Total :</div>
+                    <div class="pointer col-md-1" ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></div>
+                    <div class="col-md-1">{{order[6]}}</div>
+                    <div class="pointer col-md-1" ng-click="increaseQty(order)"><i class="fa fa-plus-circle"></i></div>
+                    <!--<div class="co-md-2"></div>-->
+                    <div class="col-md-2">{{order[6] * (order[2].price)}}</div>
+                <!--</div>-->
+                <div class="gap gap-mini"></div>
             </div>
 
 
@@ -64,21 +71,26 @@
     </div>
 
 
-    <div ng-if="showAlacarte(order[2].type)">
-        <!--{{odr[2].name}}-->
-        <div class="row">
-                    <div class="col-md-5">{{order[3].name}}
-                    </div>
-            <div class="col-md-3"><a href ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></a>{{order[4]}}<a href ng-click = "increaseQty(order)"><i class="fa fa-plus-circle"></i></a></div>
-            <div class="col-md-2">{{order[3].price * order[4]}}</div>
-            <div class="col-md-1"><a href ng-click = "removeItem(order)"><i class="fa fa-times"></i></a></div>
-        </div>
-        By {{order[1].name}}
-        <div class="row"><div class="col-md-12"><hr></div></div>
-        <!--AddOn's Price - {{}}-->
-        <!--Tax - {{}}-->
-        <!--Total Price - {{}}-->
-    </div>
+    <!--<div ng-if="showAlacarte(order[2].type)">-->
+        <!--&lt;!&ndash;{{odr[2].name}}&ndash;&gt;-->
+        <!--<div class="row">-->
+                    <!--<div class="col-md-5">{{order[3].name}}-->
+                    <!--</div>-->
+            <!--<div class="col-md-3"><a href ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></a>{{order[4]}}<a href ng-click = "increaseQty(order)"><i class="fa fa-plus-circle"></i></a></div>-->
+            <!--<div class="col-md-2">{{order[3].price * order[4]}}</div>-->
+            <!--<div class="col-md-1"><a href ng-click = "removeItem(order)"><i class="fa fa-times"></i></a></div>-->
+        <!--</div>-->
+        <!--By {{order[1].name}}-->
+        <!--<div class="row"><div class="col-md-12"><hr></div></div>-->
+        <!--&lt;!&ndash;AddOn's Price - {{}}&ndash;&gt;-->
+        <!--&lt;!&ndash;Tax - {{}}&ndash;&gt;-->
+        <!--&lt;!&ndash;Total Price - {{}}&ndash;&gt;-->
+    <!--</div>-->
+
+    <!--</div>-->
+</div>
+<div class="col-md-12" ng-if = "orders.length >= 1">
+    <div class="row padding-10">
 
     <div class="font15">
         <div class="float-left">Subtotal</div>
@@ -94,6 +106,5 @@
         <div class="float-left">TOTAL ORDER</div>
         <div class="float-right">Rs {{totalCost}}</div>
     </div>
-
-    <!--</div>-->
+    </div>
 </div>

@@ -24,11 +24,27 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
     $scope.addInfo = {};
     $scope.isPackageCollapsed = {};
 
+
     //loading wheels
     $scope.loadingRestaurantPackages = true;
 
     $scope.hotelPackages = api.getHotelMenuPackage.query({id: $rootScope.hotelId},{packages : 'package'},function(){
         angular.forEach($scope.hotelPackages,function(value,key){
+            if(value.pricing.length == 1){
+                value.price = value.pricing[0].price_per_person;
+                //console.log();
+            }
+            else if($rootScope.searchDetails && $rootScope.searchDetails.pax){
+                angular.forEach(value.pricing,function(value1,key){
+                   if($rootScope.searchDetails.pax >= value1.min_pax && $rootScope.searchDetails.pax <=  value1.max_pax){
+                       value.price = value1.price_per_person;
+                   }
+                });
+            }
+            else{
+                value.price_min = value.pricing[0].price_per_person;
+                value.price_max = value.pricing[value.pricing.length - 1].price_per_person;
+            }
             $scope.hotelPackages[key].packageDetails = api.getHotelMenuItem.query({id: $rootScope.hotelId},{menu_id : value.id},function(){
                 $scope.loadingRestaurantPackages = false;
             });
@@ -47,19 +63,60 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
     //       console.log(value.id);
     //   });
     //});
+    $scope.totalPrice = {};
+    if($rootScope.searchDetails && $rootScope.searchDetails.pax)
+    $scope.pax = $rootScope.searchDetails.pax;
+    //$scope.numberOfPackages[hotelPackage.id]
+    //$scope.totalPrice = {};
+    $scope.calculateTotalPrice = function(pkge){
+        if($scope.numberOfPackages[pkge.id]){
+        angular.forEach(pkge.pricing,function(value,key){
+            if($scope.numberOfPackages[pkge.id] >= value.min_pax && $scope.numberOfPackages[pkge.id] <= value.max_pax){
+               pkge.price = value.price_per_person;
+            }
+        });
+            if($scope.totalAdditionalPrice[pkge.id]){
+                //console.log($scope.totalAdditionalPrice);
+                //console.log(pkge.id);
+                //console.log($scope.totalAdditionalPrice[pkge.id]);
+            $scope.totalPrice[pkge.id] = (pkge.price + $scope.totalAdditionalPrice[pkge.id] ) * $scope.numberOfPackages[pkge.id] ;}
+            else{
+            console.log($scope.totalAdditionalPrice[pkge.id]);
+             $scope.totalPrice[pkge.id] = pkge.price * $scope.numberOfPackages[pkge.id] ;
+            }
+        //console.log($scope.numberOfPackages[pkge.id]);
+        //if(pkge.price){
+        //    $scope.totalPrice[pkge.id] = pkge.price * $scope.numberOfPackages[pkge.id] +
+        //}
+        }
+    };
 
+    $scope.totalAdditionalPrice = {};
+    $scope.calculateAdditionalPrice = function(currentPackageId,additionalPrice){
+        //console.log(currentPackageId);
+        //console.log($scope.hotelPackages);
+        //console.log($scope.hotelPackages[currentPackageId]);
+        //angular.forEach($s,)
+        if($scope.totalAdditionalPrice.currentPackageId){
+        $scope.totalAdditionalPrice[currentPackageId] += additionalPrice;
+        }
+        else {
+            $scope.totalAdditionalPrice[currentPackageId] = 0 ;
+            $scope.totalAdditionalPrice[currentPackageId] += additionalPrice;
+        }
+    };
 
     $scope.addOrder = function(hotelPackage){
         //console.log($scope.itemOptionCategories);
         $scope.selectedPackage = {};
         $scope.selectedItemOptionCategories = {};
         $scope.packageError = {};
-        $scope.totalAdditionalPrice = 0;
+        //$scope.totalAdditionalPrice = 0;
         angular.forEach(hotelPackage.packageDetails,function(value,key){
             if(value.has_options){
                 if($scope.package[value.id]){
                     $scope.selectedPackage[value.id] = $scope.package[value.id];
-                    $scope.totalAdditionalPrice += $scope.additionalPrice[value.id];
+                    //$scope.totalAdditionalPrice += $scope.additionalPrice[value.id];
                     $scope.selectedItemOptionCategories[value.id] = $scope.itemOptionCategories[value.id];
                 }
                 else
@@ -74,7 +131,7 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
         });
         //console.log($scope.selectedPackage);
         if(angular.equals({}, $scope.packageError)){
-            orderService.addOrder($scope.hotelDetails[0],hotelPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice,$scope.numberOfPackages[hotelPackage.id],$scope.addInfo[hotelPackage.id]);
+            orderService.addOrder($scope.hotelDetails[0],hotelPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice[hotelPackage.id],$scope.numberOfPackages[hotelPackage.id],$scope.addInfo[hotelPackage.id]);
         }
 
         //angular.forEach($scope.package);
@@ -120,6 +177,8 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
             $scope.package[package_item.id] = result.itemsSelected;
             $scope.itemOptionCategories[package_item.id] = result.categoriesName;
             $scope.additionalPrice[package_item.id] = result.additionalPrice;
+            //console.log($scope.additionalPrice);
+            $scope.calculateAdditionalPrice(package_item.menu_id,result.additionalPrice);
             //console.log($scope.package[package_item.id]);
             //$scope.temp = [];
             //$scope.temp.push($scope.package);

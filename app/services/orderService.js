@@ -1,20 +1,35 @@
-app.service('orderService',function($rootScope){
+app.service('orderService',function($rootScope,api){
 
     $rootScope.order = [];
     this.orderObject = [];
 
     this.addOrder = function(hotelDetails,packageDetails,itemOptionCategories,selectedItems,additionalPrice,numberOfPackages,addInfo){
-        this.order1 = [];
-        this.order1.push($rootScope.custId);
-        this.order1.push(hotelDetails);
-        this.order1.push(packageDetails);
-        this.order1.push(itemOptionCategories);
-        this.order1.push(selectedItems);
-        this.order1.push(additionalPrice);
-        this.order1.push(numberOfPackages);
-        this.order1.push(addInfo);
-        $rootScope.order.push(this.order1);
-        console.log($rootScope.order);
+        //this.order1 = [];
+        var order1 = [];
+        order1.push($rootScope.custId);
+        order1.push(hotelDetails);
+        order1.push(packageDetails);
+        order1.push(itemOptionCategories);
+        order1.push(selectedItems);
+        order1.push(additionalPrice);
+        order1.push(numberOfPackages);
+        order1.push(addInfo);
+        var price = 0;
+        angular.forEach(packageDetails.pricing,function(value,key){
+            if(numberOfPackages >= value.min_pax && numberOfPackages<= value.max_pax){
+                 price = value.price_per_person;
+            }
+        });
+        price += additionalPrice;
+        price = price * numberOfPackages;
+        var taxDetails = api.getTaxDetails.query({id : hotelDetails.id },function(){
+            order1.push(taxDetails);
+            angular.forEach(taxDetails[0],function(value,key){
+                price += value * price;
+            });
+            order1.push(price);
+        });
+        $rootScope.order.push(order1);
     };
 
     this.addOrderAlacarte = function(hotelDetails,packageDetails,package_item,numberOfPackages){
