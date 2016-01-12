@@ -1,10 +1,11 @@
 app.service('orderService',function($rootScope,api){
 
     $rootScope.order = [];
+    $rootScope.total = {};
     this.orderObject = [];
-    this.totalAmount = 0;
-    this.totalTax = 0;
-    this.subTotal = 0;
+    //this.totalAmount = totalAmount;
+    //this.totalTax = totalTax;
+    //this.subTotal = subTotal;
     this.addOrder = function(hotelDetails,packageDetails,itemOptionCategories,selectedItems,additionalPrice,numberOfPackages,addInfo){
         //this.order1 = [];
         var order1 = [];
@@ -33,6 +34,23 @@ app.service('orderService',function($rootScope,api){
             order1.push(Math.round(price));
             $rootScope.order.push(order1);
             //calculateTotalPrice();
+            var totalAmount = 0;
+            var totalTax = 0;
+            var subTotal = 0;
+            console.log($rootScope.order);
+            angular.forEach($rootScope.order,function(value,key){
+                        //console.log(value);
+                        //console.log(value[6]);
+                        console.log(value);
+                        subTotal += (value[2].price * value[6]);
+                        totalAmount += value[9];
+                        totalTax += (value[9] - (value[2].price * value[6]));
+                    });
+            $rootScope.total = {};
+            $rootScope.total['subTotal'] = subTotal;
+            $rootScope.total['totalAmount'] = totalAmount;
+            $rootScope.total['totalTax'] = totalTax;
+
         });
     };
 
@@ -51,7 +69,7 @@ app.service('orderService',function($rootScope,api){
         this.orderObject.push(cust);
         angular.forEach($rootScope.order,function(value,key){
             this.temp =  [];
-            this.temp.push(value[1].restaurant_id);
+            this.temp.push(value[1].id);
             this.temp.push(value[2].id);
             if(value[2].type == "package")
             {
@@ -67,9 +85,10 @@ app.service('orderService',function($rootScope,api){
             this.orderObject.push(this.temp);
         },this);
         this.orderObject.push($rootScope.searchDetails);
-        api.order.query({order : this.orderObject},function(){
-            
-        });
+        console.log(this.orderObject);
+
+         api.order.save(this.orderObject);
+
  };
 
     //this.calculateTotalPrice = function(){

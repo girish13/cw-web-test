@@ -70,7 +70,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="phone" value="" placeholder="Phone number(10 digits)" aria-describedby="basic-addon2" ng-model="cust.number">
+                        <input type="text" class="form-control" name="phone" value="" placeholder="Phone number(10 digits)" aria-describedby="basic-addon2" ng-model="cust.phone">
                         <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-phone"></i></span>
                     </div>
                     <!--<span ng-show="home.errors.register_number" class="help-block">{{home.errors.register_number}}</span>-->
@@ -83,12 +83,6 @@
                     <!--<span ng-show="home.errors.register_email" class="help-block">{{home.errors.register_email}}</span>-->
 
                 </div>
-                <div class="form-group col-md-6">
-                    <span class="form-control" ng-controller="locationSearchController">{{selectedLocality.name}}</span>
-                </div>
-                <div class="form-group col-md-6">
-                    <span class="form-control">Gurgaon</span>
-                </div>
                 <div class="form-group col-md-12">
                     <!--<div class="input-group">-->
                         <textarea class="form-control" name="address" placeholder="Delivery Address" ng-model="cust.address"></textarea>
@@ -96,6 +90,18 @@
                         <!--<span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>-->
                     <!--</div>-->
                     <!--<span ng-show="home.errors.register_password" class="help-block">{{home.errors.register_password}}</span>-->
+                </div>
+                <div class="form-group col-md-6">
+                    <span class="form-control" ng-controller="locationSearchController">{{selectedLocality.name}}</span>
+                </div>
+                <div class="form-group col-md-6">
+                    <span class="form-control">Gurgaon</span>
+                </div>
+                <div class="form-group col-md-6">
+                    <input class="form-control" ng-model="cust.landmark" placeholder="Landmark">
+                </div>
+                <div class="form-group col-md-6">
+                    <input class="form-control" ng-model="cust.pincode" placeholder = "pincode">
                 </div>
                 <div class="form-group col-md-12">
                     <!--<div class="input-group">-->
@@ -106,7 +112,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <button style="display:block; width:100%;" ng-click = "placeOrder()" class="btn btn-primary">Order Now</button>
+                        <button style="display:block; width:100%;" ng-click = "placeOrder()" class="btn btn-primary">Confirm Order</button>
                     </div>
                 </div>
             </form>

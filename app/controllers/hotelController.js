@@ -126,7 +126,7 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
                 }
             }
             else {
-                $scope.selectedPackage[value.id] = value;
+                $scope.selectedPackage[value.id] = {};
             }
         });
         //console.log($scope.selectedPackage);

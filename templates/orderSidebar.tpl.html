@@ -61,10 +61,18 @@
                     </div>
                     <!--<div style="clear: both"></div>-->
                 </div>
+                <div class="col-md-12" ng-if = "order[8][0].vat_rate > 0" >
+                    <div class="col-md-6">
+                        Add On Price:
+                    </div>
+                    <div class="col-md-6 ">
+                        {{order[5]*order[6]}}
+                    </div>
+                </div>
                 <!--{{order[8]}}-->
                 <div class="col-md-12" ng-if = "order[8][0].vat_rate > 0" >
                     <div class="col-md-6">
-                        VAT
+                        VAT:
                     </div>
                     <div class="col-md-6 ">
                         {{order[8][0].vat_rate * 100 + '%'}}
@@ -72,7 +80,7 @@
                 </div>
                 <div class="col-md-12" ng-if = "order[8][0].service_tax_rate > 0" >
                     <div class="col-md-6">
-                        Service Tax
+                        Service Tax:
                     </div>
                     <div class="col-md-6 ">
                         {{order[8][0].service_tax_rate * 100 + '%'}}
@@ -80,7 +88,7 @@
                 </div>
                 <div class="col-md-12" ng-if = "order[8][0].service_charge_rate > 0" >
                     <div class="col-md-6">
-                        Service Charge
+                        Service Charge:
                     </div>
                     <div class="col-md-6 ">
                         {{order[8][0].service_charge_rate * 100 + '%'}}
@@ -133,20 +141,19 @@
 </div>
 <div class="col-md-12" ng-if = "orders.length >= 1">
     <div class="row padding-10">
-
     <div class="font15">
         <div class="float-left">Subtotal</div>
-        <div class="float-right">Rs. {{subTotal}}</div>
+        <div class="float-right">Rs. {{total.subTotal}}</div>
     </div>
     <div style="clear: both"></div>
     <div class="font15">
         <div class="float-left">Taxes</div>
-        <div class="float-right">Rs. {{totalTax}}</div>
+        <div class="float-right">Rs. {{total.totalTax}}</div>
     </div>
     <div style="clear: both"></div>
-    <div class="search-message font15 highlight-dark bold padding-5">
+    <div class="font15 highlight-dark bold padding-5 height40">
         <div class="float-left">TOTAL ORDER</div>
-        <div class="float-right">Rs {{totalAmount}}</div>
+        <div class="float-right">Rs {{total.totalAmount}}</div>
     </div>
     </div>
 </div>

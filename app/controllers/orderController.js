@@ -3,9 +3,7 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     $scope.hotels = {};
     $scope.package = {};
     $scope.taxDetails = {};
-    $scope.totalAmount = orderService.totalAmount;
-    $scope.subTotal = orderService.subTotal;
-    $scope.totalTax = orderService.totalTax;
+
     //$scope.totalPrice = 0;
     $scope.cust = {};
     $scope.checkout = function(){
@@ -23,8 +21,18 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
         orderService.calculateTotalPrice();
     };
 
+    //if($rootScope.total){
+    //    $scope.totalAmount = $rootScope.total.totalAmount;
+    //    $scope.subTotal = $rootScope.total.subTotal;
+    //    $scope.totalTax = $rootScope.total.totalTax;
+    //}
 
-
+    //$scope.$watch($rootScope.total,function(newVal,oldVal){
+    //    $scope.totalAmount = $rootScope.total.totalAmount;
+    //    $scope.subTotal = $rootScope.total.subTotal;
+    //    $scope.totalTax = $rootScope.total.totalTax;
+    //    console.log($rootScope.total);
+    //},true);
     //$scope.calculateTotalPrice();
 
     $scope.increaseQty = function(item){
@@ -96,7 +104,7 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     $scope.orderObject = orderService.orderObject;
 
     $scope.placeOrder = function(){
-        console.log($scope.cust);
+        //console.log($scope.cust);
         orderService.checkout($scope.cust);
     };
 
