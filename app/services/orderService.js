@@ -2,7 +2,9 @@ app.service('orderService',function($rootScope,api){
 
     $rootScope.order = [];
     this.orderObject = [];
-
+    this.totalAmount = 0;
+    this.totalTax = 0;
+    this.subTotal = 0;
     this.addOrder = function(hotelDetails,packageDetails,itemOptionCategories,selectedItems,additionalPrice,numberOfPackages,addInfo){
         //this.order1 = [];
         var order1 = [];
@@ -18,6 +20,7 @@ app.service('orderService',function($rootScope,api){
         angular.forEach(packageDetails.pricing,function(value,key){
             if(numberOfPackages >= value.min_pax && numberOfPackages<= value.max_pax){
                  price = value.price_per_person;
+                 packageDetails.price = price;
             }
         });
         price += additionalPrice;
@@ -27,9 +30,10 @@ app.service('orderService',function($rootScope,api){
             angular.forEach(taxDetails[0],function(value,key){
                 price += value * price;
             });
-            order1.push(price);
+            order1.push(Math.round(price));
+            $rootScope.order.push(order1);
+            //calculateTotalPrice();
         });
-        $rootScope.order.push(order1);
     };
 
     this.addOrderAlacarte = function(hotelDetails,packageDetails,package_item,numberOfPackages){
@@ -63,7 +67,21 @@ app.service('orderService',function($rootScope,api){
             this.orderObject.push(this.temp);
         },this);
         this.orderObject.push($rootScope.searchDetails);
-        console.log(this.orderObject);
+        api.order.query({order : this.orderObject},function(){
+            
+        });
  };
 
+    //this.calculateTotalPrice = function(){
+    //    angular.forEach($rootScope.order,function(value,key){
+    //        console.log(value);
+    //        console.log(value[6]);
+    //        this.subTotal += value[2].price;
+    //        this.totalAmount += value[9];
+    //        this.totalTax += (value[9] - value[2].price);
+    //    },this);
+    //    console.log(this.subTotal);
+    //    console.log(this.totalAmount);
+    //    console.log(this.totalTax);
+    //};
 });

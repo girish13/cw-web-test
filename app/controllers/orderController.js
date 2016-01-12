@@ -3,6 +3,9 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     $scope.hotels = {};
     $scope.package = {};
     $scope.taxDetails = {};
+    $scope.totalAmount = orderService.totalAmount;
+    $scope.subTotal = orderService.subTotal;
+    $scope.totalTax = orderService.totalTax;
     //$scope.totalPrice = 0;
     $scope.cust = {};
     $scope.checkout = function(){
@@ -15,6 +18,15 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
         $rootScope.order.splice(index, 1);
     };
 
+
+    $scope.calculateTotalPrice = function(){
+        orderService.calculateTotalPrice();
+    };
+
+
+
+    //$scope.calculateTotalPrice();
+
     $scope.increaseQty = function(item){
         var index = $rootScope.order.indexOf(item);
         if($rootScope.order[index][2].type == 'a-la-carte'){
@@ -25,6 +37,8 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
             //if($rootScope.order[index][6] > 1)
                 $rootScope.order[index][6]++;
         }
+        orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
+        $scope.removeItem(item);
         //console.log(item[4]);
     };
 
@@ -39,6 +53,8 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
             if($rootScope.order[index][6] > 1)
             $rootScope.order[index][6]--;
         }
+        orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
+        $scope.removeItem(item);
         //console.log(item[4]);
     };
 

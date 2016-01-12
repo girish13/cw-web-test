@@ -52,16 +52,58 @@
                     </div>
                 </div>
                 </div>
-                <div>
+                <div class="col-md-12">
+                    <div class="col-md-6">Quantity : </div>
+                    <div class="col-md-6">
+                        <span class="pointer" ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></span>
+                        <span class="text-middle">{{order[6]}}</span>
+                        <span class="pointer" ng-click="increaseQty(order)"><i class="fa fa-plus-circle"></i></span>
+                    </div>
+                    <!--<div style="clear: both"></div>-->
+                </div>
+                <!--{{order[8]}}-->
+                <div class="col-md-12" ng-if = "order[8][0].vat_rate > 0" >
+                    <div class="col-md-6">
+                        VAT
+                    </div>
+                    <div class="col-md-6 ">
+                        {{order[8][0].vat_rate * 100 + '%'}}
+                    </div>
+                </div>
+                <div class="col-md-12" ng-if = "order[8][0].service_tax_rate > 0" >
+                    <div class="col-md-6">
+                        Service Tax
+                    </div>
+                    <div class="col-md-6 ">
+                        {{order[8][0].service_tax_rate * 100 + '%'}}
+                    </div>
+                </div>
+                <div class="col-md-12" ng-if = "order[8][0].service_charge_rate > 0" >
+                    <div class="col-md-6">
+                        Service Charge
+                    </div>
+                    <div class="col-md-6 ">
+                        {{order[8][0].service_charge_rate * 100 + '%'}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        Total Price:
+                    </div>
+                    <div class="col-md-6 ">
+                       Rs. {{order[9]}}
+                    </div>
                 </div>
                 <!--<div class="col-md-12">-->
-                    <div class="col-md-3">Total :</div>
-                    <div class="pointer col-md-1" ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></div>
-                    <div class="col-md-1">{{order[6]}}</div>
-                    <div class="pointer col-md-1" ng-click="increaseQty(order)"><i class="fa fa-plus-circle"></i></div>
-                    <!--<div class="co-md-2"></div>-->
-                    <div class="col-md-2">{{order[6] * (order[2].price)}}</div>
-                <!--</div>-->
+                    <!--<div class="col-md-3">Total :</div>-->
+                    <!--<div class="col-md-6">-->
+                        <!--<div class="pointer" ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></div>-->
+                        <!--<div class="">{{order[6]}}</div>-->
+                        <!--<div class="pointer " ng-click="increaseQty(order)"><i class="fa fa-plus-circle"></i></div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;<div class="co-md-2"></div>&ndash;&gt;-->
+                    <!--<div class="col-md-2">{{order[6] * (order[2].price)}}</div>-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
                 <div class="gap gap-mini"></div>
             </div>
 
@@ -94,17 +136,17 @@
 
     <div class="font15">
         <div class="float-left">Subtotal</div>
-        <div class="float-right">Rs. {{}}</div>
+        <div class="float-right">Rs. {{subTotal}}</div>
     </div>
     <div style="clear: both"></div>
     <div class="font15">
         <div class="float-left">Taxes</div>
-        <div class="float-right">Rs. {{}}</div>
+        <div class="float-right">Rs. {{totalTax}}</div>
     </div>
     <div style="clear: both"></div>
     <div class="search-message font15 highlight-dark bold padding-5">
         <div class="float-left">TOTAL ORDER</div>
-        <div class="float-right">Rs {{totalCost}}</div>
+        <div class="float-right">Rs {{totalAmount}}</div>
     </div>
     </div>
 </div>
