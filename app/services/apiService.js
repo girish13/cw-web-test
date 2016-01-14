@@ -35,7 +35,7 @@ app.service('api',function($resource,$http,baseUrl,$log){
     this.getFilterByType = $resource(baseUrl+'getFilters/getFilterByType/:filter_type',{filter_type : '@filter_type'});
 
 
-    this.order = $resource(baseUrl+'order',{order : '@order'});
+    this.order = $resource(baseUrl+'order');
 
     //utility apis
 

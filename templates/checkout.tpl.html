@@ -1,136 +1,193 @@
 <div ng-include = "'templates/header.tpl.html'"></div>
 
 <div class="container" style="margin-top: 75px">
-<div class="row">
-    <!--<div class="col-md-7">-->
+    <div class="row">
+        <!--<div class="col-md-7">-->
         <!--<div class="row white-background-box">-->
-    <!--<div>-->
+        <!--<div>-->
         <!--<span class="headingBig">Your Order</span>-->
         <!--<hr>-->
-    <!--</div>-->
-    <!--<div ng-repeat = "order in orders">-->
+        <!--</div>-->
+        <!--<div ng-repeat = "order in orders">-->
         <!--<div>-->
-            <!--<div ng-if = "showPackages(order[2].type)">-->
-                <!--{{order[2].name}} X {{order[6]}}  - Rs. {{order[2].price * order[6]}}-->
+        <!--<div ng-if = "showPackages(order[2].type)">-->
+        <!--{{order[2].name}} X {{order[6]}}  - Rs. {{order[2].price * order[6]}}-->
 
-                <!--<div ng-repeat="item in order[2].packageDetails">-->
-                    <!--{{item.name}} <br>-->
-                    <!--<div ng-repeat="itemOption in order[4][item.id]">-->
-                            <!--<span ng-repeat="itemOptionList in itemOption">-->
-                                <!--{{ order[3][item.id][itemOptionList.menu_item_option_id]}} - {{itemOptionList.name}}-->
-                                <!--<span ng-if = "itemOptionList.price" >-->
-                                    <!--Rs. {{itemOptionList.price}}-->
-                                <!--</span>-->
-                            <!--</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--By {{order[1].name}}-->
-            <!--</div>-->
+        <!--<div ng-repeat="item in order[2].packageDetails">-->
+        <!--{{item.name}} <br>-->
+        <!--<div ng-repeat="itemOption in order[4][item.id]">-->
+        <!--<span ng-repeat="itemOptionList in itemOption">-->
+        <!--{{ order[3][item.id][itemOptionList.menu_item_option_id]}} - {{itemOptionList.name}}-->
+        <!--<span ng-if = "itemOptionList.price" >-->
+        <!--Rs. {{itemOptionList.price}}-->
+        <!--</span>-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--By {{order[1].name}}-->
+        <!--</div>-->
 
         <!--</div>-->
 
 
         <!--<div ng-if="showAlacarte(order[2].type)">-->
-            <!--&lt;!&ndash;{{odr[2].name}}&ndash;&gt;-->
+        <!--&lt;!&ndash;{{odr[2].name}}&ndash;&gt;-->
 
-            <!--{{order[3].name}} X {{order[4]}}  price : {{order[3].price * order[4]}}<br>-->
-            <!--By {{order[1].name}}-->
+        <!--{{order[3].name}} X {{order[4]}}  price : {{order[3].price * order[4]}}<br>-->
+        <!--By {{order[1].name}}-->
 
-            <!--&lt;!&ndash;AddOn's Price - {{}}&ndash;&gt;-->
-            <!--&lt;!&ndash;Tax - {{}}&ndash;&gt;-->
-            <!--&lt;!&ndash;Total Price - {{}}&ndash;&gt;-->
+        <!--&lt;!&ndash;AddOn's Price - {{}}&ndash;&gt;-->
+        <!--&lt;!&ndash;Tax - {{}}&ndash;&gt;-->
+        <!--&lt;!&ndash;Total Price - {{}}&ndash;&gt;-->
         <!--</div>-->
-    <!--</div>-->
+        <!--</div>-->
         <!--</div>-->
 
         <!--<button class="btn btn-primary" ng-click="orderNow()">Order Now</button>-->
-    <!--</div>-->
-    <div class="col-md-9">
-        <div class="row white-background-box">
-        <div class="headingBig col-md-12">
-            Fill in Your Details
-            <hr>
-        </div>
+        <!--</div>-->
+        <div class="col-md-9">
+            <div class="row white-background-box">
+                <div class="headingBig col-md-12">
+                    Fill in Your Details
+                    <hr>
+                </div>
 
-        <div class="col-md-12">
-            <form>
-                <div class="form-group col-md-6">
-                    <div class="input-group ">
-                        <input type="text" class="form-control" name="fname" value="" placeholder="First name" aria-describedby="basic-addon2" ng-model="cust.first_name">
-                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-user"></i></span>
-                    </div>
-                    <!--<span ng-show=" home.errors.register_name" class="help-block">{{home.errors.register_name}}</span>-->
-                </div>
-                <div class="form-group col-md-6">
-                    <div class="input-group ">
-                        <input type="text" class="form-control" name="lname"  value="" placeholder="Last name" aria-describedby="basic-addon2" ng-model="cust.last_name">
-                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-user"></i></span>
-                    </div>
-                    <!--<span ng-show=" home.errors.register_name" class="help-block">{{home.errors.register_name}}</span>-->
-                </div>
-                <div class="form-group col-md-6">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="phone" value="" placeholder="Phone number(10 digits)" aria-describedby="basic-addon2" ng-model="cust.phone">
-                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-phone"></i></span>
-                    </div>
-                    <!--<span ng-show="home.errors.register_number" class="help-block">{{home.errors.register_number}}</span>-->
-                </div>
-                <div class="form-group col-md-6">
-                    <div class="input-group">
-                        <input type="email" class="form-control" name="email_login" value="" placeholder="Email address" aria-describedby="basic-addon2" ng-model="cust.email">
-                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-envelope"></i></span>
-                    </div>
-                    <!--<span ng-show="home.errors.register_email" class="help-block">{{home.errors.register_email}}</span>-->
+                <div class="col-md-12">
+                    <form>
+                        <div class="form-group col-md-6">
+                            <div class="input-group ">
+                                <input type="text" class="form-control" name="fname" value="" placeholder="First name" aria-describedby="basic-addon2" ng-model="cust.first_name">
+                                <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-user"></i></span>
+                            </div>
+                            <!--<span ng-show=" home.errors.register_name" class="help-block">{{home.errors.register_name}}</span>-->
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="input-group ">
+                                <input type="text" class="form-control" name="lname"  value="" placeholder="Last name" aria-describedby="basic-addon2" ng-model="cust.last_name">
+                                <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-user"></i></span>
+                            </div>
+                            <!--<span ng-show=" home.errors.register_name" class="help-block">{{home.errors.register_name}}</span>-->
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="phone" value="" placeholder="Phone number(10 digits)" aria-describedby="basic-addon2" ng-model="cust.phone">
+                                <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-phone"></i></span>
+                            </div>
+                            <!--<span ng-show="home.errors.register_number" class="help-block">{{home.errors.register_number}}</span>-->
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                <input type="email" class="form-control" name="email_login" value="" placeholder="Email address" aria-describedby="basic-addon2" ng-model="cust.email">
+                                <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-envelope"></i></span>
+                            </div>
+                            <!--<span ng-show="home.errors.register_email" class="help-block">{{home.errors.register_email}}</span>-->
 
+                        </div>
+                        <div class="form-group col-md-12">
+                            <!--<div class="input-group">-->
+                            <textarea class="form-control" name="address" placeholder="Delivery Address" ng-model="cust.address"></textarea>
+                            <!--<span class="text-middle" ng-controller="locationSearchController">Delivery locality : {{selectedLocality.name}},Gurgaon</span>-->
+                            <!--<span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>-->
+                            <!--</div>-->
+                            <!--<span ng-show="home.errors.register_password" class="help-block">{{home.errors.register_password}}</span>-->
+                        </div>
+                        <div class="form-group col-md-6" ng-controller="locationSearchController" ng-if = "selectedLocality.date" >
+                            <span class="form-control" >{{selectedLocality.date}}</span>
+                        </div>
+                        <div class="form-group col-md-6" ng-controller="locationSearchController" ng-if = "selectedLocality.time">
+                            <span class="form-control" >{{selectedLocality.time}}</span>
+                        </div>
+                        <div class="form-group col-md-6" ng-controller="locationSearchController" ng-if = "!selectedLocality.date" >
+                            <div class="input-group search-bar-fields">
+                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+                                            </span>
+                                <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" id = "date" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6" ng-controller="locationSearchController" ng-if = "!selectedLocality.time">
+                            <select class="form-control search-bar-fields" ng-options="n for n in times"  ng-model="mytime" required><option value = "" disabled selected>Event Time</option></select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <span class="form-control" ng-controller="locationSearchController">{{selectedLocality.name}}</span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <span class="form-control">Gurgaon</span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input class="form-control" ng-model="cust.landmark" placeholder="Landmark">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input class="form-control" ng-model="cust.pincode" placeholder = "pincode">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <!--<div class="input-group">-->
+                            <textarea class="form-control" name="instructions" placeholder="Instructions" ng-model="cust.instruction"></textarea>
+                            <!--<span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>-->
+                            <!--</div>-->
+                            <!--<span ng-show="home.errors.register_password" class="help-block">{{home.errors.register_password}}</span>-->
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button style="display:block; width:100%;" ng-click = "placeOrder()" class="btn btn-primary">Confirm Order</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group col-md-12">
-                    <!--<div class="input-group">-->
-                        <textarea class="form-control" name="address" placeholder="Delivery Address" ng-model="cust.address"></textarea>
-                        <!--<span class="text-middle" ng-controller="locationSearchController">Delivery locality : {{selectedLocality.name}},Gurgaon</span>-->
-                        <!--<span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>-->
-                    <!--</div>-->
-                    <!--<span ng-show="home.errors.register_password" class="help-block">{{home.errors.register_password}}</span>-->
-                </div>
-                <div class="form-group col-md-6">
-                    <span class="form-control" ng-controller="locationSearchController">{{selectedLocality.name}}</span>
-                </div>
-                <div class="form-group col-md-6">
-                    <span class="form-control">Gurgaon</span>
-                </div>
-                <div class="form-group col-md-6">
-                    <input class="form-control" ng-model="cust.landmark" placeholder="Landmark">
-                </div>
-                <div class="form-group col-md-6">
-                    <input class="form-control" ng-model="cust.pincode" placeholder = "pincode">
-                </div>
-                <div class="form-group col-md-12">
-                    <!--<div class="input-group">-->
-                    <textarea class="form-control" name="instructions" placeholder="Instructions" ng-model="cust.instruction"></textarea>
-                    <!--<span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>-->
-                    <!--</div>-->
-                    <!--<span ng-show="home.errors.register_password" class="help-block">{{home.errors.register_password}}</span>-->
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <button style="display:block; width:100%;" ng-click = "placeOrder()" class="btn btn-primary">Confirm Order</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="white-background-box row no-padding" ng-controller="orderController">
-           <ng-include src = "'./templates/orderSidebar.tpl.html'"></ng-include>
-            <!--<div class="col-md-12">-->
-                <!--&lt;!&ndash;<button ng-click="checkout()" style="width : 100%" ng-disabled = "orders.length < 1" class="btn btn-primary">Continue to Checkout</button>&ndash;&gt;-->
-            <!--</div>-->
-            <div class="col-md-12">
-                <div class="bold underline text-dark-grey" style="font-size: 14px;">NO PAYMENT REQUIRED RIGHT NOW</div>
-                <div class="bold text-dark-grey" style="font-size: 11px; padding-bottom:10px">Upon confirmation of order, our team will get in touch with you to collect 30% advance payment</div>
             </div>
         </div>
-        <div ng-include = "'./templates/helpBox.tpl.html'"></div>
+        <div class="col-md-3">
+            <div class="white-background-box row no-padding" ng-controller="orderController">
+                <ng-include src = "'./templates/orderSidebar.tpl.html'"></ng-include>
+                <!--<div class="col-md-12">-->
+                <!--&lt;!&ndash;<button ng-click="checkout()" style="width : 100%" ng-disabled = "orders.length < 1" class="btn btn-primary">Continue to Checkout</button>&ndash;&gt;-->
+                <!--</div>-->
+                <div class="col-md-12">
+                    <div class="bold underline text-dark-grey" style="font-size: 14px;">NO PAYMENT REQUIRED RIGHT NOW</div>
+                    <div class="bold text-dark-grey" style="font-size: 11px; padding-bottom:10px">Upon confirmation of order, our team will get in touch with you to collect 30% advance payment</div>
+                </div>
+            </div>
+            <div ng-include = "'./templates/helpBox.tpl.html'"></div>
+        </div>
     </div>
 </div>
-</div>
+
+
+<script type="text/ng-template" id="orderCompletion.html">
+
+    <div class="modal-header">
+        <h3 class="modal-title">Congratulations</h3>
+    </div>
+    <div class="modal-body">
+
+        <h1>your order has been completed successfully your order id is {{order_id}}</h1>
+        <!--<div class="white-background-box">-->
+        <!--{{orderObject}}-->
+        <!--</div>-->
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click = "home()">Go to Home</button>
+        <!--<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>-->
+    </div>
+</script>
+
+<script type="text/ng-template" id="orderError.html">
+
+    <div class="modal-header">
+        <h3 class="modal-title">Error</h3>
+    </div>
+    <div class="modal-body">
+
+        <h1>Something went wrong please try again</h1>
+        <!--<div class="white-background-box">-->
+        <!--{{orderObject}}-->
+        <!--</div>-->
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="home()">Go to Home</button>
+        <!--<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>-->
+    </div>
+</script>

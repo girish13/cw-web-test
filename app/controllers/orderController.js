@@ -38,12 +38,12 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     $scope.increaseQty = function(item){
         var index = $rootScope.order.indexOf(item);
         if($rootScope.order[index][2].type == 'a-la-carte'){
-           //if($rootScope.order[index][4] > 1)
+            //if($rootScope.order[index][4] > 1)
             $rootScope.order[index][4]++;
         }
         else if($rootScope.order[index][2].type == 'package'){
             //if($rootScope.order[index][6] > 1)
-                $rootScope.order[index][6]++;
+            $rootScope.order[index][6]++;
         }
         orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
         $scope.removeItem(item);
@@ -55,11 +55,11 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
         var index = $rootScope.order.indexOf(item);
         if($rootScope.order[index][2].type == 'a-la-carte'){
             if($rootScope.order[index][4] > 1)
-            $rootScope.order[index][4]--;
+                $rootScope.order[index][4]--;
         }
         else if($rootScope.order[index][2].type == 'package'){
             if($rootScope.order[index][6] > 1)
-            $rootScope.order[index][6]--;
+                $rootScope.order[index][6]--;
         }
         orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
         $scope.removeItem(item);
@@ -67,7 +67,7 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     };
 
     $scope.editItem = function(item){
-      var index = $rootScope.order.indexOf(item);
+        var index = $rootScope.order.indexOf(item);
         console.log(item);
         console.log(index);
     };
@@ -79,7 +79,7 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
 
 
     $scope.showAlacarte = function(type){
-         return type == 'a-la-carte';
+        return type == 'a-la-carte';
     };
     $scope.showPackages = function(type){
         //console.log(type);
@@ -106,6 +106,35 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     $scope.placeOrder = function(){
         //console.log($scope.cust);
         orderService.checkout($scope.cust);
+        $scope.response = orderService.response ;
+        console.log($scope.response);
+        console.log($scope.response[0].order_id);
+        if($scope.response[0].order_id){
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'orderCompletion.html',
+                controller: 'orderResponseModalInstanceController',
+                resolve: {
+                    order_id : function(){
+                        return $scope.response[0].order_id;
+                    }
+                }
+            });
+        }
+        else {
+
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'orderError.html',
+                controller: 'orderResponseModalInstanceController',
+                resolve: {
+                    order_id : function(){
+                        return '0';
+                    }
+                }
+            });
+        }
+
     };
 
 
@@ -142,7 +171,7 @@ app.controller('orderModalInstanceController',function($scope, $uibModalInstance
 
 
     $scope.checkout = function(){
-         $state.go('checkout');
+        $state.go('checkout');
     };
 
 
@@ -156,5 +185,15 @@ app.controller('orderModalInstanceController',function($scope, $uibModalInstance
 
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
+    };
+});
+
+app.controller('orderResponseModalInstanceController',function($scope,$uibModalInstance,$state,order_id){
+    if(order_id)
+        $scope.order_id = order_id;
+
+    $scope.home = function(){
+        $state.go('home');
+        $uibModalInstance.close();
     };
 });

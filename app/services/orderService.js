@@ -20,8 +20,8 @@ app.service('orderService',function($rootScope,api){
         var price = 0;
         angular.forEach(packageDetails.pricing,function(value,key){
             if(numberOfPackages >= value.min_pax && numberOfPackages<= value.max_pax){
-                 price = value.price_per_person;
-                 packageDetails.price = price;
+                price = value.price_per_person;
+                packageDetails.price = price;
             }
         });
         price += additionalPrice;
@@ -39,13 +39,13 @@ app.service('orderService',function($rootScope,api){
             var subTotal = 0;
             console.log($rootScope.order);
             angular.forEach($rootScope.order,function(value,key){
-                        //console.log(value);
-                        //console.log(value[6]);
-                        console.log(value);
-                        subTotal += (value[2].price * value[6]);
-                        totalAmount += value[9];
-                        totalTax += (value[9] - (value[2].price * value[6]));
-                    });
+                //console.log(value);
+                //console.log(value[6]);
+                console.log(value);
+                subTotal += (value[2].price * value[6]);
+                totalAmount += value[9];
+                totalTax += (value[9] - (value[2].price * value[6]));
+            });
             $rootScope.total = {};
             $rootScope.total['subTotal'] = subTotal;
             $rootScope.total['totalAmount'] = totalAmount;
@@ -87,9 +87,8 @@ app.service('orderService',function($rootScope,api){
         this.orderObject.push($rootScope.searchDetails);
         console.log(this.orderObject);
 
-         api.order.save(this.orderObject);
-
- };
+        this.response = api.order.save(this.orderObject);
+    };
 
     //this.calculateTotalPrice = function(){
     //    angular.forEach($rootScope.order,function(value,key){

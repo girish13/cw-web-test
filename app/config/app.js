@@ -84,7 +84,12 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.
         .state('partnerSignUp',{
             url : '/PartnerWithUs',
             templateUrl : "templates/partnerSignUp.tpl.html",
-            controller : "partnerSignUpController"
+            controller : "SignUpController"
+        })
+        .state('corporateSignUp',{
+            url : '/Corporate',
+            templateUrl : "templates/corporateSignUp.tpl.html",
+            controller : "SignUpController"
         });
         //.state('dashboard', {
         //    url: '/dashboard',
@@ -147,7 +152,7 @@ app.filter('range', function() {
         return input;
     };
 });
-app.controller('partnerSignUpController',function($scope){
+app.controller('SignUpController',function($scope){
 
 });
 //angular.module('app', ['rzModule']);
