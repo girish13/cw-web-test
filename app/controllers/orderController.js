@@ -105,35 +105,37 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
 
     $scope.placeOrder = function(){
         //console.log($scope.cust);
-        orderService.checkout($scope.cust);
-        $scope.response = orderService.response ;
-        console.log($scope.response);
-        console.log($scope.response[0].order_id);
-        if($scope.response[0].order_id){
-            var modalInstance = $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: 'orderCompletion.html',
-                controller: 'orderResponseModalInstanceController',
-                resolve: {
-                    order_id : function(){
-                        return $scope.response[0].order_id;
+        orderService.checkout($scope.cust).$promise.then(function(res){
+            $scope.response = res[0].order_id;
+            if($scope.response){
+                var modalInstance = $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: 'orderCompletion.html',
+                    controller: 'orderResponseModalInstanceController',
+                    resolve: {
+                        order_id : function(){
+                            return $scope.response;
+                        }
                     }
-                }
-            });
-        }
-        else {
+                });
+            }
+            else {
 
-            var modalInstance = $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: 'orderError.html',
-                controller: 'orderResponseModalInstanceController',
-                resolve: {
-                    order_id : function(){
-                        return '0';
+                var modalInstance = $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: 'orderError.html',
+                    controller: 'orderResponseModalInstanceController',
+                    resolve: {
+                        order_id : function(){
+                            return '0';
+                        }
                     }
-                }
-            });
-        }
+                });
+            }
+        });
+        //$scope.response = orderService.response;
+        //console.log($scope.response);
+        //console.log($scope.response.order_id);
 
     };
 

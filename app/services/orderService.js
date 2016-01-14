@@ -85,9 +85,18 @@ app.service('orderService',function($rootScope,api){
             this.orderObject.push(this.temp);
         },this);
         this.orderObject.push($rootScope.searchDetails);
-        console.log(this.orderObject);
+        //console.log(this.orderObject);
 
-        this.response = api.order.save(this.orderObject);
+        return api.order.save(this.orderObject);
+
+        //return oService.save(this.orderObject);
+        //oService.save(this.orderObject).$promise.then(function(res){
+        //    return res[0].order_id;
+        //});
+        //console.log(this.response);
+        //return 'abcd';
+        //console.log()
+        //return this.response;
     };
 
     //this.calculateTotalPrice = function(){
