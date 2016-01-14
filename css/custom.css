@@ -1379,3 +1379,16 @@ select {
 /*overflow-x: scroll ;*/
     /*overflow-y: hidden;*/
 /*}*/
+
+
+
+
+.alertBox{
+    position: fixed;
+    z-index : 10000;
+    top : 20px;
+    left : 30vw;
+    min-height : 40px;
+    width : 40vw;
+    text-align : center;
+}

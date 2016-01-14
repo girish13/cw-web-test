@@ -10,21 +10,21 @@
     <div class="package" ng-repeat="hotelPackage in hotelPackages">
         <div class="pointer" ng-init="isPackageCollapsed[hotelPackage.id] = true" ng-click="isPackageCollapsed[hotelPackage.id] = !isPackageCollapsed[hotelPackage.id]">
             <div class = "float-left">
-               <div class="bold font20 text-red"> {{hotelPackage.name}}</div>
+               <div class="bold font20 text-red" > {{hotelPackage.name}}</div>
             </div>
-            <div class="package_price float-right" ng-mouseover="showPriceDetails = true" ng-mouseleave="showPriceDetails = false" ng-if = "hotelPackage.price">Rs. {{hotelPackage.price}} per person <span  ><i class="fa fa-info-circle text-red"></i></span> </div>
-            <div class="package_price float-right" ng-mouseover="showPriceDetails = true" ng-mouseleave="showPriceDetails = false" ng-if = "!hotelPackage.price">Rs. {{hotelPackage.price_min}} - {{hotelPackage.price_max}} per person <span ng-click = "showPriceDetails = true" ng-mouseleave="showPriceDetails = false"><i class="fa fa-info-circle text-red"></i></span>  </div>
-            <div ng-init = "showPriceDetails = false" ng-show = "showPriceDetails">
+            <div class="package_price float-right" ng-if = "hotelPackage.price">Rs. {{hotelPackage.price}} per person <span  ><i class="fa fa-info-circle text-red"></i></span> </div>
+            <div class="package_price float-right" ng-if = "!hotelPackage.price">Rs. {{hotelPackage.price_min}} - {{hotelPackage.price_max}} per person <span ng-click = "console.log('this'); $event.stopPropagation(); " ><i class="fa fa-info-circle text-red"></i></span>  </div>
+            <div ng-if = "showPriceDetails">
                 <span ng-repeat="pricerange in hotelPackage.pricing">
                     {{pricerange.min_pax}} - {{pricerange.max_pax}} packages : Rs. {{pricerange.price_per_person}} <br>
                 </span>
             </div>
             <div style="clear: both"></div>
             <div class = "package_item_des float-left font13" >{{hotelPackage.description}}</div>
-
+            <div class="float-right"><span ng-if = "isPackageCollapsed[hotelPackage.id]"><i class="fa fa-caret-right fa-lg"></i></span>
+                <span ng-if = "!isPackageCollapsed[hotelPackage.id]"><i class="fa fa-caret-down fa-lg"></i></span></div>
                         <div class="row"><div class="col-md-12"><hr class="bg-grey no-margin"></div></div>
                         <div style="clear: both"></div>
-
         </div>
         <div uib-collapse="isPackageCollapsed[hotelPackage.id]">
         <!--</div>-->

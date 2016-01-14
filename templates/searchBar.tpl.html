@@ -18,7 +18,7 @@
                     </div><!-- /input-group -->
                 </div>
                 <div class = "col-md-2">
-                    <select class="form-control search-bar-fields" ng-options="n+' persons' for n in [] | range:10:75" ng-model="numberOfPersons"></select>
+                    <select class="form-control search-bar-fields" ng-options="n+' persons' for n in [] | range:10:75" ng-model="numberOfPersons"><option value = "" disabled selected>Persons?</option></select>
                 </div>
                 <!--<div class = "col-md-2">-->
                     <div class="col-md-2">
@@ -26,7 +26,7 @@
                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
                                             </span>
-                        <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" id = "date" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                        <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" id = "date" ng-model="dt" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
 
                     </div>
                     </div>

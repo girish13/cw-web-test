@@ -15,7 +15,7 @@ $scope.hotelSchedule = api.getHotelSchedule.query({id: $rootScope.hotelId},funct
 });
 
 
-app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$rootScope,orderService){
+app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$rootScope,orderService,alertService){
 
     $scope.package = {};
     $scope.itemOptionCategories = {};
@@ -81,7 +81,7 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
                 //console.log($scope.totalAdditionalPrice[pkge.id]);
             $scope.totalPrice[pkge.id] = (pkge.price + $scope.totalAdditionalPrice[pkge.id] ) * $scope.numberOfPackages[pkge.id] ;}
             else{
-            console.log($scope.totalAdditionalPrice[pkge.id]);
+            //console.log($scope.totalAdditionalPrice[pkge.id]);
              $scope.totalPrice[pkge.id] = pkge.price * $scope.numberOfPackages[pkge.id] ;
             }
         //console.log($scope.numberOfPackages[pkge.id]);
@@ -129,8 +129,14 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
                 $scope.selectedPackage[value.id] = {};
             }
         });
+
         //console.log($scope.selectedPackage);
         if(angular.equals({}, $scope.packageError)){
+            //console.log($scope.numberOfPackages[hotelPackage.id]);
+            if($scope.numberOfPackages[hotelPackage.id] == undefined){
+                alertService.showAlert('lessPackageError',3000,'error');
+            }
+            else
             orderService.addOrder($scope.hotelDetails[0],hotelPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice[hotelPackage.id],$scope.numberOfPackages[hotelPackage.id],$scope.addInfo[hotelPackage.id]);
         }
 
@@ -192,7 +198,7 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
 
 
 });
-app.controller('packageSelectorModalController',function($scope,$rootScope,$uibModalInstance,package_item,pre_package,api){
+app.controller('packageSelectorModalController',function($scope,$rootScope,$uibModalInstance,package_item,pre_package,api,alertService){
     $scope.animationsEnabled = true;
     $scope.selectedItem = {};
     //console.log(selection.ids);
@@ -212,9 +218,13 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
     $scope.countCheck = function(id,categoryId){
         if($scope.isChecked[id]){
             if($scope.count[categoryId] < $scope.max_choice[categoryId])
-            $scope.count[categoryId]++;
-            else
+            {
+                $scope.count[categoryId]++;
+            }
+            else{
                 $scope.isChecked[id] = false;
+                alertService.showAlert('moreThanMax',2000,'warning');
+            }
         }
         else
         $scope.count[categoryId]--;

@@ -1,4 +1,4 @@
-app.controller('locationSearchController',function($rootScope,$scope,$log,api,$state,$filter){
+app.controller('locationSearchController',function($rootScope,$scope,$log,api,$state,$filter,alertService){
     $scope.edit = false;
     $scope.mytime = null;
     $scope.ismeridian = false;
@@ -44,10 +44,17 @@ app.controller('locationSearchController',function($rootScope,$scope,$log,api,$s
         $rootScope.searchDetails.selectedLocality = $scope.selectedLocality;
         $state.go('search');
         }
+        else if($scope.selectedLocality == '') {
+            alertService.showAlert('noLocationError',3000,'error');
+        }
+        else
+        {
+            alertService.showAlert('locationInvalid',3000,'error')
+        }
     };
 
     $scope.updateLocation = function(){
-        if($scope.selectedLocality.id && $scope.dt && $scope.mytime && $scope.numberOfPersons){
+        if($scope.selectedLocality.id){
             $rootScope.searchDetails = {};
             $rootScope.searchDetails.selectedState = $scope.selectedState;
             $rootScope.searchDetails.selectedCity = $scope.selectedCity;
@@ -58,6 +65,13 @@ app.controller('locationSearchController',function($rootScope,$scope,$log,api,$s
             $rootScope.searchDetails.pax = $scope.numberOfPersons;
             //console.log($rootScope.searchDetails);
        $state.go('search',{locality_id : $scope.selectedLocality.id,date : $filter('date')($scope.dt,'yyyy/MM/dd'),mytime : $scope.mytime,pax : $scope.numberOfPersons});
+        }
+        else if($scope.selectedLocality == '') {
+            alertService.showAlert('noLocationError',3000,'error');
+        }
+        else
+        {
+            alertService.showAlert('locationInvalid',3000,'error')
         }
     };
 
