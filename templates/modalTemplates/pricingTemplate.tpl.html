@@ -1,0 +1,7 @@
+<script type="text/ng-template" id="pricing.html">
+    <div>
+        <p ng-repeat="pricerange in hotelPackage.pricing">
+            {{pricerange.min_pax}} - {{pricerange.max_pax}} packages : Rs. {{pricerange.price_per_person}} <br>
+        </p>
+    </div>
+</script>

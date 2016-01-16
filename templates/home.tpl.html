@@ -33,7 +33,7 @@
                                     <!--<li ng-repeat="city in cities">{{city.name}}</li>-->
                                     <!--</ul>-->
                                 </div><!-- /btn-group -->
-                                <input type="text" class="form-control search-box-fields text-grey" id="home-search" ng-model="selectedLocality" uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue | limitTo:8" placeholder="Enter Locality">
+                                <input type="text" class="form-control search-box-fields text-grey" id="home-search" ng-model="searchDetails.selectedLocality" uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue | limitTo:8" placeholder="Enter Locality">
                             </div><!-- /input-group -->
                         </div>
                         <!--<div class = "col-md-3">-->

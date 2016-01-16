@@ -1,4 +1,4 @@
-app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,$rootScope){
+app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,$rootScope,alertService){
     $scope.tags = [
     ];
     //loading spinners
@@ -13,12 +13,6 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
     //$scope.loadTags = function(query) {
     //    return $http.get('/tags?query=' + query);
     //};
-    if($rootScope.searchDetails){
-        $scope.locality_id =  $rootScope.searchDetails.selectedLocality.id;
-        $scope.date =  $filter('date')($rootScope.searchDetails.date,'yyyy/MM/dd');
-        $scope.time = $rootScope.searchDetails.time;
-        $scope.pax = $rootScope.searchDetails.pax;
-    }
     $scope.filters = {};
     $scope.selectedFilters = [];
     $scope.sortTypes = ['popularity','rating','price-low','price-high'];
@@ -34,7 +28,7 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
             ceil : 2000
         }
     };
-    $scope.restaurants = api.searchRestaurants.query({locality_id : $scope.locality_id,date : $scope.date,time : $scope.time ,pax : $scope.pax},function(){
+    $scope.restaurants = api.searchRestaurants.query({locality_id : $rootScope.searchDetails.selectedLocality.id,date : $filter('date')($rootScope.searchDetails.date,'yyyy/MM/dd'),time : $rootScope.searchDetails.time ,pax : $rootScope.searchDetails.pax},function(){
         //console.log($scope.restaurants);
         $scope.loadingRestaurants = false;
         $scope.$watch('selectedFilters',function(newVal,oldVal){
@@ -48,6 +42,7 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
             },true
         );
     });
+
 
      $scope.filterRestaurants = function() {
          $scope.loadingRestaurants = true;
@@ -64,21 +59,32 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
                 }
          });
          //console.log($scope.filter_string);
+            if($rootScope.searchDetails.selectedLocality != ''){
+                if($rootScope.searchDetails.selectedLocality.id){
+                $scope.restaurants = api.searchRestaurants.query({
+                    locality_id: $rootScope.searchDetails.selectedLocality.id,
+                    date: $filter('date')($rootScope.searchDetails.date,'yyyy/MM/dd'),
+                    time: $rootScope.searchDetails.time,
+                    pax: $rootScope.searchDetails.pax,
+                    sort: $scope.sortType,
+                    page: $scope.pageNumber,
+                    filters:$scope.filter_string,
+                    price_max: $scope.price_max,
+                    price_min: $scope.price_min
+                }, function () {
+                    $scope.loadingRestaurants = false;
+                    //console.log($scope.restaurants);
+                });
+                }
+            }
+            else if($rootScope.searchDetails.selectedLocality == '') {
+                alertService.showAlert('noLocationError',3000,'error');
+            }
+            else
+            {
+                alertService.showAlert('locationInvalid',3000,'error')
+            }
 
-         $scope.restaurants = api.searchRestaurants.query({
-             locality_id: $scope.locality_id,
-             date: $scope.date,
-             time: $scope.time,
-             pax: $scope.pax,
-             sort: $scope.sortType,
-             page: $scope.pageNumber,
-             filters:$scope.filter_string,
-             price_max: $scope.price_max,
-             price_min: $scope.price_min
-         }, function () {
-             $scope.loadingRestaurants = false;
-               //console.log($scope.restaurants);
-         });
      };
 
 

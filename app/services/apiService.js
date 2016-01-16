@@ -21,8 +21,6 @@ app.service('api',function($resource,$http,baseUrl,$log){
     this.getLocalities = $resource(baseUrl+'getLocation/state/:state_id/city/:city_id/localities',{state_id : '@state_id',city_id : '@city_id'});
 
 
-
-
     //search Apis
 
     this.searchRestaurants = $resource(baseUrl+'getRestaurantList',{locality_id : '@locality_id',date : '@date',time : '@time',pax : '@pax',sort : '@sort',page : '@page',filters : '@filters',price_max : '@price_max',price_min : '@price_min'});

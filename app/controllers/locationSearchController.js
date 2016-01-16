@@ -1,22 +1,22 @@
 app.controller('locationSearchController',function($rootScope,$scope,$log,api,$state,$filter,alertService){
     $scope.edit = false;
-    $scope.mytime = null;
+    //$scope.mytime = null;
     $scope.ismeridian = false;
+    //$rootScope.searchDetails.selectedState = '3';
+    //$rootScope.searchDetails.selectedCity = '1';
+    //
+    //$scope.temp = {};
 
-    if($rootScope.searchDetails){
-        $scope.selectedState = '3';
-        $scope.selectedCity = '1';
-        $scope.selectedLocality = $rootScope.searchDetails.selectedLocality;
-        $scope.numberOfPersons = $rootScope.searchDetails.pax;
-        $scope.mytime = $rootScope.searchDetails.time;
-        $scope.dt = $rootScope.searchDetails.date;
-    }
-    else{
-        $scope.selectedState = '3';
-        $scope.selectedCity = '1';
-        $scope.selectedLocality = '';
-        $scope.numberOfPersons = '';
-    }
+    //if($rootScope.searchDetails){
+    //    $scope.selectedLocality = $rootScope.searchDetails.selectedLocality;
+    //    $scope.numberOfPersons = $rootScope.searchDetails.pax;
+    //    $scope.mytime = $rootScope.searchDetails.time;
+    //    $scope.dt = $rootScope.searchDetails.date;
+    //}
+    //else{
+    //    $scope.selectedLocality = '';
+    //    $scope.numberOfPersons = '';
+    //}
 
      //api calls
 
@@ -28,23 +28,39 @@ app.controller('locationSearchController',function($rootScope,$scope,$log,api,$s
     //
     //});
 
+    //$scope.showDateTimeBlock = function(){
+    //    //console.log('here');
+    //  return !!(!$rootScope.searchDetails.date || !$rootScope.searchDetails.time || !$rootScope.searchDetails.pax);
+    //};
+    //
+    //$scope.showBlock = function(index){
+    //    //console.log('here');
+    //    return  !$rootScope.searchDetails[index];
+    //};
+    //
+    //$scope.updateSearchDetails = function(){
+    //
+    //    $rootScope.searchDetails.date = $scope.temp.date;
+    //    $rootScope.searchDetails.time = $scope.temp.time;
+    //    $rootScope.searchDetails.pax = $scope.temp.pax;
+    //};
+
+
     $scope.times = api.getTime.query(function(){
     });
 
 
-    $scope.localities = api.getLocalities.query({state_id: $scope.selectedState,city_id :$scope.selectedCity},function(){
-
+    $scope.localities = api.getLocalities.query({state_id: $rootScope.searchDetails.selectedState,city_id :$rootScope.searchDetails.selectedCity},function(){
     });
 
     $scope.getStarted =function(){
-        if($scope.selectedLocality.id){
-        $rootScope.searchDetails = {};
-        $rootScope.searchDetails.selectedState = $scope.selectedState;
-        $rootScope.searchDetails.selectedCity = $scope.selectedCity;
-        $rootScope.searchDetails.selectedLocality = $scope.selectedLocality;
+        if($rootScope.searchDetails.selectedLocality.id){
+        //$rootScope.searchDetails.selectedState = $scope.selectedState;
+        //$rootScope.searchDetails.selectedCity = $scope.selectedCity;
+        //$rootScope.searchDetails.selectedLocality = $scope.selectedLocality;
         $state.go('search');
         }
-        else if($scope.selectedLocality == '') {
+        else if($rootScope.searchDetails.selectedLocality == '') {
             alertService.showAlert('noLocationError',3000,'error');
         }
         else
@@ -54,19 +70,20 @@ app.controller('locationSearchController',function($rootScope,$scope,$log,api,$s
     };
 
     $scope.updateLocation = function(){
-        if($scope.selectedLocality.id){
-            $rootScope.searchDetails = {};
-            $rootScope.searchDetails.selectedState = $scope.selectedState;
-            $rootScope.searchDetails.selectedCity = $scope.selectedCity;
-            $rootScope.searchDetails.selectedLocality = $scope.selectedLocality;
-            $rootScope.searchDetails.time =  $scope.mytime;
+        if($rootScope.searchDetails.selectedLocality.id){
+            //$rootScope.searchDetails = {};
+            //$rootScope.searchDetails.selectedState = $scope.selectedState;
+            //$rootScope.searchDetails.selectedCity = $scope.selectedCity;
+            //$rootScope.searchDetails.selectedLocality = $scope.selectedLocality;
+            //$rootScope.searchDetails.time =  $scope.mytime;
                 //$filter('date')($scope.mytime,'HH:mm');
-            $rootScope.searchDetails.date = $scope.dt;
-            $rootScope.searchDetails.pax = $scope.numberOfPersons;
+            //$rootScope.searchDetails.date = $scope.dt;
+            //$rootScope.searchDetails.pax = $scope.numberOfPersons;
             //console.log($rootScope.searchDetails);
-       $state.go('search',{locality_id : $scope.selectedLocality.id,date : $filter('date')($scope.dt,'yyyy/MM/dd'),mytime : $scope.mytime,pax : $scope.numberOfPersons});
+            //console.log('here');
+       $state.go('search');
         }
-        else if($scope.selectedLocality == '') {
+        else if($rootScope.searchDetails.selectedLocality == '') {
             alertService.showAlert('noLocationError',3000,'error');
         }
         else

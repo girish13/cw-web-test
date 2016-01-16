@@ -18,12 +18,7 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.
             url:'/search',
             templateUrl : 'templates/hotelSearch.tpl.html',
             controller : 'hotelSearchController',
-            params : {
-                locality_id : null,
-                date : null,
-                mytime : null,
-                pax : null
-            }
+
         })
         .state('hotel', {
             //parent : 'common',
@@ -90,6 +85,11 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.
             url : '/Corporate',
             templateUrl : "templates/corporateSignUp.tpl.html",
             controller : "SignUpController"
+        })
+        .state('orderConfirmed',{
+            url : '/orderConfirmed',
+            templateUrl : 'templates/orderConfirmed.tpl.html',
+            controller : 'orderController'
         });
         //.state('dashboard', {
         //    url: '/dashboard',
@@ -121,6 +121,14 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.
 app.run(function($rootScope,$state){
     $rootScope.$state = $state;
     $rootScope.imagePath = '';
+    $rootScope.searchDetails = {
+        selectedState : '3',
+        selectedCity : '1',
+        selectedLocality : '',
+        pax : '',
+        date : '',
+        time : ''
+    };
 });
 //
 //angular.module('app')

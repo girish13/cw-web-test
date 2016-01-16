@@ -52,7 +52,7 @@
                             <h4 class="text-middle text-dark-grey">Searching {{filtertype.type}}s</h4>
                         </div>
                     <div class="filters" uib-collapse="isCollapsed[filtertype.type]" ng-class="{highlight: isFilterChecked[filter.id] || hover}" ng-click="isFilterChecked[filter.id] = !isFilterChecked[filter.id]" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-repeat="filter in filters[filtertype.type] | filter : text[filtertype.type]">
-                        <input style="visibility: hidden;"  type = "checkbox" data-checklist-model="selectedFilters" ng-model="isFilterChecked[filter.id]" data-checklist-value="filter">
+                        <input  type = "checkbox" data-checklist-model="selectedFilters" ng-model="isFilterChecked[filter.id]" data-checklist-value="filter">
                         <span href class="text-dark-grey font15 text-capitalize">{{filter.name}}</span>
                     </div>
                     </div>
@@ -160,3 +160,11 @@
         </div>
     </div>
 </div>
+
+<div class="gap"></div>
+<ng-include src = "'./templates/footer.tpl.html'"></ng-include>
+
+
+
+
+

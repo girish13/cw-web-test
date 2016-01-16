@@ -108,16 +108,18 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
         orderService.checkout($scope.cust).$promise.then(function(res){
             $scope.response = res[0].order_id;
             if($scope.response){
-                var modalInstance = $uibModal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: 'orderCompletion.html',
-                    controller: 'orderResponseModalInstanceController',
-                    resolve: {
-                        order_id : function(){
-                            return $scope.response;
-                        }
-                    }
-                });
+                $scope.order_id = $scope.response;
+                $state.go('orderConfirmed');
+                //var modalInstance = $uibModal.open({
+                //    animation: $scope.animationsEnabled,
+                //    templateUrl: 'orderCompletion.html',
+                //    controller: 'orderResponseModalInstanceController',
+                //    resolve: {
+                //        order_id : function(){
+                //            return $scope.response;
+                //        }
+                //    }
+                //});
             }
             else {
 

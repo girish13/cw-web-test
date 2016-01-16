@@ -35,7 +35,7 @@
                                 <a ui-sref="partnerSignUp" ><div class = "navbarBtn btn-light">Partner with us</div></a>
                             </li>
                             <li>
-                                <a><button popover-placement="bottom" uib-popover="         +91-9999043970 support@caterwow.com" class = "text-middle navbarBtn bg-red btn-red">Contact Us</button></a>
+                                <a><button ng-controller="homeController" ng-click = "openContactUs()" class = "text-middle navbarBtn bg-red btn-red">Contact Us</button></a>
                             </li>
                         </ul>
             </div>
@@ -43,4 +43,4 @@
     </nav>
 </header>
 
-<!--<ng-include src = "'./templates/modalTemplates/loginModal.tpl.html'"></ng-include>-->
+<ng-include src = "'templates/modalTemplates/contactUsModal.tpl.html'"></ng-include>

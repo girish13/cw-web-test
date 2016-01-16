@@ -14,11 +14,11 @@
                             <!--<li ng-repeat="city in cities">{{city.name}}</li>-->
                             <!--</ul>-->
                         </div><!-- /btn-group -->
-                        <input type="text" class="form-control" ng-model="selectedLocality" uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue | limitTo:8" placeholder="Enter Locality">
+                        <input type="text" class="form-control" ng-model="searchDetails.selectedLocality" uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue | limitTo:8" placeholder="Enter Locality">
                     </div><!-- /input-group -->
                 </div>
                 <div class = "col-md-2">
-                    <select class="form-control search-bar-fields" ng-options="n+' persons' for n in [] | range:10:75" ng-model="numberOfPersons"><option value = "" disabled selected>Persons?</option></select>
+                    <select class="form-control search-bar-fields" ng-options="n+' persons' for n in [] | range:10:75" ng-model="searchDetails.pax"><option value = "" disabled selected>Persons?</option></select>
                 </div>
                 <!--<div class = "col-md-2">-->
                     <div class="col-md-2">
@@ -26,16 +26,16 @@
                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
                                             </span>
-                        <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" id = "date" ng-model="dt" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                        <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" id = "date" ng-model="searchDetails.date" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
 
                     </div>
                     </div>
                 <!--</div>-->
                 <div class = "col-md-2 ">
-                    <select class="form-control search-bar-fields" ng-options="n for n in times"  ng-model="mytime"><option value = "" disabled selected>Event Time</option></select>
+                    <select class="form-control search-bar-fields" ng-options="n for n in times"  ng-model="searchDetails.time"><option value = "" disabled selected>Event Time</option></select>
                 </div>
                 <div class = " col-md-1">
-                    <button class=" btn btn-primary search-update-btn search-bar-fields font20" ng-click="updateLocation()">Search</button>
+                    <button class=" btn btn-primary search-update-btn search-bar-fields font20" ng-controller="hotelSearchController" ng-click="filterRestaurants()">Search</button>
                 </div>
                 <!--</div>-->
                 <!--<div class = "col-md-1  cart" ng-controller="orderController">-->

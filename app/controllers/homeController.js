@@ -1,4 +1,4 @@
-app.controller('homeController', function ($state,$scope) {
+app.controller('homeController', function ($state,$scope,$uibModal) {
     //var vm = this;
     //vm.errors = {
     //    register_name : '',
@@ -99,7 +99,22 @@ app.controller('homeController', function ($state,$scope) {
     //
     ///* Homepage*/
     //
+    $scope.openContactUs = function(){
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'contactUsModal.html',
+            size : 'sm',
+            controller : function($scope,$uibModalInstance){
+                $scope.ok = function () {
+                    $uibModalInstance.close();
+                };
 
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            }
+        });
+    };
 
 
 

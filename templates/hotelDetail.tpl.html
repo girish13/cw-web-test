@@ -107,6 +107,20 @@
 
         </div>
         <div class="col-md-3">
+            <!--<div class="white-background-box row" ng-controller="locationSearchController" ng-show = "showDateTimeBlock()">-->
+                <!--<div class="font20">-->
+                    <!--For getting exact pricing details and availability of restaurant in your area Please enter date time and number of people-->
+                    <!--<div ng-if = "showBlock('date')" class="input-group search-bar-fields no-padding">-->
+                        <!--<span class="input-group-btn" >-->
+                                            <!--<button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>-->
+                                            <!--</span>-->
+                        <!--<input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" id = "date" ng-model="temp.date" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />-->
+                    <!--</div>-->
+                    <!--<select ng-if="showBlock('time')" class="form-control search-bar-fields"ng-options="n for n in times"  ng-model="temp.time"><option value = "" disabled selected>Event Time</option></select>-->
+                    <!--<select ng-if = "showBlock('pax')"  class="form-control search-bar-fields" ng-options="n+' persons' for n in [] | range:10:75" ng-model="temp.pax"><option value = "" disabled selected>Persons?</option></select>-->
+                    <!--<button class="btn btn-primary myBtn" ng-click = "updateSearchDetails()">Update</button>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="white-background-box row no-padding" ng-controller="orderController">
                 <ng-include src = "'./templates/orderSidebar.tpl.html'"></ng-include>
                 <div class="col-md-12 padding-10">
@@ -174,3 +188,11 @@
 
     <!--</div>-->
 <!--</div>-->
+
+<div class="gap"></div>
+<ng-include src = "'./templates/footer.tpl.html'"></ng-include>
+
+
+
+
+

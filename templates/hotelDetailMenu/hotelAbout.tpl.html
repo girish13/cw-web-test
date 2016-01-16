@@ -1,33 +1,43 @@
 <div class="row">
+    <div class="col-md-12 ">
+         <span class="font20 text-red bold">About {{hotel.name}}</span>
+        <hr class="no-margin">
+        <div class="gap gap-small text-light-grey cw-text">
+            {{hotel.long_description}}
+        </div>
+        <div class="gap gap-mini"></div>
+    </div>
+    <div class="col-md-12 ">
+        <span class="font20 text-red bold">Details</span>
+        <hr class="no-margin">
+        <div class="gap gap-small font15 text-light-grey">
+            <div class=" gap gap-tiny">
+                <span class="bold text-right col-md-3">Minimum Packages :</span>  <span class="col-md-9">{{hotel.min_order_count}}</span>
+            </div>
+            <div class=" gap gap-tiny">
+                <span class="bold  text-right col-md-3">Delivery Fee :</span>  <span class="col-md-9"> Free delivery to {{searchDetails.selectedLocality.name}} </span>
+            </div>
+            <div class=" gap gap-tiny">
+                <span class="bold  text-right col-md-3">Earliest Order Time :</span>  <span class="col-md-9"> {{hotel.order_before}} business hours before (<span class="italic">see restaurant operation timings below</span>) </span>
+            </div>
+            <div class=" gap gap-tiny">
+                <span class="bold  text-right col-md-3">Free Cancellation Notice :</span>  <span class="col-md-9">{{hotel.cancel_before}} business hours before (<span class="italic">see restaurant operation timings below</span>)</span>
+            </div>
+            <!--<div class="text-light-grey">-->
+                <!--<span class="bold  text-right">Delivery Localities</span> : {{hotel.}}-->
+            <!--</div>-->
+        </div>
+        <div class="gap gap-mini"></div>
+    </div>
     <div class="col-md-12">
-        <p>{{hotel.long_description}}<br><br></p>
+        <span class="font20 text-red bold">Restaurant Operation Timings</span>
+        <hr class="no-margin">
+        <div class="gap gap-small text-light-grey font15 col-md-6">
+            <div class="gap gap-tiny" ng-repeat = "hotelTimings in hotelSchedule">
+                <span class="bold text-right col-md-6">{{hotelTimings.days}}  :</span> <span class="col-md-6" ng-if = "hotelTimings.open">{{hotelTimings.open_time}} - {{hotelTimings.close_time}}</span> <span class="col-md-6" ng-if="!hotelTimings.open">Closed</span>
+            </div>
+        </div>
+        <div class="gap gap-mini"></div>
     </div>
-</div>
-
-
-<div class = "row">
-    <div class = "col-md-4">
-        Days Open
-    </div>
-    <div class = "col-md-4">
-        Open time
-    </div>
-    <div class = "col-md-4">
-        Close time
-    </div>
-    <div class="col-md-12"><hr></div>
-</div>
-
-<div class="row" ng-repeat="hotelTimings in hotelSchedule" ng-show="{{hotelTimings.open}}">
-    <div class="col-md-4">
-        {{hotelTimings.days}}
-    </div>
-    <div class="col-md-4">
-        {{hotelTimings.open_time}}
-    </div>
-    <div class = "col-md-4">
-        {{hotelTimings.close_time}}
-    </div>
-    <div class="col-md-12"><hr></div>
 </div>
 
