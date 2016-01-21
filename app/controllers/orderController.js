@@ -1,4 +1,4 @@
-app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api,orderService,$state){
+app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api,orderService,$state,$window){
 
     $scope.hotels = {};
     $scope.package = {};
@@ -17,7 +17,25 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
         $rootScope.order.splice(index, 1);
     };
 
+    $scope.print = function(divName){
+        //$window.print();
+        var printContents = document.getElementById(divName).innerHTML;
+        var popupWin = window.open('', '_blank', 'width=300,height=300');
+        popupWin.document.open();
+        popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+        popupWin.document.close();
+    };
+    $scope.fileName =  'order.html';
+    $scope.save = function(divName){
 
+            var elHtml = document.getElementById(divName).innerHTML;
+            var link = document.createElement('a');
+            var mimeType =  'text/plain';
+
+            link.setAttribute('download', $scope.fileName);
+            link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elHtml));
+            link.click();
+    };
     $scope.calculateTotalPrice = function(){
         orderService.calculateTotalPrice();
     };

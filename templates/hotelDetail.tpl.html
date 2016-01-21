@@ -137,7 +137,7 @@
         <div class="white-background-box row" ng-controller="locationSearchController">
             <div ng-init = "editDetails = !searchDetails.date || !searchDetails.time">
                 <div ng-show = "editDetails == true">
-                    <span>Please Update date and time of your event to know the availability of the restaurant</span>
+                    <span><span class="text-red bold">Please Update date and time</span> of your event to know the availability of the restaurant</span>
                     <div class="input-group no-padding">
                             <span class="input-group-btn" >
                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
@@ -200,30 +200,36 @@
 
         </div>
         <div class="col-md-3">
-            <div class="white-background-box row" ng-if = "$root.width > 992" ng-controller="locationSearchController">
+            <div class="white-background-box row no-padding" ng-if = "$root.width > 992" ng-controller="locationSearchController">
+                <div class="search-message cw-text highlight-dark">
+                    Event Date & Time  <span class="pointer float-right" ng-if = "!editDetails" ng-click="editDetails = true"><i class="fa fa-pencil"></i></span>
+                    <!--<span class="float-right" style="font-size: 10px; margin-top : 7px;">[clear all filters]</span>-->
+                </div>
                 <div ng-init = "editDetails = !searchDetails.date || !searchDetails.time">
-                    <div ng-show = "editDetails == true">
-                        <span>Please Update date and time of your event to know the availability of the restaurant</span>
-                        <div class="input-group no-padding">
+                    <div class="col-md-12" ng-show = "editDetails == true">
+                        <span><span class="bold text-red">Please Update date and time</span> of your event to know the availability of the restaurant</span>
+                        <div class="input-group padding-10">
                             <span class="input-group-btn" >
-                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+                            <button type="button" class="height40 btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
                             </span>
-                            <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" id = "date" ng-model="searchDetails.date" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <input type="text" class="form-control height40" uib-datepicker-popup="dd-MMMM-yyyy" id = "date" ng-model="searchDetails.date" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
                         </div>
-                        <select class="form-control col-md-6" ng-options="n for n in times" ng-model="searchDetails.time"><option value = "" disabled selected>Event Time</option></select>
-                        <button class="btn btn-primary myBtn" ng-click = "editDetails = false">Update</button>
-
+                        <div class="padding-10">
+                            <select class="form-control height40" ng-options="n for n in times" ng-model="searchDetails.time"><option value = "" disabled selected>Event Time</option></select>
+                        </div>
+                        <div class="padding-10 center">
+                            <button class="btn btn-primary myBtn height40" ng-click = "editDetails = false">Update</button>
+                        </div>
                     </div>
-                    <div ng-show = "editDetails == false" >
-                        <span>Restaurant available</span>
-                        <div class="input-group no-padding">
-                            <span class="input-group-btn" >
-                            <button type="button" class="btn btn-default" disabled ng-click="open($event)"><i class="fa fa-calendar"></i></button>
-                            </span>
-                            <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" disabled id = "date" ng-model="searchDetails.date" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                    <div class="col-md-12" ng-show = "editDetails == false" >
+                        <!--<div class="font20 text-middle">Restaurant available </div>-->
+                        <div class="font15 padding-10 text-middle">
+                            <div>Order for :</div>
+                           {{searchDetails.date | date : 'dd-MMMM-yyyy'}}  {{searchDetails.time}}
+                            <!--<input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" disabled id = "date" ng-model="searchDetails.date" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />-->
                         </div>
-                        <span>{{searchDetails.time}}</span>
-                        <span class="pointer" ng-click="editDetails = true"><i class="fa fa-pencil"></i> Edit</span>
+
+
                     </div>
 
 

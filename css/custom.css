@@ -1581,3 +1581,11 @@ select {
 .darkShadow{
     box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
 }
+.mobileSiteError{
+    margin-top : 60px;
+    background-color: #f5e79e;
+    /*position : fixed;*/
+    /*top : 0;*/
+    /*left : 0;*/
+    /*background-color: black;*/
+}

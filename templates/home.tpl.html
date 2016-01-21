@@ -11,10 +11,10 @@
                     <!--Order food for your group-->
                 <!--</div>-->
         <div class="main-text">
-            <div style="margin-bottom : 10px;" class="bg-red text-middle bold" ng-class="{'font25' : $root.width < 480,'font30': $root.width < 768,'font35' : $root.width > 768}">
+            <div style="margin-bottom : 10px;" class="bg-red text-middle bold" ng-class="{'font25' : $root.width < 480,'font30': $root.width < 768 && $root.width > 480,'font35' : $root.width > 768}">
             The easiest way to order <span class="underline">food & catering for groups</span>
         </div>
-            <div class="bg-red text-middle " ng-class="{'font15' : $root.width < 480,'cw-text': $root.width < 768,'font20' : $root.width > 768}">
+            <div class="bg-red text-middle " ng-class="{'font15' : $root.width < 480,'cw-text': $root.width < 768 && $root.width > 480,'font20' : $root.width > 768}">
             at <span class="bold">bulk rates</span> from your <span class="bold" >favourite restaurants</span>
         </div>
         </div>

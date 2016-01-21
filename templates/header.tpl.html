@@ -41,8 +41,8 @@
             </div>
         </div>
     </nav>
-    <div class="fon25" ng-if = "$root.width">
-
+    <div class="font15 text-middle mobileSiteError" ng-init = "mobileSite = $root.width < 992" ng-show = "mobileSite">
+        Use Desktop version for better experience. <span class="pointer" ng-click = "mobileSite = false">X</span>
     </div>
 </header>
 

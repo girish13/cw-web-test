@@ -2,7 +2,7 @@
 <div ng-include="'./templates/alert.tpl.html'"></div>
 <div class="gap gap-big"></div>
 
-<div class="container">
+<div class="container" id = "orderDetails">
     <div class="row">
         <div class=" shadow col-md-offset-2 col-md-8 bg-white padding-20">
             <div class="text-middle text-red font30 bold " style="padding-bottom: 20px;">
@@ -15,7 +15,7 @@
             </div>
 
             <!--<div class="grey-border">-->
-            <div class="cw-text height40 text-middle text-white bg-light-grey padding-10" style = "vertical-align : middle">ORDER DETAILS</div>
+            <div class="cw-text height40 text-middle text-white bg-light-grey padding-10" style = "vertical-align : middle">ORDER DETAILS <span class="float-right pointer font13"><span ng-click="print('orderDetails')">Print</span> | <span ng-click="save('orderDetails')">Save</span></span></div>
             <div class="gap gap-mini"></div>
             <div class="col-md-12 text-dark-grey" ng-repeat = "order in orders">
                 <div class="row">

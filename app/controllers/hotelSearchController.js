@@ -128,7 +128,9 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
     $scope.openFilters = function(){
         $scope.isFilterBoxCollapsed = false;
     };
-
+    $scope.closeFilterBox = function(){
+        $scope.isFilterBoxCollapsed = true;
+    };
     $scope.openSearch = function(){
         $scope.isSearchBoxCollapsed = false;
         //console.log($scope.isSearchBoxCollapsed);

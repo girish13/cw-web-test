@@ -1,4 +1,5 @@
 app.controller('homeController', function ($state,$scope,$uibModal) {
+    $scope.mobileSite = false;
     //var vm = this;
     //vm.errors = {
     //    register_name : '',
