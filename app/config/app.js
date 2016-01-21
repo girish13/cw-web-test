@@ -129,6 +129,7 @@ app.run(function($rootScope,$state){
         date : '',
         time : ''
     };
+    //$rootScope.blackout = false;
 });
 //
 //angular.module('app')
@@ -161,7 +162,6 @@ app.filter('range', function() {
     };
 });
 app.controller('SignUpController',function($scope){
-
 });
 //angular.module('app', ['rzModule']);
 

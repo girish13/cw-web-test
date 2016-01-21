@@ -53,64 +53,65 @@
                 </div>
 
                 <div class="col-md-12">
-                    <form>
+                    <form ng-submit = "placeOrder()">
                         <div class="form-group col-md-6">
                             <div class="input-group ">
-                                <input type="text" class="form-control" name="fname" value="" placeholder="First name" aria-describedby="basic-addon2" ng-model="cust.first_name">
+
+                                <input type="text" class="form-control" name="fname" value="" placeholder="First name" aria-describedby="basic-addon2" ng-model="cust.first_name" ng-class="{'has-error' : error.first_name}" ng-required = "true">
                                 <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-user"></i></span>
                             </div>
-                            <!--<span ng-show=" home.errors.register_name" class="help-block">{{home.errors.register_name}}</span>-->
+                            <span ng-show="error.first_name" class="help-block">{{error.first_name}}</span>
                         </div>
                         <div class="form-group col-md-6">
                             <div class="input-group ">
-                                <input type="text" class="form-control" name="lname"  value="" placeholder="Last name" aria-describedby="basic-addon2" ng-model="cust.last_name">
+                                <input type="text" class="form-control" name="lname"  value="" placeholder="Last name" aria-describedby="basic-addon2" ng-model="cust.last_name" ng-class="{'has-error' : error.last_name}" ng-required = "true">
                                 <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-user"></i></span>
                             </div>
-                            <!--<span ng-show=" home.errors.register_name" class="help-block">{{home.errors.register_name}}</span>-->
+                            <span ng-show=" error.last_name" class="help-block">{{error.last_name}}</span>
                         </div>
                         <div class="form-group col-md-6">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="phone" value="" placeholder="Phone number(10 digits)" aria-describedby="basic-addon2" ng-model="cust.phone">
+                                <input type="text" class="form-control" name="phone" maxlength="10" ng-required = "true" value="" placeholder="Phone number(10 digits)" aria-describedby="basic-addon2" ng-model="cust.phone" ng-class="{'has-error' : error.phone}" ng-required = "true">
                                 <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-phone"></i></span>
                             </div>
-                            <!--<span ng-show="home.errors.register_number" class="help-block">{{home.errors.register_number}}</span>-->
+                            <span ng-show="error.phone" class="help-block">{{error.phone}}</span>
                         </div>
                         <div class="form-group col-md-6">
                             <div class="input-group">
-                                <input type="email" class="form-control" name="email_login" value="" placeholder="Email address" aria-describedby="basic-addon2" ng-model="cust.email">
+                                <input type="email" class="form-control" name="email_login" value="" placeholder="Email address" aria-describedby="basic-addon2" ng-model="cust.email" ng-class="{'has-error' : error.email}" ng-required = "true">
                                 <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-envelope"></i></span>
                             </div>
-                            <!--<span ng-show="home.errors.register_email" class="help-block">{{home.errors.register_email}}</span>-->
+                            <span ng-show="error.email" class="help-block">{{error.email}}</span>
 
                         </div>
                         <div class="form-group col-md-12">
                             <!--<div class="input-group">-->
-                            <textarea class="form-control" name="address" placeholder="Delivery Address" ng-model="cust.address"></textarea>
+                            <textarea class="form-control" name="address" placeholder="Delivery Address" ng-model="cust.address" ng-class="{'has-error' : error.address}" ng-required = "true"></textarea>
                             <!--<span class="text-middle" ng-controller="locationSearchController">Delivery locality : {{selectedLocality.name}},Gurgaon</span>-->
                             <!--<span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lock"></i></span>-->
                             <!--</div>-->
                             <!--<span ng-show="home.errors.register_password" class="help-block">{{home.errors.register_password}}</span>-->
                         </div>
-                        <div class="form-group col-md-6" ng-controller="locationSearchController" ng-if = "selectedLocality.date" >
-                            <span class="form-control" >{{selectedLocality.date}}</span>
-                        </div>
-                        <div class="form-group col-md-6" ng-controller="locationSearchController" ng-if = "selectedLocality.time">
-                            <span class="form-control" >{{selectedLocality.time}}</span>
-                        </div>
-                        <div class="form-group col-md-6" ng-controller="locationSearchController" ng-if = "!selectedLocality.date" >
-                            <div class="input-group search-bar-fields">
+                        <!--<div class="form-group col-md-6"  ng-if = "searchDetails.date" >-->
+                        <!--<span class="form-control" >{{searchDetails.date}}</span>-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-md-6" ng-if = "searchDetails.time">-->
+                        <!--<span class="form-control" >{{searchDetails.time}}</span>-->
+                        <!--</div>-->
+                        <div class="form-group col-md-6"  >
+                            <div class="input-group search-bar-fields" ng-controller="locationSearchController">
                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
                                             </span>
-                                <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" id = "date" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" id = "date" ng-model="searchDetails.date" ng-class="{'has-error' : error.date}" is-open="status.opened" min-date="minDate" max-date="maxDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
 
                             </div>
                         </div>
-                        <div class="form-group col-md-6" ng-controller="locationSearchController" ng-if = "!selectedLocality.time">
-                            <select class="form-control search-bar-fields" ng-options="n for n in times"  ng-model="mytime" required><option value = "" disabled selected>Event Time</option></select>
+                        <div class="form-group col-md-6" >
+                            <select class="form-control search-bar-fields" ng-options="n for n in times" ng-controller="locationSearchController" ng-model="searchDetails.time" required><option value = "" disabled selected>Event Time</option></select>
                         </div>
                         <div class="form-group col-md-6">
-                            <span class="form-control" ng-controller="locationSearchController">{{selectedLocality.name}}</span>
+                            <span class="form-control">{{searchDetails.selectedLocality.name}}</span>
                         </div>
                         <div class="form-group col-md-6">
                             <span class="form-control">Gurgaon</span>
@@ -119,7 +120,7 @@
                             <input class="form-control" ng-model="cust.landmark" placeholder="Landmark">
                         </div>
                         <div class="form-group col-md-6">
-                            <input class="form-control" ng-model="cust.pincode" placeholder = "pincode">
+                            <input class="form-control" ng-model="cust.pincode" placeholder = "pincode" ng-class="{'has-error' : error.pincode}" ng-required = "true">
                         </div>
                         <div class="form-group col-md-12">
                             <!--<div class="input-group">-->
@@ -130,7 +131,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <button style="display:block; width:100%;" ng-click = "placeOrder()" class="btn btn-primary">Confirm Order</button>
+                                <button type="submit" style="display:block; width:100%;"  ng-disabled = "disableOrder" class="btn btn-primary">Confirm Order</button>
                             </div>
                         </div>
                     </form>

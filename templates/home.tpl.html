@@ -11,29 +11,29 @@
                     <!--Order food for your group-->
                 <!--</div>-->
         <div class="main-text">
-            <div style="margin-bottom : 10px;" class="bg-red text-middle bold font35">
+            <div style="margin-bottom : 10px;" class="bg-red text-middle bold" ng-class="{'font25' : $root.width < 480,'font30': $root.width < 768,'font35' : $root.width > 768}">
             The easiest way to order <span class="underline">food & catering for groups</span>
         </div>
-            <div class="bg-red text-middle font20">
+            <div class="bg-red text-middle " ng-class="{'font15' : $root.width < 480,'cw-text': $root.width < 768,'font20' : $root.width > 768}">
             at <span class="bold">bulk rates</span> from your <span class="bold" >favourite restaurants</span>
         </div>
         </div>
         <div class="gap gap-small"></div>
 
-               <div id="searchBox">
+               <div id="searchBox" class="col-md-offset-2 col-md-8">
                    <!--<h4 class="text-middle">Tell us a little about the occasion</h4>-->
                     <div class="row">
                         <div class="col-md-9">
                             <!--<label ng-show="edit">Select a Location :</label>-->
                             <div class="input-group shadow search-box-fields text-grey">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle search-box-fields" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Gurgaon <span class="caret"></span>
+                                    <button type="button" class="btn btn-default dropdown-toggle search-box-fields" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Gurgaon
                                     </button>
                                     <!--<ul class="dropdown-menu">-->
                                     <!--<li ng-repeat="city in cities">{{city.name}}</li>-->
                                     <!--</ul>-->
                                 </div><!-- /btn-group -->
-                                <input type="text" class="form-control search-box-fields text-grey" id="home-search" ng-model="searchDetails.selectedLocality" uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue | limitTo:8" placeholder="Enter Locality">
+                                <input type="text" class="form-control search-box-fields text-grey" id="home-search" ng-model="searchDetails.selectedLocality" ng-model-options="localities" typeahead-show-hint="true"  typeahead-min-length="0"  uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue" placeholder="Enter Locality">
                             </div><!-- /input-group -->
                         </div>
                         <!--<div class = "col-md-3">-->
@@ -140,37 +140,37 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 margin-center-27">
-            <h2 class="float-left text-grey">Curated, pre-planned and online</h2>
-            <p class="float-left cw-text text-left text-light-grey">No more calling up multiple caterers for menus, choosing 4 items from 20 page long menu booklets, or haggling for discounts. Browse through our curated pre-planned menus. Served from popular restaurants at pre-negotiated bulk discounted prices</p>
+            <h2 class="text-grey" ng-class = "{'text-middle' : $root.width < 992 , 'float-left' :  $root.width > 992}" >Curated, pre-planned and online</h2>
+            <p class="cw-text text-light-grey" ng-class = "{'text-middle' : $root.width < 992 , 'float-left text-left' :  $root.width > 992}">No more calling up multiple caterers for menus, choosing 4 items from 20 page long menu booklets, or haggling for discounts. Browse through our curated pre-planned menus. Served from popular restaurants at pre-negotiated bulk discounted prices</p>
             <div style="clear: both"></div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-3" ng-class="{'padding-20' : $root.width < 992}" ng-if = "$root.width > 992">
             <div class="center">
                 <img src="./images/2.png" >
             </div>
         </div>
-        <div class="col-md-3" >
+        <div class="col-md-3" ng-class="{'padding-20' : $root.width < 992}">
             <div class="center">
                 <img src="./images/3.png" >
             </div>
         </div>
     </div>
-    <div class="gap"></div>
+    <div class="gap" ng-if = "$root.width > 992"></div>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" ng-class="{'padding-20' : $root.width < 992}" >
             <div class="center">
                 <img src="./images/4.png">
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" ng-class="{'padding-20' : $root.width < 992}" ng-if = "$root.width > 992">
             <div class="center">
                 <img src="./images/1.png">
             </div>
         </div>
         <div class="col-md-6 margin-center-27">
-            <h2 class="float-right text-grey">Wide variety with affordable pricing</h2>
-            <p class="float-right cw-text text-right text-light-grey">Choose from a variety of cuisines and package types. Authentic Chinese, Lebanese, only starters, high tea or a 5 course meal, we have it all. Get quality food from speciality restaurants. Our deep discounted packages are designed to fit every budget.</p>
+            <h2 class="text-grey" ng-class = "{'text-middle' : $root.width < 992 , 'float-right' :  $root.width > 992}">Wide variety with affordable pricing</h2>
+            <p class="cw-text text-light-grey" ng-class = "{'text-middle' : $root.width < 992 , 'float-right text-right' :  $root.width > 992}">Choose from a variety of cuisines and package types. Authentic Chinese, Lebanese, only starters, high tea or a 5 course meal, we have it all. Get quality food from speciality restaurants. Our deep discounted packages are designed to fit every budget.</p>
         </div>
     </div>
 </div>
@@ -201,7 +201,7 @@
         <p class="text-middle cw-text text-light-grey">We're proud to work with a carefully curated selection of restaurants<br> whose food we genuinely love - and we're sure you will, too.</p>
         <div class="gap small-gap"></div>
         <div class="center">
-            <img src = "images/Logos.png" class="center">
+            <img src = "images/Logos.png" class="center img-responsive">
         </div>
     </div>
 </div>
@@ -211,8 +211,8 @@
     <div class="container">
         <div  class="parallax-content">
             <div class="row">
-                <p class="text-middle font20 bold" style="margin-top: 80px;"><span class="bg-red padding-5">Choose, customise and order in just 5 minutes. Delivered 15 minutes before your event starts.</span></p>
-                <p class="text-middle padding-10 font45 bold" style="margin-bottom: 80px; line-height: 50px; "><span class="bg-red padding-5">As a host, you should enjoy too.</span></p>
+                <p class="text-middle bold" ng-class="{'font15' : $root.width < 480,'cw-text': $root.width < 768,'font20' : $root.width > 768}" style="margin-top: 80px;"><span class="bg-red padding-5">Choose, customise and order in just 5 minutes. Delivered 15 minutes before your event starts.</span></p>
+                <p class="text-middle padding-10 bold" ng-class="{'font25' : $root.width < 480,'font35': $root.width < 768,'font45' : $root.width > 768}" style="margin-bottom: 80px; line-height: 50px; "><span class="bg-red padding-5">As a host, you should enjoy too.</span></p>
             </div>
         </div> <!-- .parallax-content -->
     </div>
@@ -220,7 +220,6 @@
 
 <div class="gap"></div>
 <ng-include src = "'./templates/footer.tpl.html'"></ng-include>
-
 
 
 

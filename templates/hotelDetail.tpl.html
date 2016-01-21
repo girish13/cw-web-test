@@ -1,26 +1,73 @@
 <div ng-include = "'templates/header.tpl.html'"></div>
 <div ng-include="'./templates/alert.tpl.html'"></div>
-<div ng-include = "'templates/searchBar.tpl.html'"></div>
-<div class="container">
+<!--<div ng-include = "'templates/searchBar.tpl.html'"></div>-->
+<div class="navbar bg-red noLocalityMessage" ng-controller="locationSearchController" ng-if = "!searchDetails.selectedLocality.id">
+    <div class="container">
+        <!--<div class="">-->
+            <div class="row font25 text-middle">
+                <div class="col-md-12">Locate yourself to start your order at this restaurant.</div>
+                <div class="col-md-offset-2 col-md-6">
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <button type="button"  class="btn height40 btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Gurgaon
+                            </button>
+                            <!--<ul class="dropdown-menu">-->
+                            <!--<li ng-repeat="city in cities">{{city.name}}</li>-->
+                            <!--</ul>-->
+                        </div><!-- /btn-group -->
+                        <input type="text" class="form-control height40" ng-model="locality" ng-model-options="localities" typeahead-show-hint="true"  typeahead-min-length="0"  uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue" placeholder="Enter Locality">
+                    </div><!-- /input-group -->
+                </div>
+                <div class="col-md-2">
+                <button class="btn full-width btn-primary height40 my-btn" ng-click = "searchDetails.selectedLocality = locality">Update</button>
+                </div>
+                <div class="gap gap-tiny"></div>
+            </div>
+        <!--</div>-->
+    </div>
+</div>
+<div class="gap gap-big" ng-if = "!searchDetails.selectedLocality.id"></div>
+<!--<div class="gap gap-tiny"></div>-->
+<div class="gap"></div>
+<div class="container" ng-if = "$root.width > 992">
     <!--<div class = "row">-->
-    <ol class="breadcrumb">
-        <li class="bold">Home</li>
-        <li class="bold" ng-controller="locationSearchController">Browse Restaurants & Caterers in {{selectedLocality.name}}</li>
+    <ol class="breadcrumb" style="margin-top: 10px;">
+        <li class="bold pointer" ui-sref="home" >Home</li>
+        <li class="bold pointer" ui-sref="search">Browse Restaurants & Caterers in {{searchDetails.selectedLocality.name}}</li>
         <li class="text-red">Customize packages from {{hotel.name}}</li>
         <li>Confirm Order</li>
     </ol>
     <!--</div>-->
 </div>
+<div class="gap gap-small" ng-if = "$root.width < 992">
+    <div class="container">
+        <button class="btn btn-primary my-btn" style="width : 100%" ng-click="isOrderBoxCollapsed = false" >Order Summary</button>
+        <!--<button class="btn btn-primary my-btn" style="width : 49%" ng-click="isDateTimeBoxCollapsed = false">Update Date & Time</button>-->
+    </div>
+    <div class="white-background-box row no-padding" ng-init="isOrderBoxCollapsed = true" uib-collapse="isOrderBoxCollapsed" ng-class="{'orderSidebar darkShadow' : $root.width < 992}" >
+        <div class="text-right pointer" ng-click = "isOrderBoxCollapsed = true">Close(X)</div>
+        <div ng-controller="orderController">
+            <ng-include src = "'./templates/orderSidebar.tpl.html'"></ng-include>
+            <div class="col-md-12 padding-10">
+                <button ng-click="checkout()" style="width : 100%" ng-if = "orders.length >= 1" class="btn btn-primary my-btn bold">Proceed to Order</button>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="bold underline text-dark-grey" style="font-size: 14px;">NO PAYMENT REQUIRED RIGHT NOW</div>
+            <div class="bold text-dark-grey" style="font-size: 11px; padding-bottom:10px">Upon confirmation of order, our team will get in touch with you to collect 30% advance payment</div>
+        </div>
+    </div>
+</div>
 <div class="container-fluid" ng-style="{'background-image': 'url('+ hotel.mast_photo + ')'}" style="height : 300px;">
     <div class="container" style="margin-top: 46px">
         <div class="row">
             <div class="col-md-7">
-                <div class="row restaurant-small-box">
+                <div class="row" ng-class="{'restaurant-small-box2' : $root.width < 992,'restaurant-small-box': $root.width > 992}">
 
                     <div class="col-md-12">
-                        <div class="float-left">
+                        <div class="">
                             <div>
-                                <a class="font25 text-capitalize text-black" ui-sref="hotel.packages({id : restaurant.id})">{{hotel.name}}</a>
+                                <a class="font25 text-capitalize text-black" ui-sref="hotel.packages({id : hotel.id})">{{hotel.name}}</a>
                                 <p class="restaurant-des font15 text-capitalize italic text-black">{{hotel.short_description}}</p>
                             </div>
                         </div>
@@ -34,10 +81,10 @@
                     <div class="col-md-12"><hr class="bg-darke-grey" style="margin-top : 2px;margin-bottom: 7px;"></div>
                     <!--<div >-->
                         <!--<div class="">-->
-                            <img class="col-md-3" ng-src= "{{imagesPath + hotel.profile_photo}}" width = "145" height="95">
+                            <img class="col-md-3" ng-class="{'float-left' : $root.width < 992}"  ng-src= "{{imagesPath + hotel.profile_photo}}" width = "145" height="95">
                         <!--</div>-->
                     <!--</div>-->
-                    <div class="col-md-9">
+                    <div class="" ng-class="{'' : $root.width < 992,'col-md-9' : $root.width > 992}">
                         <div class="bold font15 text-black">{{hotel.cuisines}}</div>
                         <div class="text-black"  style="font-size: 14px">Price (per person): {{hotel.min_package_price}} - {{hotel.max_package_price}}</div>
                         <div class="gap gap-mini"></div>
@@ -85,6 +132,52 @@
     </div>
 
 </div>
+<div class="container" ng-if = "$root.width < 992">
+    <div class="row">
+        <div class="white-background-box row" ng-controller="locationSearchController">
+            <div ng-init = "editDetails = !searchDetails.date || !searchDetails.time">
+                <div ng-show = "editDetails == true">
+                    <span>Please Update date and time of your event to know the availability of the restaurant</span>
+                    <div class="input-group no-padding">
+                            <span class="input-group-btn" >
+                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" id = "date" ng-model="searchDetails.date" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                    </div>
+                    <select class="form-control col-md-6" ng-options="n for n in times" ng-model="searchDetails.time"><option value = "" disabled selected>Event Time</option></select>
+                    <button class="btn btn-primary myBtn" ng-click = "editDetails = false">Update</button>
+
+                </div>
+                <div ng-show = "editDetails == false" >
+                    <span>Restaurant available</span>
+                    <div class="input-group no-padding">
+                            <span class="input-group-btn" >
+                            <button type="button" class="btn btn-default" disabled ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" disabled id = "date" ng-model="searchDetails.date" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                    </div>
+                    <span>{{searchDetails.time}}</span>
+                    <span class="pointer" ng-click="editDetails = true"><i class="fa fa-pencil"></i> Edit</span>
+                </div>
+
+
+            </div>
+            <!--<div class="font20">-->
+            <!--<span ng-if = "searchDetails.date && searchDetails.time">Restaurant available <span class="pointer" ng-click="editDetails = true"><i class="fa fa-pencil"></i> Edit</span></span>-->
+            <!--<span ng-if = "!searchDetails.date || !searchDetails.time"  ng-init = "editDetails = !searchDetails.date || !searchDetails.time">For getting exact pricing details and availability of restaurant in your area Please enter date time and number of people</span>-->
+            <!--<div class="input-group col-md-6  no-padding">-->
+            <!--<span class="input-group-btn" >-->
+            <!--<button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>-->
+            <!--</span>-->
+            <!--<input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-disabled = "!editDetails" id = "date" ng-model="searchDetails.date" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />-->
+            <!--</div>-->
+            <!--<select class="form-control col-md-6" ng-options="n for n in times"  ng-disabled = "!editDetails"   ng-model="searchDetails.time"><option value = "" disabled selected>Event Time</option></select>-->
+            <!--&lt;!&ndash;<select ng-if = "showBlock('pax')"  class="form-control search-bar-fields" ng-options="n+' persons' for n in [] | range:10:75" ng-model="temp.pax"><option value = "" disabled selected>Persons?</option></select>&ndash;&gt;-->
+            <!--<button class="btn btn-primary myBtn" ng-if = "editDetails" ng-click = "updateSearchDetails()">Update</button>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-9">
@@ -92,7 +185,7 @@
             <div class="row">
                 <div class="col-md-12">
             <div class="col-md-6 no-left-padding">
-                <div ui-sref ="hotel.packages" class="cw-text text-left res-view-btns" ng-class="{'active-menu' : $state.includes('hotel.packages')}">Packages</div>
+                <div ui-sref ="hotel.packages" class="cw-text res-view-btns" ng-class="{'active-menu' : $state.includes('hotel.packages'),'text-middle' : $root.width < 992,'text-left' : $root.width > 992}"  >Packages</div>
             </div>
             <div class="col-md-3 no-left-padding">
                 <div ui-sref ="hotel.reviews" class="cw-text text-middle res-view-btns text-dark-grey" ng-class="{'active-menu' : $state.includes('hotel.reviews')}">Reviews</div>
@@ -107,31 +200,59 @@
 
         </div>
         <div class="col-md-3">
-            <!--<div class="white-background-box row" ng-controller="locationSearchController" ng-show = "showDateTimeBlock()">-->
+            <div class="white-background-box row" ng-if = "$root.width > 992" ng-controller="locationSearchController">
+                <div ng-init = "editDetails = !searchDetails.date || !searchDetails.time">
+                    <div ng-show = "editDetails == true">
+                        <span>Please Update date and time of your event to know the availability of the restaurant</span>
+                        <div class="input-group no-padding">
+                            <span class="input-group-btn" >
+                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+                            </span>
+                            <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" id = "date" ng-model="searchDetails.date" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                        </div>
+                        <select class="form-control col-md-6" ng-options="n for n in times" ng-model="searchDetails.time"><option value = "" disabled selected>Event Time</option></select>
+                        <button class="btn btn-primary myBtn" ng-click = "editDetails = false">Update</button>
+
+                    </div>
+                    <div ng-show = "editDetails == false" >
+                        <span>Restaurant available</span>
+                        <div class="input-group no-padding">
+                            <span class="input-group-btn" >
+                            <button type="button" class="btn btn-default" disabled ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+                            </span>
+                            <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" disabled id = "date" ng-model="searchDetails.date" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                        </div>
+                        <span>{{searchDetails.time}}</span>
+                        <span class="pointer" ng-click="editDetails = true"><i class="fa fa-pencil"></i> Edit</span>
+                    </div>
+
+
+                </div>
                 <!--<div class="font20">-->
-                    <!--For getting exact pricing details and availability of restaurant in your area Please enter date time and number of people-->
-                    <!--<div ng-if = "showBlock('date')" class="input-group search-bar-fields no-padding">-->
-                        <!--<span class="input-group-btn" >-->
+                    <!--<span ng-if = "searchDetails.date && searchDetails.time">Restaurant available <span class="pointer" ng-click="editDetails = true"><i class="fa fa-pencil"></i> Edit</span></span>-->
+                    <!--<span ng-if = "!searchDetails.date || !searchDetails.time"  ng-init = "editDetails = !searchDetails.date || !searchDetails.time">For getting exact pricing details and availability of restaurant in your area Please enter date time and number of people</span>-->
+                        <!--<div class="input-group col-md-6  no-padding">-->
+                            <!--<span class="input-group-btn" >-->
                                             <!--<button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>-->
                                             <!--</span>-->
-                        <!--<input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" id = "date" ng-model="temp.date" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />-->
+                            <!--<input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-disabled = "!editDetails" id = "date" ng-model="searchDetails.date" is-open="status.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />-->
+                        <!--</div>-->
+                        <!--<select class="form-control col-md-6" ng-options="n for n in times"  ng-disabled = "!editDetails"   ng-model="searchDetails.time"><option value = "" disabled selected>Event Time</option></select>-->
+                        <!--&lt;!&ndash;<select ng-if = "showBlock('pax')"  class="form-control search-bar-fields" ng-options="n+' persons' for n in [] | range:10:75" ng-model="temp.pax"><option value = "" disabled selected>Persons?</option></select>&ndash;&gt;-->
+                        <!--<button class="btn btn-primary myBtn" ng-if = "editDetails" ng-click = "updateSearchDetails()">Update</button>-->
                     <!--</div>-->
-                    <!--<select ng-if="showBlock('time')" class="form-control search-bar-fields"ng-options="n for n in times"  ng-model="temp.time"><option value = "" disabled selected>Event Time</option></select>-->
-                    <!--<select ng-if = "showBlock('pax')"  class="form-control search-bar-fields" ng-options="n+' persons' for n in [] | range:10:75" ng-model="temp.pax"><option value = "" disabled selected>Persons?</option></select>-->
-                    <!--<button class="btn btn-primary myBtn" ng-click = "updateSearchDetails()">Update</button>-->
-                <!--</div>-->
-            <!--</div>-->
-            <div class="white-background-box row no-padding" ng-controller="orderController">
+            </div>
+            <div class="white-background-box row no-padding"  ng-if = "$root.width > 992" ng-controller="orderController" >
                 <ng-include src = "'./templates/orderSidebar.tpl.html'"></ng-include>
                 <div class="col-md-12 padding-10">
-                    <button ng-click="checkout()" style="width : 100%" ng-if = "orders.length >= 1" class="btn btn-primary my-btn bold">Confirm Order</button>
+                    <button ng-click="checkout()" style="width : 100%" ng-if = "orders.length >= 1" class="btn btn-primary my-btn bold">Proceed to Order</button>
                 </div>
                 <div class="col-md-12">
                     <div class="bold underline text-dark-grey" style="font-size: 14px;">NO PAYMENT REQUIRED RIGHT NOW</div>
                     <div class="bold text-dark-grey" style="font-size: 11px; padding-bottom:10px">Upon confirmation of order, our team will get in touch with you to collect 30% advance payment</div>
                 </div>
             </div>
-            <div ng-include = "'./templates/helpBox.tpl.html'"></div>
+            <div ng-include = "'./templates/helpBox.tpl.html'" ng-if = "$root.width > 992"></div>
         </div>
     </div>
 </div>

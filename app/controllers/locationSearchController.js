@@ -1,4 +1,4 @@
-app.controller('locationSearchController',function($rootScope,$scope,$log,api,$state,$filter,alertService){
+app.controller('locationSearchController',function($rootScope,$scope,$log,api,$state,$filter,alertService,responsive){
     $scope.edit = false;
     //$scope.mytime = null;
     $scope.ismeridian = false;
@@ -81,7 +81,7 @@ app.controller('locationSearchController',function($rootScope,$scope,$log,api,$s
             //$rootScope.searchDetails.pax = $scope.numberOfPersons;
             //console.log($rootScope.searchDetails);
             //console.log('here');
-       $state.go('search');
+            $state.go('search');
         }
         else if($rootScope.searchDetails.selectedLocality == '') {
             alertService.showAlert('noLocationError',3000,'error');

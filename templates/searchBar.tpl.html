@@ -8,13 +8,13 @@
                 <div class="col-md-4">
                     <div class="input-group search-bar-fields">
                         <div class="input-group-btn">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Gurgaon <span class="caret"></span>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Gurgaon
                             </button>
                             <!--<ul class="dropdown-menu">-->
                             <!--<li ng-repeat="city in cities">{{city.name}}</li>-->
                             <!--</ul>-->
                         </div><!-- /btn-group -->
-                        <input type="text" class="form-control" ng-model="searchDetails.selectedLocality" uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue | limitTo:8" placeholder="Enter Locality">
+                        <input type="text" class="form-control" ng-model="searchDetails.selectedLocality" ng-model-options="localities" typeahead-show-hint="true"  typeahead-min-length="0"  uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue" placeholder="Enter Locality">
                     </div><!-- /input-group -->
                 </div>
                 <div class = "col-md-2">
@@ -35,7 +35,7 @@
                     <select class="form-control search-bar-fields" ng-options="n for n in times"  ng-model="searchDetails.time"><option value = "" disabled selected>Event Time</option></select>
                 </div>
                 <div class = " col-md-1">
-                    <button class=" btn btn-primary search-update-btn search-bar-fields font20" ng-controller="hotelSearchController" ng-click="filterRestaurants()">Search</button>
+                    <button class=" btn btn-primary search-update-btn search-bar-fields font20" ng-click="$state.reload()">Search</button>
                 </div>
                 <!--</div>-->
                 <!--<div class = "col-md-1  cart" ng-controller="orderController">-->

@@ -1,5 +1,4 @@
 app.service('orderService',function($rootScope,api){
-
     $rootScope.order = [];
     $rootScope.total = {};
     this.orderObject = [];
@@ -37,14 +36,14 @@ app.service('orderService',function($rootScope,api){
             var totalAmount = 0;
             var totalTax = 0;
             var subTotal = 0;
-            console.log($rootScope.order);
+            //console.log($rootScope.order);
             angular.forEach($rootScope.order,function(value,key){
                 //console.log(value);
                 //console.log(value[6]);
-                console.log(value);
-                subTotal += (value[2].price * value[6]);
+                //console.log(value);
+                subTotal += ((value[2].price + value[5]) * value[6]);
                 totalAmount += value[9];
-                totalTax += (value[9] - (value[2].price * value[6]));
+                totalTax += (value[9] - ((value[2].price + value[5])  *  value[6]));
             });
             $rootScope.total = {};
             $rootScope.total['subTotal'] = subTotal;
@@ -52,6 +51,7 @@ app.service('orderService',function($rootScope,api){
             $rootScope.total['totalTax'] = totalTax;
 
         });
+        return true;
     };
 
     this.addOrderAlacarte = function(hotelDetails,packageDetails,package_item,numberOfPackages){
@@ -62,7 +62,7 @@ app.service('orderService',function($rootScope,api){
         this.order1.push(package_item);
         this.order1.push(numberOfPackages);
         $rootScope.order.push(this.order1);
-        console.log($rootScope.order);
+        //console.log($rootScope.order);
     };
 
     this.checkout = function(cust){

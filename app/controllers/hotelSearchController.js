@@ -1,4 +1,4 @@
-app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,$rootScope,alertService){
+app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,$rootScope,alertService,responsive){
     $scope.tags = [
     ];
     //loading spinners
@@ -28,21 +28,45 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
             ceil : 2000
         }
     };
-    $scope.restaurants = api.searchRestaurants.query({locality_id : $rootScope.searchDetails.selectedLocality.id,date : $filter('date')($rootScope.searchDetails.date,'yyyy/MM/dd'),time : $rootScope.searchDetails.time ,pax : $rootScope.searchDetails.pax},function(){
-        //console.log($scope.restaurants);
-        $scope.loadingRestaurants = false;
-        $scope.$watch('selectedFilters',function(newVal,oldVal){
-                //console.log("changed");
-                $scope.filterRestaurants();
-            },true
-        );
-        $scope.$watch('slider',function(newVal,oldVal){
-                //console.log("changed");
-                $scope.filterRestaurants();
-            },true
-        );
-    });
+    $scope.isFilterBoxCollapsed = true;
+    $scope.isSearchBoxCollapsed = true;
 
+    //$scope.searchRestaurants = function(){
+    //    $scope.loadingRestaurants = true;
+    //    console.log('here');
+        $scope.restaurants = api.searchRestaurants.query({locality_id : $rootScope.searchDetails.selectedLocality.id,date : $filter('date')($rootScope.searchDetails.date,'yyyy/MM/dd'),time : $rootScope.searchDetails.time ,pax : $rootScope.searchDetails.pax},function(){
+            //console.log($scope.restaurants);
+            $scope.$watch('selectedFilters',function(newVal,oldVal){
+                    //console.log("changed");
+                    $scope.filterRestaurants();
+                },true
+            );
+            $scope.$watch('slider',function(newVal,oldVal){
+                    //console.log("changed");
+                    $scope.filterRestaurants();
+                },true
+            );
+            $scope.loadingRestaurants = false;
+        });
+    //};
+
+    //$scope.searchRestaurants();
+
+    $scope.removeFilter = function(ob){
+        $scope.isFilterChecked[ob.filter.id] = false;
+        var index = $scope.selectedFilters.indexOf(ob.filter);
+        $scope.selectedFilters.splice(index, 1);
+
+        //console.log(ob.filter.id);
+        //console.log(filter.filter.name);
+    };
+
+     $scope.clearFilters = function(){
+        $scope.selectedFilters = [];
+         $scope.isFilterChecked = {};
+         $scope.slider.min = 0;
+         $scope.slider.max = 2000;
+     };
 
      $scope.filterRestaurants = function() {
          $scope.loadingRestaurants = true;
@@ -99,6 +123,17 @@ app.controller('hotelSearchController',function($filter,$scope,api,$stateParams,
             });
         });
     });
+
+
+    $scope.openFilters = function(){
+        $scope.isFilterBoxCollapsed = false;
+    };
+
+    $scope.openSearch = function(){
+        $scope.isSearchBoxCollapsed = false;
+        //console.log($scope.isSearchBoxCollapsed);
+    };
+
 
     //$scope.$watchGroup(['sortType','selectedFilters','price_min','price_max'],$scope.filterRestaurants());
     //$scope.$watch('price_max',function(newVal,oldVal){

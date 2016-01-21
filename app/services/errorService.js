@@ -12,7 +12,9 @@ app.service('alertService',function($rootScope,$timeout){
         noLocationError : 'Please enter a location',
         locationInvalid : 'Please enter a valid location',
         moreThanMax : 'You Cannot Select more',
-        lessPackageError : 'You cannot select less than 10 packages from this restaurant'
+        lessPackageError : 'You cannot select less than 10 packages from this restaurant',
+        NoLocality : 'Please Select a locality first',
+        NoDateTime : 'Please select date and time of your event'
         };
 
 

@@ -3,9 +3,10 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     $scope.hotels = {};
     $scope.package = {};
     $scope.taxDetails = {};
-
+    $scope.disableOrder = false;
     //$scope.totalPrice = 0;
     $scope.cust = {};
+    $scope.error = {};
     $scope.checkout = function(){
         $state.go('checkout');
     };
@@ -42,27 +43,33 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
             $rootScope.order[index][4]++;
         }
         else if($rootScope.order[index][2].type == 'package'){
-            //if($rootScope.order[index][6] > 1)
+            if($rootScope.order[index][6] < 50){
             $rootScope.order[index][6]++;
+            orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
+            $scope.removeItem(item);
+            }
         }
-        orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
-        $scope.removeItem(item);
         //console.log(item[4]);
     };
 
 
     $scope.decreaseQty = function(item){
+        //console.log();
         var index = $rootScope.order.indexOf(item);
         if($rootScope.order[index][2].type == 'a-la-carte'){
             if($rootScope.order[index][4] > 1)
                 $rootScope.order[index][4]--;
         }
         else if($rootScope.order[index][2].type == 'package'){
-            if($rootScope.order[index][6] > 1)
+            if($rootScope.order[index][6] > 10)
+            {
                 $rootScope.order[index][6]--;
+                orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
+                $scope.removeItem(item);
+            }
+
         }
-        orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
-        $scope.removeItem(item);
+
         //console.log(item[4]);
     };
 
@@ -104,11 +111,25 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     $scope.orderObject = orderService.orderObject;
 
     $scope.placeOrder = function(){
+        //$scope.disableOrder = true;
         //console.log($scope.cust);
+        if(isNaN($scope.cust.phone)){
+            $scope.error.phone = 'Your number is invalid';
+            return false;
+        }
+        if(isNaN($scope.cust.pincode)){
+            $scope.error.pincode = 'Your pincode is invalid';
+            return false;
+        }
+
+        if($rootScope.searchDetails.date && $rootScope.searchDetails.time && $rootScope.searchDetails.selectedLocality.id){
+            $scope.disableOrder = true;
         orderService.checkout($scope.cust).$promise.then(function(res){
             $scope.response = res[0].order_id;
             if($scope.response){
                 $scope.order_id = $scope.response;
+                console.log($scope.order_id);
+                $rootScope.order_id = $scope.order_id;
                 $state.go('orderConfirmed');
                 //var modalInstance = $uibModal.open({
                 //    animation: $scope.animationsEnabled,
@@ -138,7 +159,7 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
         //$scope.response = orderService.response;
         //console.log($scope.response);
         //console.log($scope.response.order_id);
-
+        }
     };
 
 

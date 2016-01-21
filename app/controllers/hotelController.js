@@ -1,6 +1,11 @@
-app.controller('hotelController',function($rootScope,$scope,$stateParams,api){
+app.controller('hotelController',function($rootScope,$scope,$stateParams,api,responsive){
     $rootScope.custId = 0; // to be removed
     $scope.imagesPath = $rootScope.imagePath;
+    $scope.isOrderBoxCollpsed = true;
+    $scope.isDateTimeBoxCollpsed = true;
+    $scope.openOrderSidebar = function(){
+        $scope.isOrderBoxCollpsed = false;
+    };
 $rootScope.hotelId = $stateParams.id;
 $scope.hotelDetails = api.getHotel.query({id : $rootScope.hotelId},function(){
     angular.forEach($scope.hotelDetails[0],function(value,key){
@@ -51,9 +56,9 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
         });
     });
 
-    $scope.openM = function(package_item,package){
+    $scope.openM = function(package_item,package1){
         if(package_item.has_options)
-        $scope.open(package_item,package);
+        $scope.open(package_item,package1);
     };
 
     $scope.selection = [];
@@ -79,10 +84,10 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
                 //console.log($scope.totalAdditionalPrice);
                 //console.log(pkge.id);
                 //console.log($scope.totalAdditionalPrice[pkge.id]);
-            $scope.totalPrice[pkge.id] = (pkge.price + $scope.totalAdditionalPrice[pkge.id] ) * $scope.numberOfPackages[pkge.id] ;}
+                $scope.totalPrice[pkge.id] = (pkge.price + $scope.totalAdditionalPrice[pkge.id] ) * $scope.numberOfPackages[pkge.id] ;}
             else{
             //console.log($scope.totalAdditionalPrice[pkge.id]);
-             $scope.totalPrice[pkge.id] = pkge.price * $scope.numberOfPackages[pkge.id] ;
+                 $scope.totalPrice[pkge.id] = pkge.price * $scope.numberOfPackages[pkge.id] ;
             }
         //console.log($scope.numberOfPackages[pkge.id]);
         //if(pkge.price){
@@ -131,13 +136,29 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
         });
 
         //console.log($scope.selectedPackage);
-        if(angular.equals({}, $scope.packageError)){
-            //console.log($scope.numberOfPackages[hotelPackage.id]);
-            if($scope.numberOfPackages[hotelPackage.id] == undefined){
-                alertService.showAlert('lessPackageError',3000,'error');
+        if($rootScope.searchDetails.selectedLocality && $rootScope.searchDetails.date && $rootScope.searchDetails.time){
+            if(angular.equals({}, $scope.packageError)){
+                //console.log($scope.numberOfPackages[hotelPackage.id]);
+                if($scope.numberOfPackages[hotelPackage.id] == undefined){
+                    alertService.showAlert('lessPackageError',3000,'error');
+                }
+                else
+                    orderService.addOrder($scope.hotelDetails[0],hotelPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice[hotelPackage.id],$scope.numberOfPackages[hotelPackage.id],$scope.addInfo[hotelPackage.id]);
+                        $scope.isPackageCollapsed[hotelPackage.id] = true;
+
+            }
+        }
+        else {
+            if($rootScope.searchDetails.selectedLocality)
+            {
+                alertService.showAlert('NoDateTime',3000,'error');
             }
             else
-            orderService.addOrder($scope.hotelDetails[0],hotelPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice[hotelPackage.id],$scope.numberOfPackages[hotelPackage.id],$scope.addInfo[hotelPackage.id]);
+            {
+                alertService.showAlert('NoLocality',3000,'error');
+
+            }
+
         }
 
         //angular.forEach($scope.package);
@@ -287,23 +308,24 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
     });
 
     $scope.addModalItem = function() {
-        $scope.additionalPrice = 0;
-        angular.forEach($scope.itemOptionCategories, function (value, key) {
+        if(!angular.equals({}, $scope.selectedItem)) {
+            $scope.additionalPrice = 0;
+            angular.forEach($scope.itemOptionCategories, function (value, key) {
                 $scope.itemsSelected[value.id] = $scope.selectedItem[value.id];
                 $scope.categoriesName[value.id] = value.name;
-                angular.forEach($scope.selectedItem[value.id],function(value1,key){
-                    if(value1.price)
-                    $scope.additionalPrice += value1.price;
+                angular.forEach($scope.selectedItem[value.id], function (value1, key) {
+                    if (value1.price)
+                        $scope.additionalPrice += value1.price;
                 });
-        });
+            });
 
 
-
-        $uibModalInstance.close({
-            'itemsSelected': $scope.itemsSelected,
-            'categoriesName': $scope.categoriesName,
-            'additionalPrice' : $scope.additionalPrice
-        });
+            $uibModalInstance.close({
+                'itemsSelected': $scope.itemsSelected,
+                'categoriesName': $scope.categoriesName,
+                'additionalPrice': $scope.additionalPrice
+            });
+        }
     };
 
     $scope.add = function () {

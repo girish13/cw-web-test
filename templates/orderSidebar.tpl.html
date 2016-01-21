@@ -26,8 +26,8 @@
         <div class="col-md-12" ng-if = "showPackages(order[2].type)">
             <div class="row">
                 <div class="col-md-8 padding-5 pointer" ng-click="isCollapsed = !isCollapsed"><span ng-show = "isCollapsed"><i class="fa fa-caret-right"> </i> </span> <span ng-show = "!isCollapsed"><i class="fa fa-caret-down"> </i> </span> {{order[2].name}}  By <span class="bold">{{order[1].name}}</span></div>
-                <div class="col-md-3 padding-5">Rs. {{order[2].price * order[6]}}</div>
-                <div class="col-md-1 padding-5"><a href ng-click = "removeItem(order)"><i class="fa fa-times"></i></a></div>
+                <span class="col-md-3 padding-5">Rs. {{order[2].price * order[6]}}</span>
+                <span class="" ng-class="{'col-md-1 padding-5' : $root.width > 992,'float-right padding-10' : $root.width < 992}"><a href ng-click = "removeItem(order)"><i class="fa fa-times"></i></a></span>
                 <!--<div class="gap gap-tiny"></div>-->
                 <!--<div class="col-md-12"><hr></div>-->
                 <div uib-collapse="isCollapsed">
@@ -53,54 +53,54 @@
                 </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-6">Quantity : </div>
-                    <div class="col-md-6">
+                    <span class="col-md-6">Quantity : </span>
+                    <span class="col-md-6">
                         <span class="pointer" ng-click="decreaseQty(order)"><i class="fa fa-minus-circle"></i></span>
                         <span class="text-middle">{{order[6]}}</span>
                         <span class="pointer" ng-click="increaseQty(order)"><i class="fa fa-plus-circle"></i></span>
-                    </div>
+                    </span>
                     <!--<div style="clear: both"></div>-->
                 </div>
                 <div class="col-md-12" ng-if = "order[8][0].vat_rate > 0" >
-                    <div class="col-md-6">
+                    <span class="col-md-6">
                         Add On Price:
-                    </div>
-                    <div class="col-md-6 ">
+                    </span>
+                    <span class="col-md-6 ">
                         {{order[5]*order[6]}}
-                    </div>
+                    </span>
                 </div>
                 <!--{{order[8]}}-->
                 <div class="col-md-12" ng-if = "order[8][0].vat_rate > 0" >
-                    <div class="col-md-6">
+                    <span class="col-md-6">
                         VAT:
-                    </div>
-                    <div class="col-md-6 ">
+                    </span>
+                    <span class="col-md-6 ">
                         {{order[8][0].vat_rate * 100 + '%'}}
-                    </div>
+                    </span>
                 </div>
                 <div class="col-md-12" ng-if = "order[8][0].service_tax_rate > 0" >
-                    <div class="col-md-6">
+                    <span class="col-md-6">
                         Service Tax:
-                    </div>
-                    <div class="col-md-6 ">
+                    </span>
+                    <span class="col-md-6 ">
                         {{order[8][0].service_tax_rate * 100 + '%'}}
-                    </div>
+                    </span>
                 </div>
                 <div class="col-md-12" ng-if = "order[8][0].service_charge_rate > 0" >
-                    <div class="col-md-6">
+                    <span class="col-md-6">
                         Service Charge:
-                    </div>
-                    <div class="col-md-6 ">
+                    </span>
+                    <span class="col-md-6 ">
                         {{order[8][0].service_charge_rate * 100 + '%'}}
-                    </div>
+                    </span>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-6">
+                    <span class="col-md-6">
                         Total Price:
-                    </div>
-                    <div class="col-md-6 ">
+                    </span>
+                    <span class="col-md-6 ">
                        Rs. {{order[9]}}
-                    </div>
+                    </span>
                 </div>
                 <!--<div class="col-md-12">-->
                     <!--<div class="col-md-3">Total :</div>-->
