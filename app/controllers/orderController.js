@@ -1,6 +1,6 @@
 app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api,orderService,$state,$window){
 
-    $scope.hotels = {};
+    $scope.restaurants = {};
     $scope.package = {};
     $scope.taxDetails = {};
     $scope.disableOrder = false;

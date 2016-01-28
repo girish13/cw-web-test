@@ -1,31 +1,31 @@
 <div id = "packages" class = "tab-content">
-    <!--{{hotelPackages}}-->
+    <!--{{restaurantPackages}}-->
     <div class="col-md-12" ng-if = "loadingRestaurantPackages">
         <!--<div class="gap"></div>-->
         <h4 class="text-middle text-dark-grey"><i class="fa fa-spinner fa-pulse"></i></h4>
         <h4 class="text-middle text-dark-grey">Loading Packages</h4>
     </div>
 
-
-    <div class="package" ng-repeat="hotelPackage in hotelPackages">
-        <div class="pointer" ng-init="isPackageCollapsed[hotelPackage.id] = true; hotelPackage.tooltipIsOpen = false;" ng-click="isPackageCollapsed[hotelPackage.id] = !isPackageCollapsed[hotelPackage.id]; hotelPackage.tooltipIsOpen = !isPackageCollapsed[hotelPackage.id];">
+    <!--<div ng-click="getPaxs()">Get Packages</div>-->
+    <div class="package" ng-repeat="restaurantPackage in restaurantPackages">
+        <div class="pointer" ng-init="isPackageCollapsed[restaurantPackage.id] = true; restaurantPackage.tooltipIsOpen = false;" ng-click="openPackage(restaurantPackage.id); restaurantPackage.tooltipIsOpen = !isPackageCollapsed[restaurantPackage.id];">
             <div class = "float-left">
-               <div class="bold font20 text-red" > {{hotelPackage.name}}</div>
+               <div class="bold font20 text-red" > {{restaurantPackage.name}}</div>
             </div>
-            <div  uib-tooltip-template="'pricing.html'" tooltip-is-open="hotelPackage.tooltipIsOpen" tooltip-class = "customTooltip" class="package_price float-right" ng-if = "hotelPackage.price">Rs. {{hotelPackage.price}} per person <span><i class="fa fa-info" ></i></span> </div>
-            <div  uib-tooltip-template="'pricing.html'" tooltip-is-open="hotelPackage.tooltipIsOpen" tooltip-class = "customTooltip" class="package_price float-right" ng-if = "!hotelPackage.price">Rs. {{hotelPackage.price_min}} - {{hotelPackage.price_max}} per person <span><i class="fa fa-info"></i></span>  </div>
+            <div  uib-tooltip-template="'pricing.html'" tooltip-is-open="restaurantPackage.tooltipIsOpen" tooltip-class = "customTooltip" class="package_price float-right" ng-if = "restaurantPackage.price">Rs. {{restaurantPackage.price}} per person <span><i class="fa fa-info" ></i></span> </div>
+            <div  uib-tooltip-template="'pricing.html'" tooltip-is-open="restaurantPackage.tooltipIsOpen" tooltip-class = "customTooltip" class="package_price float-right" ng-if = "!restaurantPackage.price">Rs. {{restaurantPackage.price_min}} - {{restaurantPackage.price_max}} per person <span><i class="fa fa-info"></i></span>  </div>
             <div style="clear: both"></div>
-            <div class = "package_item_des float-left font13" >{{hotelPackage.description}}</div>
-            <div class="float-right" style="margin-left : 5px;"><span ng-if = "isPackageCollapsed[hotelPackage.id]"><i class="fa fa-caret-right fa-lg"></i></span>
-                <span ng-if = "!isPackageCollapsed[hotelPackage.id]"><i class="fa fa-caret-down fa-lg"></i></span></div>
+            <div class = "package_item_des float-left font13" >{{restaurantPackage.description}}</div>
+            <div class="float-right" style="margin-left : 5px;"><span ng-if = "isPackageCollapsed[restaurantPackage.id]"><i class="fa fa-caret-right fa-lg"></i></span>
+                <span ng-if = "!isPackageCollapsed[restaurantPackage.id]"><i class="fa fa-caret-down fa-lg"></i></span></div>
                         <div class="row"><div class="col-md-12"><hr class="bg-grey no-margin"></div></div>
                         <div style="clear: both"></div>
         </div>
-        <div uib-collapse="isPackageCollapsed[hotelPackage.id]" ng-mouseenter="hotelPackage.tooltipIsOpen = false;">
+        <div uib-collapse="isPackageCollapsed[restaurantPackage.id]" ng-mouseenter="restaurantPackage.tooltipIsOpen = false;">
         <!--</div>-->
                 <div class="row itemseo">
                 <!--<div >-->
-                    <div class="col-md-6 padding-5" ng-repeat="package_item in hotelPackage.packageDetails" ng-click="openM(package_item,package)">
+                    <div class="col-md-6 padding-5" ng-repeat="package_item in restaurantPackage.packageDetails" ng-click="openM(package_item,package)">
                         <div class="menu-item" ng-class="{'pointer' : package_item.has_options}">
                             <div class="font15 bold text-dark-grey">{{package_item.name}} <span class="text-red float-right"  ng-if="!package[package_item.id]">{{packageError[package_item.id]}}</span><span class="float-right" ng-if = "package_item.has_options && !packageError[package_item.id] "><i class="fa fa-plus"></i></span></div>
                             <div class="text-grey font13">{{package_item.description}}</div>
@@ -46,7 +46,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <textarea class="form-control" placeholder="Additional Instruction (Optional)" ng-model = "addInfo[hotelPackage.id]"></textarea>
+                    <textarea class="form-control" placeholder="Additional Instruction (Optional)" ng-model = "addInfo[restaurantPackage.id]"></textarea>
                 </div>
             </div>
             <div class="gap gap-mini"></div>
@@ -54,17 +54,17 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="col-md-8 bold font20" style="line-height: 34px">Number Of Packages</div>
-                    <!--<span ng-controller="locationSearchController" ng-init = "numberOfPackages[hotelPackage.id] = numberOfPersons"></span>-->
+                    <!--<span ng-controller="locationSearchController" ng-init = "numberOfPackages[restaurantPackage.id] = numberOfPersons"></span>-->
                     <div class="col-md-3">
-                        <input class="form-control padding-5"  ng-init = "numberOfPackages[hotelPackage.id] = pax" type="number" max = 100 min = 10 ng-change = "calculateTotalPrice(hotelPackage)" ng-model = "numberOfPackages[hotelPackage.id]">
+                        <input class="form-control padding-5"  ng-init = "numberOfPackages[restaurantPackage.id] = pax" type="number" max = 100 min = 10 ng-change = "calculateTotalPrice(restaurantPackage)" ng-model = "numberOfPackages[restaurantPackage.id]">
                     </div>
-                    <!--<span ng-click="numberOfPackages[hotelPackage.id] = numberOfPackages[hotelPackage.id] + 1"> + </span>-->
+                    <!--<span ng-click="numberOfPackages[restaurantPackage.id] = numberOfPackages[restaurantPackage.id] + 1"> + </span>-->
 
-                    <!--<span ng-model = "numberOfPackages[hotelPackage.id]">{{numberOfPackages[hotelPackage.id]}}</span>-->
+                    <!--<span ng-model = "numberOfPackages[restaurantPackage.id]">{{numberOfPackages[restaurantPackage.id]}}</span>-->
 
                 </div>
                 <div class="col-md-7">
-                    <button ng-click="addOrder(hotelPackage)" class="btn btn-primary my-btn text-middle bg-red full-width bold">Add To Order <span ng-if="totalPrice[hotelPackage.id]">(Rs. {{totalPrice[hotelPackage.id]}})</span></button>
+                    <button ng-click="addOrder(restaurantPackage)" class="btn btn-primary my-btn text-middle bg-red full-width bold">Add To Order <span ng-if="totalPrice[restaurantPackage.id]">(Rs. {{totalPrice[restaurantPackage.id]}})</span></button>
                 </div>
             </div>
         </div>
@@ -82,8 +82,8 @@
     <!--<uib-accordion close-others="false">-->
         <!--<uib-accordion-group ng-repeat="">-->
             <!--<uib-accordion-heading>-->
-                 <!--<span class="package_name">{{hotelPackage.name}}</span> <span class="package_price">{{hotelPackage.price}} per person</span>-->
-                <!--<p class="package_des"><br>{{hotelPackage.description}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></p>-->
+                 <!--<span class="package_name">{{restaurantPackage.name}}</span> <span class="package_price">{{restaurantPackage.price}} per person</span>-->
+                <!--<p class="package_des"><br>{{restaurantPackage.description}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></p>-->
             <!--</uib-accordion-heading>-->
             <!--<div class = "row"  >-->
                 <!--<div class="col-md-10">-->
@@ -105,7 +105,7 @@
                     <!--<div class="col-md-10">-->
                         <!--<label class="col-md-4" style="line-height: 34px">Number Of Packages</label>-->
                         <!--<div class="col-md-2">-->
-                            <!--<input class="form-control" type="number" max = 100 min = 1 ng-model = "numberOfPackages[hotelPackage.id]">-->
+                            <!--<input class="form-control" type="number" max = 100 min = 1 ng-model = "numberOfPackages[restaurantPackage.id]">-->
                         <!--</div>-->
                     <!--</div>-->
                 <!--<div class="col-md-2">-->
@@ -138,20 +138,20 @@
 
 <!--<script type="text/ng-template" id="pricing.html">-->
     <!--<div>-->
-        <!--<p ng-repeat="pricerange in hotelPackage.pricing">-->
+        <!--<p ng-repeat="pricerange in restaurantPackage.pricing">-->
             <!--{{pricerange.min_pax}} - {{pricerange.max_pax}} packages : Rs. {{pricerange.price_per_person}} <br>-->
         <!--</p>-->
     <!--</div>-->
 <!--</script>-->
 <script type="text/ng-template" id="pricing.html">
-        <div class="font13">Price Details <span ng-click="$event.stopPropagation(); hotelPackage.tooltipIsOpen = false;" class="float-right">X</span></div>
+        <div class="font13">Price Details <span ng-click="$event.stopPropagation(); restaurantPackage.tooltipIsOpen = false;" class="float-right">X</span></div>
         <hr class="no-margin">
-        <div class="" ng-repeat="priceDetail in hotelPackage.pricing">
+        <div class="" ng-repeat="priceDetail in restaurantPackage.pricing">
             <span>{{priceDetail.min_pax}} packages - {{priceDetail.max_pax}} packages  :  {{'Rs'+priceDetail.price_per_person}}</span>
         </div>
 
     <!--</div>-->
-    <!--<span>Special Tooltip with <strong>markup</strong> and {{//'' + hotelPackage.pricing }}</span>-->
+    <!--<span>Special Tooltip with <strong>markup</strong> and {{//'' + restaurantPackage.pricing }}</span>-->
 </script>
 
 

@@ -2,16 +2,16 @@ app.service('api',function($resource,$http,baseUrl,$log){
 
     //Restaurant Apis
 
-    this.getHotel = $resource(baseUrl+'getRestaurant/:id',{id : '@id'});
+    this.getRestaurant = $resource(baseUrl+'getRestaurant/:id',{id : '@id'});
     this.getTaxDetails = $resource(baseUrl+'getRestaurant/:id/tax',{id:'@id'});
-    this.getHotelSchedule = $resource(baseUrl+'getRestaurant/:id/schedule',{id : '@id'});
-    this.getHotelImages = $resource(baseUrl+'getRestaurant/:id/images',{id:'@id'});
-    this.getHotelReviews = $resource(baseUrl + 'getRestaurant/:id/review',{id:'@id'});
-    this.getHotelMenu = $resource(baseUrl+'getRestaurant/:id/menu',{id:'@id'});
-    this.getHotelMenuPackage = $resource(baseUrl+'getRestaurant/:id/menu/:packages',{id:'@id',packages:'@packages'});
-    this.getHotelMenuItem = $resource(baseUrl+'getRestaurant/:id/menu/:menu_id/menuItem',{id:'@id',menu_id : '@menu_id'});
-    this.getHotelMenuItemOptionCategory = $resource(baseUrl+'getRestaurant/:id/menu/:menu_id/menuItem/:item_id/menuItemOptionCategory',{id:'@id',menu_item_id : '@menu_id',item_id : '@item_id'});
-    this.getHotelMenuItemOptionList = $resource(baseUrl+'getRestaurant/:id/menu/:menu_id/menuItem/:item_id/menuItemOptionCategory/:menu_item_option_category/menuItemOptionList',{id:'@id',menu_item_id : '@menu_id',item_id : '@item_id',menu_item_option_category : '@menu_item_option_category'});
+    this.getRestaurantSchedule = $resource(baseUrl+'getRestaurant/:id/schedule',{id : '@id'});
+    this.getRestaurantImages = $resource(baseUrl+'getRestaurant/:id/images',{id:'@id'});
+    this.getRestaurantReviews = $resource(baseUrl + 'getRestaurant/:id/review',{id:'@id'});
+    this.getRestaurantMenu = $resource(baseUrl+'getRestaurant/:id/menu',{id:'@id'});
+    this.getRestaurantMenuPackage = $resource(baseUrl+'getRestaurant/:id/menu/:packages',{id:'@id',packages:'@packages'});
+    this.getRestaurantMenuItem = $resource(baseUrl+'getRestaurant/:id/menu/:menu_id/menuItem',{id:'@id',menu_id : '@menu_id'});
+    this.getRestaurantMenuItemOptionCategory = $resource(baseUrl+'getRestaurant/:id/menu/:menu_id/menuItem/:item_id/menuItemOptionCategory',{id:'@id',menu_item_id : '@menu_id',item_id : '@item_id'});
+    this.getRestaurantMenuItemOptionList = $resource(baseUrl+'getRestaurant/:id/menu/:menu_id/menuItem/:item_id/menuItemOptionCategory/:menu_item_option_category/menuItemOptionList',{id:'@id',menu_item_id : '@menu_id',item_id : '@item_id',menu_item_option_category : '@menu_item_option_category'});
 
 
     //Location Apis

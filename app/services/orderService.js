@@ -1,15 +1,15 @@
-app.service('orderService',function($rootScope,api){
+app.service('orderService',function($rootScope,api,dataService){
     $rootScope.order = [];
     $rootScope.total = {};
     this.orderObject = [];
     //this.totalAmount = totalAmount;
     //this.totalTax = totalTax;
     //this.subTotal = subTotal;
-    this.addOrder = function(hotelDetails,packageDetails,itemOptionCategories,selectedItems,additionalPrice,numberOfPackages,addInfo){
+    this.addOrder = function(restaurantDetails,packageDetails,itemOptionCategories,selectedItems,additionalPrice,numberOfPackages,addInfo){
         //this.order1 = [];
         var order1 = [];
         order1.push($rootScope.custId);
-        order1.push(hotelDetails);
+        order1.push(restaurantDetails);
         order1.push(packageDetails);
         order1.push(itemOptionCategories);
         order1.push(selectedItems);
@@ -25,7 +25,8 @@ app.service('orderService',function($rootScope,api){
         });
         price += additionalPrice;
         price = price * numberOfPackages;
-        var taxDetails = api.getTaxDetails.query({id : hotelDetails.id },function(){
+        dataService.getTaxDetails(restaurantDetails.id).$promise.then(function(result){
+            var taxDetails = result;
             order1.push(taxDetails);
             angular.forEach(taxDetails[0],function(value,key){
                 price += value * price;
@@ -49,15 +50,16 @@ app.service('orderService',function($rootScope,api){
             $rootScope.total['subTotal'] = subTotal;
             $rootScope.total['totalAmount'] = totalAmount;
             $rootScope.total['totalTax'] = totalTax;
-
         });
+        //var taxDetails = api.getTaxDetails.query({id : restaurantDetails.id },function(){
+        //});
         return true;
     };
 
-    this.addOrderAlacarte = function(hotelDetails,packageDetails,package_item,numberOfPackages){
+    this.addOrderAlacarte = function(restaurantDetails,packageDetails,package_item,numberOfPackages){
         this.order1 = [];
         this.order1.push($rootScope.custId);
-        this.order1.push(hotelDetails);
+        this.order1.push(restaurantDetails);
         this.order1.push(packageDetails);
         this.order1.push(package_item);
         this.order1.push(numberOfPackages);

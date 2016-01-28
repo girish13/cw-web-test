@@ -1,15 +1,7 @@
-<!--<div class="gap"></div>-->
 <div class="container-fluid" id = "search">
     <div ng-include = "'./templates/header.tpl.html'"></div>
     <div ng-include="'./templates/alert.tpl.html'"></div>
-    <!--<div ng-include = "'./templates/searchBar.tpl.html'" id = "searchBar" style="display : block; position: fixed; top : 60px"></div>-->
-    <div id = "" class="highlight-content" ng-controller = "locationSearchController">
-        <!--<div class="row">-->
-            <!--<div class="">-->
-                <!--<div class="row">-->
-                <!--<div class="headingBig text-middle">-->
-                    <!--Order food for your group-->
-                <!--</div>-->
+    <div id = "" class="highlight-content">
         <div class="main-text">
             <div style="margin-bottom : 10px;" class="bg-red text-middle bold" ng-class="{'font25' : $root.width < 480,'font30': $root.width < 768 && $root.width > 480,'font35' : $root.width > 768}">
             The easiest way to order <span class="underline">food & catering for groups</span>
@@ -21,57 +13,22 @@
         <div class="gap gap-small"></div>
 
                <div id="searchBox" class="col-md-offset-2 col-md-8">
-                   <!--<h4 class="text-middle">Tell us a little about the occasion</h4>-->
                     <div class="row">
                         <div class="col-md-9">
-                            <!--<label ng-show="edit">Select a Location :</label>-->
                             <div class="input-group shadow search-box-fields text-grey">
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-default dropdown-toggle search-box-fields" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Gurgaon
                                     </button>
-                                    <!--<ul class="dropdown-menu">-->
-                                    <!--<li ng-repeat="city in cities">{{city.name}}</li>-->
-                                    <!--</ul>-->
-                                </div><!-- /btn-group -->
-                                <input type="text" class="form-control search-box-fields text-grey" id="home-search" ng-model="searchDetails.selectedLocality" ng-model-options="localities" typeahead-show-hint="true"  typeahead-min-length="0"  uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue" placeholder="Enter Locality">
-                            </div><!-- /input-group -->
+                                </div>
+                                <input type="text" class="form-control search-box-fields text-grey" id="home-search" ng-model="searchDetails.selectedLocality"  typeahead-show-hint="true"  typeahead-min-length="0"  uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue" placeholder="Enter Locality">
+                            </div>
                         </div>
-                        <!--<div class = "col-md-3">-->
-                            <!--<label ng-show="edit">Number of persons :</label>-->
-                            <!--&lt;!&ndash;<input  type="number" ng-maxlength="3" ng-minlength="1" max = 75 min = 10 >&ndash;&gt;-->
-                            <!--<select class="form-control shadow" ng-options="n+' persons' for n in [] | range:10:75" ng-model="numberOfPersons" ><option value="" selected disabled>Persons?</option></select>-->
-                        <!--</div>-->
-                        <!--<div class = "col-md-3">-->
-                            <!--<label ng-show="edit">Select a Date And Time :</label>-->
-                            <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
-                            <!--<p class="input-group">-->
-                                <!--<input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" id = "date" ng-model="dt" placeholder="Event Date" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />-->
-                                        <!--<span class="input-group-btn">-->
-                                            <!--<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>-->
-                                            <!--</span>-->
-                            <!--</p>-->
-                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                        <!--</div>-->
 
-                        <!--<div class = "col-md-2">-->
-
-                            <!--&lt;!&ndash;<uib-timepicker ng-model="mytime" ng-change="changed()" show-spinners = "edit"  show-meridian="ismeridian"></uib-timepicker>&ndash;&gt;-->
-                            <!--<select class="form-control" ng-options="n for n in times"  ng-model="mytime"><option value = "" disabled selected>Event Time</option></select>-->
-                        <!--</div>-->
                         <div class = "col-md-3">
                             <button class="btn btn-primary full-width shadow search-box-fields" ng-click="getStarted()">Get Started</button>
                         </div>
                     </div>
-                   <!--</div>-->
-                   <!--<div class="gap gap-small"></div>-->
-                   <!--</div>-->
-                   <!--<div class="row">-->
-                   <!--<div>-->
                </div>
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
     </div>
     <div>
         <wrap-owlcarousel class="owl-carousel" data-options="{autoPlay: 5000, pagination : false ,stopOnHover: true,slideSpeed : 300, paginationSpeed : 400, singleItem : true,loop :true}">

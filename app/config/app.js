@@ -16,43 +16,42 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.
         })
         .state('search',{
             url:'/search',
-            templateUrl : 'templates/hotelSearch.tpl.html',
-            controller : 'hotelSearchController',
-
+            templateUrl : 'templates/restaurantSearch.tpl.html',
+            controller : 'restaurantSearchController'
         })
-        .state('hotel', {
+        .state('restaurant', {
             //parent : 'common',
-            url: '/hotel/:id',
-            templateUrl : "templates/hotelDetail.tpl.html",
+            url: '/restaurant/:id',
+            templateUrl : "templates/restaurantDetail.tpl.html",
             //views : {
             //    "header" : {templateUrl : "templates/header.tpl.html"},
-            //    "content" :{templateUrl : "templates/hotelDetail.tpl.html" }
+            //    "content" :{templateUrl : "templates/restaurantDetail.tpl.html" }
             //},
-            controller: 'hotelController as hotel'
+            controller: 'restaurantController as restaurant'
         })
-        .state('hotel.packages',{
+        .state('restaurant.packages',{
             url : '/packages',
-            templateUrl : "templates/hotelDetailMenu/hotelPackages.tpl.html",
-            controller : 'hotelPackagesController'
+            templateUrl : "templates/restaurantDetailMenu/restaurantPackages.tpl.html",
+            controller : 'restaurantPackagesController'
         })
-        .state('hotel.alacarte',{
+        .state('restaurant.alacarte',{
             url : '/alacarte',
-            templateUrl : "templates/hotelDetailMenu/hotelAlacarte.tpl.html",
-            controller : 'hotelAlacarteController'
+            templateUrl : "templates/restaurantDetailMenu/restaurantAlacarte.tpl.html",
+            controller : 'restaurantAlacarteController'
         })
-        .state('hotel.reviews',{
+        .state('restaurant.reviews',{
             url : '/reviews',
-            templateUrl : "templates/hotelDetailMenu/hotelReviews.tpl.html",
-            controller : 'hotelReviewsController'
+            templateUrl : "templates/restaurantDetailMenu/restaurantReviews.tpl.html",
+            controller : 'restaurantReviewsController'
         })
-        .state('hotel.pictures',{
+        .state('restaurant.pictures',{
             url : '/pictures',
-            templateUrl : "templates/hotelDetailMenu/hotelPictures.tpl.html",
-            controller : 'hotelPicturesController'
+            templateUrl : "templates/restaurantDetailMenu/restaurantPictures.tpl.html",
+            controller : 'restaurantPicturesController'
         })
-        .state('hotel.about',{
+        .state('restaurant.about',{
             url : '/about',
-            templateUrl : "templates/hotelDetailMenu/hotelAbout.tpl.html"
+            templateUrl : "templates/restaurantDetailMenu/restaurantAbout.tpl.html"
         })
         .state('checkout',{
             url : '/checkout',
@@ -91,58 +90,39 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.
             templateUrl : 'templates/orderConfirmed.tpl.html',
             controller : 'orderController'
         });
-        //.state('dashboard', {
-        //    url: '/dashboard',
-        //    templateUrl: 'templates/dashboard.tpl.html',
-        //    controller: 'DashboardCtrl as dashboard'
-        //})
+
 
 
     //$locationProvider.html5Mode(true);
     $resourceProvider.defaults.stripTrailingSlashes = false;
     $urlRouterProvider.otherwise('/');
 
-    // $authProvider.facebook({
-    //  clientId: '657854390977827'
-    //});
-    //
-    //$authProvider.google({
-    //  clientId: 'Google Client ID'
-    //});
-    //
-    //$rootScope.baseUrl = 'http://192.168.0.105/cw-api-test/public/api/v001/';
-    //$authProvider.loginUrl = 'http://192.168.0.120/random/public/api/v1/auth/login';
-    //$authProvider.signupUrl = 'http://192.168.0.120/random/public/api/v1/auth/register';
 })
     .controller('authController',function($rootScope){
        $rootScope.custId = 0;
-        //console.log($rootScope.custId);
     });
-app.run(function($rootScope,$state){
+app.run(function($rootScope,$state,$window){
     $rootScope.$state = $state;
     $rootScope.imagePath = '';
-    $rootScope.searchDetails = {
-        selectedState : '3',
-        selectedCity : '1',
-        selectedLocality : '',
-        pax : '',
-        date : '',
-        time : ''
+
+    var updateWidth = function() {
+        $rootScope.width = $window.innerWidth;
+        //console.log($rootScope.width);
     };
-    //$rootScope.blackout = false;
+    var updateHeight = function() {
+        $rootScope.height = $window.innerHeight;
+        //console.log($rootScope.height);
+    };
+
+    updateWidth();
+    updateHeight();
+
+    $window.onresize = function(){
+        updateHeight();
+        updateWidth();
+        $rootScope.$apply();
+    };
 });
-//
-//angular.module('app')
-//    .directive('datepickerPopup', function (){
-//        return {
-//            restrict: 'EAC',
-//            require: 'ngModel',
-//            link: function(scope, element, attr, controller) {
-//                //remove the default formatter from the input directive to prevent conflict
-//                controller.$formatters.shift();
-//            }
-//        }
-//    });
 app.directive('wrapOwlcarousel', function () {
     return {
         restrict: 'E',
@@ -163,18 +143,3 @@ app.filter('range', function() {
 });
 app.controller('SignUpController',function($scope){
 });
-//angular.module('app', ['rzModule']);
-
-//
-//.controller('RegisterCtrl', function ($state, $auth) {
-//    var vm = this;
-//
-//    vm.user = {};
-//
-//
-//})
-//.controller('DashboardCtrl', function ($state, $auth) {
-//    var vm = this;
-//
-//
-//})

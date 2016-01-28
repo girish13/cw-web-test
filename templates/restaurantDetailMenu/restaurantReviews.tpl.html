@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12 font20 text-red bold">
-        Reviews({{hotelReviews.length}}) & Ratings for {{hotel.name}}
+        Reviews({{restaurantReviews.length}}) & Ratings for {{restaurant.name}}
         <hr class="no-margin">
     </div>
 
@@ -12,7 +12,7 @@
         <h4 class="text-middle">Loading Reviews</h4>
     </div>
 
-    <div class="col-md-12" ng-repeat="review in hotelReviews">
+    <div class="col-md-12" ng-repeat="review in restaurantReviews">
         <div class="gap gap-mini"></div>
         <uib-rating  ng-init = "rate = review.rating" ng-model="rate" max="5" readonly="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
         <div class="text-dark-grey font15">By,<span class="bold">{{review.customer_fname}} {{review.customar_lname}}</span>  on Jan 10, 2015 | <span class="text-green">Verified Customer</span>

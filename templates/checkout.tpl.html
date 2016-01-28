@@ -2,49 +2,6 @@
 
 <div class="container" style="margin-top: 75px">
     <div class="row">
-        <!--<div class="col-md-7">-->
-        <!--<div class="row white-background-box">-->
-        <!--<div>-->
-        <!--<span class="headingBig">Your Order</span>-->
-        <!--<hr>-->
-        <!--</div>-->
-        <!--<div ng-repeat = "order in orders">-->
-        <!--<div>-->
-        <!--<div ng-if = "showPackages(order[2].type)">-->
-        <!--{{order[2].name}} X {{order[6]}}  - Rs. {{order[2].price * order[6]}}-->
-
-        <!--<div ng-repeat="item in order[2].packageDetails">-->
-        <!--{{item.name}} <br>-->
-        <!--<div ng-repeat="itemOption in order[4][item.id]">-->
-        <!--<span ng-repeat="itemOptionList in itemOption">-->
-        <!--{{ order[3][item.id][itemOptionList.menu_item_option_id]}} - {{itemOptionList.name}}-->
-        <!--<span ng-if = "itemOptionList.price" >-->
-        <!--Rs. {{itemOptionList.price}}-->
-        <!--</span>-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--By {{order[1].name}}-->
-        <!--</div>-->
-
-        <!--</div>-->
-
-
-        <!--<div ng-if="showAlacarte(order[2].type)">-->
-        <!--&lt;!&ndash;{{odr[2].name}}&ndash;&gt;-->
-
-        <!--{{order[3].name}} X {{order[4]}}  price : {{order[3].price * order[4]}}<br>-->
-        <!--By {{order[1].name}}-->
-
-        <!--&lt;!&ndash;AddOn's Price - {{}}&ndash;&gt;-->
-        <!--&lt;!&ndash;Tax - {{}}&ndash;&gt;-->
-        <!--&lt;!&ndash;Total Price - {{}}&ndash;&gt;-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--<button class="btn btn-primary" ng-click="orderNow()">Order Now</button>-->
-        <!--</div>-->
         <div class="col-md-9">
             <div class="row white-background-box">
                 <div class="headingBig col-md-12">
@@ -101,9 +58,9 @@
                         <div class="form-group col-md-6"  >
                             <div class="input-group search-bar-fields" ng-controller="locationSearchController">
                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+                                            <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="fa fa-calendar"></i></button>
                                             </span>
-                                <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" id = "date" ng-model="searchDetails.date" ng-class="{'has-error' : error.date}" is-open="status.opened" min-date="minDate" max-date="maxDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" id = "date" ng-click="datePickerStatus.opened = true" ng-model="searchDetails.date" ng-class="{'has-error' : error.date}" is-open="status.opened" min-date="minDate" max-date="maxDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
 
                             </div>
                         </div>

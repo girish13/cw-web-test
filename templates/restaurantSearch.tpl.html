@@ -3,14 +3,12 @@
 <div ng-include = "'./templates/searchBar.tpl.html'" ng-if = "$root.width > 992"></div>
 <div class="gap" ng-if = "$root.width < 992"></div>
 <div class="container" ng-if = "$root.width > 992">
-    <!--<div class = "row">-->
     <ol class="breadcrumb text-dark-grey">
         <li class="text-red pointer" ui-sref="home" >Home</li>
         <li class="bold">Browse Restaurants & Caterers in {{searchDetails.selectedLocality.name}}</li>
         <li>Configure packages</li>
         <li>Confirm Order</li>
     </ol>
-    <!--</div>-->
 </div>
 <div class="gap" ng-if = "$root.width < 992">
     <div class="container">
@@ -20,13 +18,13 @@
 </div>
 <div class="searchSidebar darkShadow"  uib-collapse = "isSearchBoxCollapsed">
     <div class = "pointer text-right" ng-click = "isSearchBoxCollapsed = true">Close(X)</div>
-    <div ng-controller="locationSearchController">
+    <div >
         <div  class="input-group padding-10 ">
             <div class="input-group-btn">
                 <button type="button" class="btn height40 btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Gurgaon
                 </button>
             </div><!-- /btn-group -->
-            <input type="text" class="form-control height40" ng-model="searchDetails.selectedLocality" ng-model-options="localities" typeahead-show-hint="true"  typeahead-min-length="0"  uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue" placeholder="Enter Locality">
+            <input type="text" class="form-control height40" ng-model="searchDetails.selectedLocality"  typeahead-show-hint="true"  typeahead-min-length="0"  uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue" placeholder="Enter Locality">
         </div><!-- /input-group -->
         <div class="padding-10">
         <select class="form-control  height40 " ng-options="n+' persons' for n in [] | range:10:75" ng-model="searchDetails.pax"><option value = "" disabled selected>Persons?</option></select>
@@ -57,9 +55,6 @@
                     Filters
                     <span class="float-right pointer" ng-click="clearFilters()" style="font-size: 10px; margin-top : 7px;">[clear all filters]</span>
                 </div>
-                <!--<div class="row">-->
-                <!--<div class="gap gap-ti"></div>-->
-                <!--</div>-->
                     <div class="row">
                         <div class="col-md-12">
                             <div class="" >
@@ -114,7 +109,7 @@
         <div class = "col-md-9">
 
             <div class="col-md-3" ng-if = "$root.width > 992">
-                    <select ng-change="filterRestaurants()" ng-options="'Sort by:  '+type for type in sortTypes" ng-model = "sortType" class="form-control search-fields text-capitalize text-dark-grey"></select>
+                <select ng-change="filterRestaurants()" ng-options="'Sort by:  '+type for type in sortTypes" ng-model = "$parent.sortType" class="form-control search-fields text-capitalize text-dark-grey"></select>
             </div>
 
             <div class="col-md-offset-3 col-md-6" style="visibility: hidden" ng-if = "$root.width > 992">
@@ -141,7 +136,7 @@
                  <div class="col-md-12">
                      <div class="">
                          <div>
-                             <div class="font25 text-capitalize text-black pointer" ui-sref="hotel.packages({id : restaurant.id})">{{restaurant.name}}</div>
+                             <div class="font25 text-capitalize text-black pointer" ui-sref="restaurant.packages({id : restaurant.id})">{{restaurant.name}}</div>
                              <div class="restaurant-des text-capitalize italic text-light-grey" style="font-size: 14px">{{restaurant.short_description}}</div>
                          </div>
                      </div>
@@ -149,12 +144,12 @@
                          <div>
                              <uib-rating ng-model="rate" ng-init="rate = restaurant.avg_rating" max="5" readonly="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
                          </div>
-                         <p><a class="rating padding-5" ui-sref="hotel.reviews({id : restaurant.id})">[{{restaurant.review_count}} Reviews]</a></p>
+                         <p><a class="rating padding-5" ui-sref="restaurant.reviews({id : restaurant.id})">[{{restaurant.review_count}} Reviews]</a></p>
                      </div>
                  </div>
                  <div class="col-md-12"><hr class = "bg-grey" style="margin-top : 2px;margin-bottom: 7px; height: 1px;"></div>
                  <div class="col-md-3" ng-class="{'center' : $root.width > 992,'hidden' : $root.width < 992}">
-                         <img ng-src= "{{imagesPath + restaurant.profile_photo}}" height="95" class="float-left pointer"  ui-sref="hotel.packages({id : restaurant.id})" style="width : auto">
+                         <img ng-src= "{{imagesPath + restaurant.profile_photo}}" height="95" class="float-left pointer"  ui-sref="restaurant.packages({id : restaurant.id})" style="width : auto">
                  </div>
                  <div class="col-md-9" ng-class="{'margin-left-10' : $root.width < 992}">
                      <div class="bold font15 text-dark-grey">{{restaurant.cuisines}}</div>
@@ -163,7 +158,7 @@
                      <div class="" ng-if = "$root.width > 992"><hr class="bg-light-grey" style="margin-top: 5px;margin-bottom: 5px;"></div>
                      <div class="">
                          <div class="float-left text-dark-grey" style="line-height: 30px;font-size: 14px">{{restaurant.min_order_count}} packages min. | <span class="text-green">FREE Delivery</span></div>
-                          <div class="float-right"><button class="btn bg-red my-btn view-restaurant-btn" ui-sref="hotel.packages({id : restaurant.id})">View Packages</button></div>
+                          <div class="float-right"><button class="btn bg-red my-btn view-restaurant-btn" ui-sref="restaurant.packages({id : restaurant.id})">View Packages</button></div>
                      </div>
 
                  </div>

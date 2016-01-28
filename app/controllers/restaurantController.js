@@ -1,4 +1,4 @@
-app.controller('hotelController',function($rootScope,$scope,$stateParams,api,responsive){
+app.controller('restaurantController',function($rootScope,$scope,$stateParams,api,dataService){
     $rootScope.custId = 0; // to be removed
     $scope.imagesPath = $rootScope.imagePath;
     $scope.isOrderBoxCollpsed = true;
@@ -6,21 +6,33 @@ app.controller('hotelController',function($rootScope,$scope,$stateParams,api,res
     $scope.openOrderSidebar = function(){
         $scope.isOrderBoxCollpsed = false;
     };
-$rootScope.hotelId = $stateParams.id;
-$scope.hotelDetails = api.getHotel.query({id : $rootScope.hotelId},function(){
-    angular.forEach($scope.hotelDetails[0],function(value,key){
-        $scope.hotel[key] = value;
-    });
+    $rootScope.restaurantId = $stateParams.id;
+    $scope.restaurantId = $stateParams.id;
+    $scope.getRestaurantDetails = function() {
+        if (!$scope.restaurantDetails) {
+            dataService.getRestaurantDetails($scope.restaurantId).$promise.then(function (res) {
+                $scope.restaurantDetails = res;
+                angular.forEach($scope.restaurantDetails[0], function (value, key) {
+                    $scope.restaurant[key] = value;
+                });
+            });
+        }
+
+    };
+
+    $scope.getRestaurantSchedule = function() {
+        if(!$scope.restaurantSchedule) {
+            $scope.restaurantSchedule = api.getRestaurantSchedule.query({id: $rootScope.restaurantId},function(){
+            });
+        }
+    };
+
+    $scope.getRestaurantDetails();
+    $scope.getRestaurantSchedule();
 });
-$scope.hotelSchedule = api.getHotelSchedule.query({id: $rootScope.hotelId},function(){
-});
 
 
-
-});
-
-
-app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$rootScope,orderService,alertService){
+app.controller('restaurantPackagesController',function($scope, $uibModal, $log, api,$rootScope,orderService,alertService,$stateParams,dataService){
 
     $scope.package = {};
     $scope.itemOptionCategories = {};
@@ -28,33 +40,73 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
     $scope.numberOfPackages = {};
     $scope.addInfo = {};
     $scope.isPackageCollapsed = {};
-
-
+    $scope.loadingPackage = {};
+    $scope.restaurantId = $stateParams.id;
     //loading wheels
-    $scope.loadingRestaurantPackages = true;
 
-    $scope.hotelPackages = api.getHotelMenuPackage.query({id: $rootScope.hotelId},{packages : 'package'},function(){
-        angular.forEach($scope.hotelPackages,function(value,key){
-            if(value.pricing.length == 1){
-                value.price = value.pricing[0].price_per_person;
-                //console.log();
-            }
-            else if($rootScope.searchDetails && $rootScope.searchDetails.pax){
-                angular.forEach(value.pricing,function(value1,key){
-                   if($rootScope.searchDetails.pax >= value1.min_pax && $rootScope.searchDetails.pax <=  value1.max_pax){
-                       value.price = value1.price_per_person;
-                   }
-                });
-            }
-            else{
-                value.price_min = value.pricing[0].price_per_person;
-                value.price_max = value.pricing[value.pricing.length - 1].price_per_person;
-            }
-            $scope.hotelPackages[key].packageDetails = api.getHotelMenuItem.query({id: $rootScope.hotelId},{menu_id : value.id},function(){
-                $scope.loadingRestaurantPackages = false;
+    $scope.getRestaurantPackages = function(){
+        $scope.loadingRestaurantPackages = true;
+        dataService.getRestaurantPackages($scope.restaurantId).$promise.then(function(res){
+            $scope.restaurantPackages = res;
+            angular.forEach($scope.restaurantPackages,function(value,key) {
+                if (value.pricing.length == 1) {
+                    value.price = value.pricing[0].price_per_person;
+                }
+                else if ($rootScope.searchDetails && $rootScope.searchDetails.pax) {
+                    angular.forEach(value.pricing, function (value1, key) {
+                        if ($rootScope.searchDetails.pax >= value1.min_pax && $rootScope.searchDetails.pax <= value1.max_pax) {
+                            value.price = value1.price_per_person;
+                        }
+                    });
+                }
+                else {
+                    value.price_min = value.pricing[0].price_per_person;
+                    value.price_max = value.pricing[value.pricing.length - 1].price_per_person;
+                }
+                //console.log($scope.restaurantPackages);
+                //$scope.restaurantPackages[key].packageDetails = api.getRestaurantMenuItem.query({id: $scope.restaurantId},{menu_id : value.id},function(){
+                //                $scope.loadingRestaurantPackages = false;
+                //            });
             });
+            $scope.loadingRestaurantPackages = false;
         });
-    });
+    };
+
+    //$scope.getPaxs = function(){
+        $scope.getRestaurantPackages();
+    //};
+
+    $scope.openPackage = function(id){
+        $scope.isPackageCollapsed[id] = !$scope.isPackageCollapsed[id];
+        if(!this.restaurantPackage.packageDetails){
+                this.restaurantPackage.packageDetails = api.getRestaurantMenuItem.query({id: $scope.restaurantId},{menu_id : id},function(){
+                        $scope.loadingPackage[id] = false;
+                });
+        }
+    };
+
+
+
+    //
+    //$scope.restaurantPackages = api.getRestaurantMenuPackage.query({id: $rootScope.restaurantId},{packages : 'package'},function(){
+    //    angular.forEach($scope.restaurantPackages,function(value,key){
+    //        if(value.pricing.length == 1){
+    //            value.price = value.pricing[0].price_per_person;
+    //        }
+    //        else if($rootScope.searchDetails && $rootScope.searchDetails.pax){
+    //            angular.forEach(value.pricing,function(value1,key){
+    //               if($rootScope.searchDetails.pax >= value1.min_pax && $rootScope.searchDetails.pax <=  value1.max_pax){
+    //                   value.price = value1.price_per_person;
+    //               }
+    //            });
+    //        }
+    //        else{
+    //            value.price_min = value.pricing[0].price_per_person;
+    //            value.price_max = value.pricing[value.pricing.length - 1].price_per_person;
+    //        }
+    //
+    //    });
+    //});
 
     $scope.openM = function(package_item,package1){
         if(package_item.has_options)
@@ -62,17 +114,9 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
     };
 
     $scope.selection = [];
-    //
-    //angular.forEach($scope.hotelPackages,function(value,key){
-    //   angular.forEach(value.packageDetails,function(value,key){
-    //       console.log(value.id);
-    //   });
-    //});
     $scope.totalPrice = {};
     if($rootScope.searchDetails && $rootScope.searchDetails.pax)
     $scope.pax = $rootScope.searchDetails.pax;
-    //$scope.numberOfPackages[hotelPackage.id]
-    //$scope.totalPrice = {};
     $scope.calculateTotalPrice = function(pkge){
         if($scope.numberOfPackages[pkge.id]){
         angular.forEach(pkge.pricing,function(value,key){
@@ -81,28 +125,16 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
             }
         });
             if($scope.totalAdditionalPrice[pkge.id]){
-                //console.log($scope.totalAdditionalPrice);
-                //console.log(pkge.id);
-                //console.log($scope.totalAdditionalPrice[pkge.id]);
                 $scope.totalPrice[pkge.id] = (pkge.price + $scope.totalAdditionalPrice[pkge.id] ) * $scope.numberOfPackages[pkge.id] ;}
             else{
-            //console.log($scope.totalAdditionalPrice[pkge.id]);
                  $scope.totalPrice[pkge.id] = pkge.price * $scope.numberOfPackages[pkge.id] ;
             }
-        //console.log($scope.numberOfPackages[pkge.id]);
-        //if(pkge.price){
-        //    $scope.totalPrice[pkge.id] = pkge.price * $scope.numberOfPackages[pkge.id] +
-        //}
         }
     };
 
     $scope.totalAdditionalPrice = {};
     $scope.calculateAdditionalPrice = function(currentPackageId,additionalPrice){
-        //console.log(currentPackageId);
-        //console.log($scope.hotelPackages);
-        //console.log($scope.hotelPackages[currentPackageId]);
-        //angular.forEach($s,)
-        if($scope.totalAdditionalPrice.currentPackageId){
+        if($scope.totalAdditionalPrice[currentPackageId]){
         $scope.totalAdditionalPrice[currentPackageId] += additionalPrice;
         }
         else {
@@ -111,13 +143,12 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
         }
     };
 
-    $scope.addOrder = function(hotelPackage){
-        //console.log($scope.itemOptionCategories);
+    $scope.addOrder = function(restaurantPackage){
         $scope.selectedPackage = {};
         $scope.selectedItemOptionCategories = {};
         $scope.packageError = {};
         //$scope.totalAdditionalPrice = 0;
-        angular.forEach(hotelPackage.packageDetails,function(value,key){
+        angular.forEach(restaurantPackage.packageDetails,function(value,key){
             if(value.has_options){
                 if($scope.package[value.id]){
                     $scope.selectedPackage[value.id] = $scope.package[value.id];
@@ -135,16 +166,15 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
             }
         });
 
-        //console.log($scope.selectedPackage);
         if($rootScope.searchDetails.selectedLocality && $rootScope.searchDetails.date && $rootScope.searchDetails.time){
             if(angular.equals({}, $scope.packageError)){
-                //console.log($scope.numberOfPackages[hotelPackage.id]);
-                if($scope.numberOfPackages[hotelPackage.id] == undefined){
+                //console.log($scope.numberOfPackages[restaurantPackage.id]);
+                if($scope.numberOfPackages[restaurantPackage.id] == undefined){
                     alertService.showAlert('lessPackageError',3000,'error');
                 }
                 else
-                    orderService.addOrder($scope.hotelDetails[0],hotelPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice[hotelPackage.id],$scope.numberOfPackages[hotelPackage.id],$scope.addInfo[hotelPackage.id]);
-                        $scope.isPackageCollapsed[hotelPackage.id] = true;
+                    orderService.addOrder($scope.restaurantDetails[0],restaurantPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice[restaurantPackage.id],$scope.numberOfPackages[restaurantPackage.id],$scope.addInfo[restaurantPackage.id]);
+                        $scope.isPackageCollapsed[restaurantPackage.id] = true;
 
             }
         }
@@ -160,15 +190,6 @@ app.controller('hotelPackagesController',function($scope, $uibModal, $log, api,$
             }
 
         }
-
-        //angular.forEach($scope.package);
-        //console.log(hotelPackage);
-        //$scope.order_package = {};
-        //$scope.order_package[hotelPackage] = $scope.package;
-        //$scope.order_package.push();
-        //console.log()
-        //console.log($scope.hotelDetails);
-        //console.log($scope.order_package);
     };
 
 
@@ -257,20 +278,14 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
         });
     };
     $scope.isChecked = {};
-    $scope.itemOptionCategories = api.getHotelMenuItemOptionCategory.query({id:$rootScope.hotelId,menu_id : $scope.package_item.menu_id ,item_id : $scope.package_item.id},function(){
-                //console.log($scope.itemOptionCategories);
+    $scope.itemOptionCategories = api.getRestaurantMenuItemOptionCategory.query({id:$rootScope.restaurantId,menu_id : $scope.package_item.menu_id ,item_id : $scope.package_item.id},function(){
                 angular.forEach($scope.itemOptionCategories,function(value,key){
-                    $scope.itemOptionCategoryList[value.id] = api.getHotelMenuItemOptionList.query({id:$rootScope.hotelId,menu_id : $scope.package_item.menu_id ,item_id : $scope.package_item.id,menu_item_option_category : value.id},function(){
+                    $scope.itemOptionCategoryList[value.id] = api.getRestaurantMenuItemOptionList.query({id:$rootScope.restaurantId,menu_id : $scope.package_item.menu_id ,item_id : $scope.package_item.id,menu_item_option_category : value.id},function(){
 
                         if($scope.pre_package[$scope.package_item.id]){
                                 $scope.selectedItem[value.id] = $scope.pre_package[$scope.package_item.id][value.id];
                                 $scope.count[value.id] = $scope.pre_package[$scope.package_item.id][value.id].length;
-                            //console.log($scope.selectedItem[value.id]);
-                            //    console.log($scope.itemOptionCategoryList[value.id]);
-                                //console.log($scope.selectedItem[value.id]);
                                 angular.forEach($scope.itemOptionCategoryList[value.id],function(value1,key){
-                                    //console.log(value1);
-                                    //console.log($scope.selectedItem[value.id]);
                                     angular.forEach($scope.selectedItem[value.id],function(value2,key){
                                         if(value1.id == value2.id){
                                             $scope.isChecked[value1.id]  =  true;
@@ -283,28 +298,12 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
                                 $scope.count[value.id] = 0;
                                 $scope.isChecked = {};
                             }
-
-
-                        //console.log(value);
                         $scope.max_choice[value.id] = value.max_choice;
                         $scope.min_choice[value.id] = value.min_choice;
-                        //else
-                        //$scope.count[value.id] =
-                         //console.log($scope.itemOptionCategoryList);
                     });
                     $scope.loadingModal = false;
                 });
-        ////console.log($scope.itemOptionCategoryList);
-        //if($scope.pre_package[$scope.package_item.id]) {
-        //    angular.forEach($scope.itemOptionCategoryList, function (value, key) {
-        //        console.log(value);
-        //        angular.forEach(value,function(value1, key){
-        //            console.log(key +',' +value1);
-        //            //console.log($scope.selectedItem[value2.id]);
-        //            //$scope.isChecked[value2.id] = find(value2.id, $scope.selectedItem[value.id]);
-        //        },value);
-        //    });
-        //}
+
     });
 
     $scope.addModalItem = function() {
@@ -353,38 +352,44 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
         $uibModalInstance.dismiss('cancel');
     };
 });
-app.controller('hotelAlacarteController',function($scope, api,$rootScope,orderService){
-    $scope.quantity = {};
-    //loading wheel
-    $scope.loadingRestaurantAlacarte = true;
-
-
-    $scope.hotelAlacartes = api.getHotelMenuPackage.query({id: $rootScope.hotelId},{packages : 'a-la-carte'},function(){
-        angular.forEach($scope.hotelAlacartes,function(value,key){
-            $scope.hotelAlacartes[key].packageDetails = api.getHotelMenuItem.query({id: $rootScope.hotelId},{menu_id : value.id},function(){
-                //console.log($scope.hotelAlacartes[key].packageDetails);
-                $scope.loadingRestaurantAlacarte = false;
-            });
-        });
-    });
-
-    $scope.add = function(packageDetails,package_item){
-        orderService.addOrderAlacarte($scope.hotelDetails[0],packageDetails,package_item,$scope.quantity[package_item.id]);
-    };
-
-
-});
-app.controller('hotelReviewsController',function($scope, api,$rootScope){
+//app.controller('restaurantAlacarteController',function($scope, api,$rootScope,orderService){
+//    $scope.quantity = {};
+//    //loading wheel
+//    $scope.loadingRestaurantAlacarte = true;
+//
+//
+//    $scope.restaurantAlacartes = api.getRestaurantMenuPackage.query({id: $rootScope.restaurantId},{packages : 'a-la-carte'},function(){
+//        angular.forEach($scope.restaurantAlacartes,function(value,key){
+//            $scope.restaurantAlacartes[key].packageDetails = api.getRestaurantMenuItem.query({id: $rootScope.restaurantId},{menu_id : value.id},function(){
+//                //console.log($scope.restaurantAlacartes[key].packageDetails);
+//                $scope.loadingRestaurantAlacarte = false;
+//            });
+//        });
+//    });
+//
+//    $scope.add = function(packageDetails,package_item){
+//        orderService.addOrderAlacarte($scope.restaurantDetails[0],packageDetails,package_item,$scope.quantity[package_item.id]);
+//    };
+//
+//
+//});
+app.controller('restaurantReviewsController',function($scope, api,$rootScope){
     //loading wheels
     $scope.loadingRestaurantReviews = true;
-    $scope.hotelReviews = api.getHotelReviews.query({id: $rootScope.hotelId},function(){
-        $scope.loadingRestaurantReviews = false;
-    });
+    $scope.getRestaurantReviews = function(){
+        if(!$scope.restaurantReviews)
+        {
+            $scope.restaurantReviews = api.getRestaurantReviews.query({id: $rootScope.restaurantId},function(){
+                $scope.loadingRestaurantReviews = false;
+            });
+        }
+    };
+    $scope.getRestaurantReviews();
 });
-app.controller('hotelPicturesController',function($scope, api,$rootScope){
-    //loading wheels
-    $scope.loadingRestaurantImages = true;
-    $scope.hotelImages = api.getHotelImages.query({id: $rootScope.hotelId},function(){
-        $scope.loadingRestaurantImages = false;
-    });
-});
+//app.controller('restaurantPicturesController',function($scope, api,$rootScope){
+//    //loading wheels
+//    $scope.loadingRestaurantImages = true;
+//    $scope.restaurantImages = api.getRestaurantImages.query({id: $rootScope.restaurantId},function(){
+//        $scope.loadingRestaurantImages = false;
+//    });
+//});
