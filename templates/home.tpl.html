@@ -1,18 +1,18 @@
-<div class="container-fluid" id = "search">
-    <div ng-include = "'./templates/header.tpl.html'"></div>
-    <div ng-include="'./templates/alert.tpl.html'"></div>
-    <div id = "" class="highlight-content">
-        <div class="main-text">
-            <div style="margin-bottom : 10px;" class="bg-red text-middle bold" ng-class="{'font25' : $root.width < 480,'font30': $root.width < 768 && $root.width > 480,'font35' : $root.width > 768}">
-            The easiest way to order <span class="underline">food & catering for groups</span>
-        </div>
-            <div class="bg-red text-middle " ng-class="{'font15' : $root.width < 480,'cw-text': $root.width < 768 && $root.width > 480,'font20' : $root.width > 768}">
-            at <span class="bold">bulk rates</span> from your <span class="bold" >favourite restaurants</span>
-        </div>
-        </div>
-        <div class="gap gap-small"></div>
-
-               <div id="searchBox" class="col-md-offset-2 col-md-8">
+<div ng-include = "'./templates/header.tpl.html'"></div>
+<div ng-include="'./templates/alert.tpl.html'"></div>
+<div class="container" id = "search">
+    <div class="row">
+        <div id = "" class="highlight-content col-md-offset-2 col-md-8">
+            <div class="main-text">
+                <div style="margin-bottom : 10px;" class="bg-red text-middle bold" ng-class="{'font25' : $root.width < 480,'font30': $root.width < 768 && $root.width > 480,'font35' : $root.width > 768}">
+                    The easiest way to order <span class="underline">food & catering for groups</span>
+                </div>
+                <div class="bg-red text-middle " ng-class="{'font15' : $root.width < 480,'cw-text': $root.width < 768 && $root.width > 480,'font20' : $root.width > 768}">
+                    at <span class="bold">bulk rates</span> from your <span class="bold" >favourite restaurants</span>
+                </div>
+            </div>
+            <div class="gap gap-small"></div>
+            <div id="searchBox" class="">
                     <div class="row">
                         <div class="col-md-9">
                             <div class="input-group shadow search-box-fields text-grey">
@@ -28,9 +28,10 @@
                             <button class="btn btn-primary full-width shadow search-box-fields" ng-click="getStarted()">Get Started</button>
                         </div>
                     </div>
-               </div>
+                </div>
+        </div>
     </div>
-    <div>
+    <div >
         <wrap-owlcarousel class="owl-carousel" data-options="{autoPlay: 5000, pagination : false ,stopOnHover: true,slideSpeed : 300, paginationSpeed : 400, singleItem : true,loop :true}">
             <div class="main-carousel-image">
                 <img src="./images/home_1.jpg"/>

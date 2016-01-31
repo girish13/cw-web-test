@@ -2,6 +2,7 @@ app.service('orderService',function($rootScope,api,dataService){
     $rootScope.order = [];
     $rootScope.total = {};
     this.orderObject = [];
+    this.order = [];
     //this.totalAmount = totalAmount;
     //this.totalTax = totalTax;
     //this.subTotal = subTotal;
@@ -29,7 +30,8 @@ app.service('orderService',function($rootScope,api,dataService){
             var taxDetails = result;
             order1.push(taxDetails);
             angular.forEach(taxDetails[0],function(value,key){
-                price += value * price;
+                if(value > 0)
+                    price += value * price;
             });
             order1.push(Math.round(price));
             $rootScope.order.push(order1);
@@ -53,6 +55,7 @@ app.service('orderService',function($rootScope,api,dataService){
         });
         //var taxDetails = api.getTaxDetails.query({id : restaurantDetails.id },function(){
         //});
+        //this.refreshOrder();
         return true;
     };
 
@@ -100,6 +103,85 @@ app.service('orderService',function($rootScope,api,dataService){
         //console.log()
         //return this.response;
     };
+    //
+    this.refreshOrder = function(){
+           //console.log('refreshing order');
+           // console.log($rootScope.order);
+        //var totalAmount = 0;
+        //var totalTax = 0;
+        //var subTotal = 0;
+        if($rootScope.order){
+            angular.forEach($rootScope.order,function(value,key){
+                console.log(value);
+                var additionalPrice = 0;
+                var price = value[2].price;
+                angular.forEach(value[4],function(value1,key){
+                    angular.forEach(value1,function(value2,key){
+                       additionalPrice += value2[0].price;
+                    });
+                });
+                value[5] = additionalPrice;
+                price += additionalPrice;
+                price = price * value[6];
+                //
+                //console.log(price);
+                dataService.getTaxDetails(value[1].id).$promise.then(function(result){
+                    //var taxDetails = result;
+                    //order1.push(taxDetails);
+                    angular.forEach(result[0],function(value4,key){
+                        if(value4 > 0)
+                            price += value4 * price;
+                    });
+                    value[9] = Math.round(price);
+                    //console.log(value[9]);
+
+                    var totalAmount = 0;
+                    var totalTax = 0;
+                    var subTotal = 0;
+                    //console.log($rootScope.order);
+                    angular.forEach($rootScope.order,function(value9,key){
+                        //console.log(value);
+                        //console.log(value[6]);
+                        //console.log(value);
+                        subTotal += ((value9[2].price + value9[5]) * value9[6]);
+                        //console.log(value9[9]);
+                        totalAmount += value9[9];
+                        totalTax += (value9[9] - ((value9[2].price + value9[5])  *  value9[6]));
+                    });
+                    $rootScope.total = {};
+                    $rootScope.total['subTotal'] = subTotal;
+                    $rootScope.total['totalAmount'] = totalAmount;
+                    $rootScope.total['totalTax'] = totalTax;
+                //    $rootScope.order.push(order1);
+                //    //calculateTotalPrice();
+                //subTotal += ((value[2].price + value[5]) * value[6]);
+                //totalAmount += value[9];
+                //totalTax += (value[9] - ((value[2].price + value[5])  *  value[6]));
+                //    //console.log($rootScope.order);
+                //    angular.forEach($rootScope.order,function(value,key){
+                //        //console.log(value);
+                //        //console.log(value[6]);
+                //        //console.log(value);
+                    });
+            });
+
+                //$rootScope.total = {};
+                //$rootScope.total['subTotal'] = subTotal;
+                //$rootScope.total['totalAmount'] = totalAmount;
+                //$rootScope.total['totalTax'] = totalTax;
+
+        }
+
+
+
+
+
+    };
+
+
+
+
+
 
     //this.calculateTotalPrice = function(){
     //    angular.forEach($rootScope.order,function(value,key){

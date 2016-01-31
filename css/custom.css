@@ -581,15 +581,16 @@ textarea{
     color: #e74c3c;
 }
 #search{
-    position : relative;
-    top : 0;
-    left : 0;
+    /*position : relative;*/
+    /*top : 0;*/
+    /*left : 0;*/
     padding : 0;
     height: 510px;
     width : auto;
     /*overflow: hidden;*/
 }
 #searchBox{
+    /*position: relative;*/
     background-color: rgba(255,255,255,0.90);
     box-shadow: 0 0 6px #bce8f1;
     padding: 25px 20px 25px 20px;
@@ -782,12 +783,12 @@ textarea{
     /*height : auto;*/
     z-index: 5;
     position: absolute;
-    top : 30%;
+    margin-top : 30vh;
 }
 .main-text{
-    position: relative;
-    width : 60vw;
-    left : 20vw;
+    /*position: relative;*/
+    /*width : 60vw;*/
+    /*left : 20vw;*/
 }
 .main-carousel-image{
     /*height : 510px;*/

@@ -21,7 +21,7 @@
     <!--<div class="col-md-3">Price(&#8377;)</div>-->
     <!--<div class="col-md-12"><hr></div>-->
 <!--</div>-->
-<div class="col-md-12 text-dark-grey" ng-if = "orders.length >= 1" ng-repeat = "order in orders">
+<div class="col-md-12 text-dark-grey" ng-if = "orders.length >= 1" ng-repeat = "order in $root.order">
     <div class="row">
         <div class="col-md-12" ng-if = "showPackages(order[2].type)">
             <div class="row">
@@ -34,7 +34,7 @@
                     <div class=" col-md-12 row" ng-repeat="item in order[2].packageDetails">
                     <div class="">
                         <div class="col-md-12">
-                            <span class="bold">- {{item.name}}</span><a ng-if="item.has_options" href ng-controller="restaurantPackagesController" ng-click="open(item,order[4])"> <i class="fa fa-pencil"> </i></a>
+                            <span class="bold">- {{item.name}}</span><a ng-if="item.has_options" href ng-click="openEditItemModal(item,order[4],order)"> <i class="fa fa-pencil"> </i></a>
                             <!--<hr style="margin-top: 5px;margin-bottom : 10px;">-->
                         </div>
                         <span class="col-md-12" ng-repeat="itemOption in order[4][item.id]" ng-if="item.has_options">

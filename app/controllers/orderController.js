@@ -7,6 +7,7 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     //$scope.totalPrice = 0;
     $scope.cust = {};
     $scope.error = {};
+    $scope.orders = $rootScope.order;
     $scope.checkout = function(){
         $state.go('checkout');
     };
@@ -45,7 +46,7 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     //    $scope.subTotal = $rootScope.total.subTotal;
     //    $scope.totalTax = $rootScope.total.totalTax;
     //}
-
+    //
     //$scope.$watch($rootScope.total,function(newVal,oldVal){
     //    $scope.totalAmount = $rootScope.total.totalAmount;
     //    $scope.subTotal = $rootScope.total.subTotal;
@@ -53,6 +54,62 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     //    console.log($rootScope.total);
     //},true);
     //$scope.calculateTotalPrice();
+
+
+
+    //$scope.$watch('orders',function(newVal,oldVal){
+    //    orderService.refreshOrder();
+    //},true);
+
+    $scope.openEditItemModal = function (package_item,pre_package,order) {
+
+        //console.log(order);
+        //console.log(package_item);
+        //console.log(pre_package);
+        //var price = ;
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'packageSelector.html',
+            controller: 'packageSelectorModalController',
+            size: 'md' ,
+            resolve: {
+                package_item : function(){
+                    return package_item;
+                },
+                pre_package : function(){
+                    return pre_package;
+                }
+            }
+        });
+
+
+        modalInstance.result.then(function (result) {
+            //console.log(result);
+            //console.log(this);
+            //order[5] =  result.additionalPrice;
+            orderService.refreshOrder();
+            //$scope.itemsSelected = itemsSelected;
+            //console.log(package_item);
+            //$scope.package[package_item.id] = result.itemsSelected;
+            //$scope.itemOptionCategories[package_item.id] = result.categoriesName;
+            //$scope.additionalPrice[package_item.id] = result.additionalPrice;
+            ////console.log($scope.additionalPrice);
+            //$scope.calculateAdditionalPrice(package_item.menu_id,result.additionalPrice);
+            //console.log($scope.package[package_item.id]);
+            //$scope.temp = [];
+            //$scope.temp.push($scope.package);
+            //
+            //$scope.selectedPackage[package_item.menu_id] =
+
+        }, function () {
+            $log.info('Modal closed at: ' + new Date());
+        });
+    };
+
+
+
+
+
 
     $scope.increaseQty = function(item){
         var index = $rootScope.order.indexOf(item);
@@ -62,7 +119,8 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
         }
         else if($rootScope.order[index][2].type == 'package'){
             if($rootScope.order[index][6] < 50){
-            $rootScope.order[index][6]++;
+                $rootScope.order[index][6]++;
+                //orderService.refreshOrder();
             orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
             $scope.removeItem(item);
             }
@@ -82,6 +140,7 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
             if($rootScope.order[index][6] > 10)
             {
                 $rootScope.order[index][6]--;
+                //orderService.refreshOrder();
                 orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
                 $scope.removeItem(item);
             }
@@ -110,7 +169,7 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
         //console.log(type);
         return type == 'package';
     };
-    $scope.orders = $rootScope.order;
+
 
     //
     //$scope.calculateTotalPrice = function(){

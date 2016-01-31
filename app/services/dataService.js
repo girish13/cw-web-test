@@ -10,7 +10,6 @@ app.service('dataService',function(api,$rootScope,$filter){
     };
 
     this.taxDetails = {};
-    this.name = "data service";
     this.filters = {};
     this.packages = {};
     this.getTimeList = function(){
