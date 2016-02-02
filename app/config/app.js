@@ -105,6 +105,16 @@ app.run(function($rootScope,$state,$window){
     $rootScope.$state = $state;
     $rootScope.imagePath = '';
 
+
+    $rootScope.$on('$stateChangeSuccess',
+        function(event, toState, toParams, fromState, fromParams){
+            if(fromState.name == 'orderConfirmed'){
+            //console.log(fromState);
+                $rootScope.order = [];
+            //console.log(toState);
+            }
+        });
+
     var updateWidth = function() {
         $rootScope.width = $window.innerWidth;
         //console.log($rootScope.width);
@@ -122,6 +132,11 @@ app.run(function($rootScope,$state,$window){
         updateWidth();
         $rootScope.$apply();
     };
+
+
+
+
+
 });
 app.directive('wrapOwlcarousel', function () {
     return {

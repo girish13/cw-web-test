@@ -201,7 +201,38 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
         else {
             if($rootScope.searchDetails.selectedLocality)
             {
-                alertService.showAlert('NoDateTime',3000,'error');
+                //alertService.showAlert('NoDateTime',3000,'error');
+
+                var modalInstance = $uibModal.open({
+                    animation : true,
+                    templateUrl : 'dateTime.html',
+                    controller : 'dateTimeModalController',
+                    size : 'md'
+                });
+
+                modalInstance.result.then(function(){
+                    if(angular.equals({}, $scope.packageError)){
+                        //console.log($scope.numberOfPackages[restaurantPackage.id]);
+                        if($scope.numberOfPackages[restaurantPackage.id] == undefined){
+                            alertService.showAlert('lessPackageError',3000,'error');
+                        }
+                        else{
+                            if($scope.totalAdditionalPrice[restaurantPackage.id] == undefined)
+                            {
+                                $scope.totalAdditionalPrice[restaurantPackage.id] = 0;
+                            }
+                            //console.log($scope.totalAdditionalPrice[restaurantPackage.id]);
+                            orderService.addOrder($scope.restaurantDetails[0],restaurantPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice[restaurantPackage.id],$scope.numberOfPackages[restaurantPackage.id],$scope.addInfo[restaurantPackage.id]);
+                            $scope.isPackageCollapsed[restaurantPackage.id] = true;
+                        }
+                    }
+
+                },function(){
+
+                });
+
+
+
             }
             else
             {

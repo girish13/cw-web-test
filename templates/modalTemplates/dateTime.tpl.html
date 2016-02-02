@@ -1,0 +1,34 @@
+<!--<div class="white-background-box row no-padding" ng-init = "editDetails = !searchDetails.date || !searchDetails.time" ng-if = "$root.width > 992" ng-controller="locationSearchController">-->
+ <!-- -->
+
+<!--</div>-->
+<script type="text/ng-template" id="dateTime.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Update Date & Time</h3>
+    </div>
+    <div class="modal-body">
+        <!--<div class="search-message cw-text highlight-dark" >-->
+            <!--Event Date & Time-->
+        <!--</div>-->
+        <div class="col-md-12">
+            <span><span class="bold text-red">Please Update date and time</span> of your event to know the availability of the restaurant</span>
+            <div class="input-group padding-10">
+                            <span class="input-group-btn" >
+                            <button type="button" class="height40 btn btn-default" ng-click="openDatePicker($event)"><i class="fa fa-calendar"></i></button>
+                            </span>
+                <input type="text" class="form-control height40" uib-datepicker-popup="dd-MMMM-yyyy" id = "date" ng-model="searchDetails.date" ng-click="datePickerStatus.opened = true" is-open="datePickerStatus.opened" placeholder="Event Date" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+            </div>
+            <div class="padding-10">
+                <select class="form-control height40" ng-options="n for n in times" ng-model="searchDetails.time"><option value = "" disabled selected>Event Time</option></select>
+            </div>
+            <!--<div class="padding-10 center">-->
+                <!--<button class="btn btn-primary myBtn height40" ng-click = "">Update</button>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="modalClose()">Update</button>
+        <!--<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>-->
+    </div>
+<!--</div>-->
+</script>
