@@ -72,7 +72,7 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
             animation: $scope.animationsEnabled,
             templateUrl: 'packageSelector.html',
             controller: 'packageSelectorModalController',
-            size: 'md' ,
+            size: 'md',
             resolve: {
                 package_item : function(){
                     return package_item;

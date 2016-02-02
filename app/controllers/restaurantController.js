@@ -188,7 +188,7 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
                     alertService.showAlert('lessPackageError',3000,'error');
                 }
                 else{
-                    if($scope.totalAdditionalPrice[restaurantPackage.id] == undefined)
+                    if($scope.totalAdditionalPrice[restaurantPackage.id] == undefined || isNaN($scope.totalAdditionalPrice[restaurantPackage.id]))
                     {
                         $scope.totalAdditionalPrice[restaurantPackage.id] = 0;
                     }

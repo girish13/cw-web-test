@@ -24,7 +24,10 @@ app.service('orderService',function($rootScope,api,dataService){
                 packageDetails.price = price;
             }
         });
-        price += additionalPrice;
+        //console.log(additionalPrice);
+        if(!isNaN(additionalPrice)){
+            price += additionalPrice;
+        }
         price = price * numberOfPackages;
         dataService.getTaxDetails(restaurantDetails.id).$promise.then(function(result){
             var taxDetails = result;
@@ -44,9 +47,16 @@ app.service('orderService',function($rootScope,api,dataService){
                 //console.log(value);
                 //console.log(value[6]);
                 //console.log(value);
+                if(!isNaN(value[5]))
                 subTotal += ((value[2].price + value[5]) * value[6]);
+                else
+                    subTotal += ((value[2].price) * value[6]);
                 totalAmount += value[9];
-                totalTax += (value[9] - ((value[2].price + value[5])  *  value[6]));
+                if(!isNaN(value[5]))
+                    totalTax += (value[9] - ((value[2].price + value[5])  *  value[6]));
+                else
+                    totalTax += (value[9] - ((value[2].price)  *  value[6]));
+
             });
             $rootScope.total = {};
             $rootScope.total['subTotal'] = subTotal;
