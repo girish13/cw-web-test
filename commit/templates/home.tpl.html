@@ -1,0 +1,184 @@
+<div ng-include = "'./templates/header.tpl.html'"></div>
+<div ng-include="'./templates/alert.tpl.html'"></div>
+<div class="container" id = "search">
+    <div class="row">
+        <div id = "" class="highlight-content col-md-offset-2 col-md-8">
+            <div class="main-text">
+                <div style="margin-bottom : 10px;" class="bg-red text-middle bold" ng-class="{'font25' : $root.width < 480,'font30': $root.width < 768 && $root.width > 480,'font35' : $root.width > 768}">
+                    The easiest way to order <span class="underline">food & catering for groups</span>
+                </div>
+                <div class="bg-red text-middle " ng-class="{'font15' : $root.width < 480,'cw-text': $root.width < 768 && $root.width > 480,'font20' : $root.width > 768}">
+                    at <span class="bold">bulk rates</span> from your <span class="bold" >favourite restaurants</span>
+                </div>
+            </div>
+            <div class="gap gap-small"></div>
+            <div id="searchBox" class="">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="input-group shadow search-box-fields text-grey">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle search-box-fields" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Gurgaon
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control search-box-fields text-grey" id="home-search" ng-model="searchDetails.selectedLocality"  typeahead-show-hint="true"  typeahead-min-length="0"  uib-typeahead="locality as locality.name for locality in localities | filter:$viewValue" placeholder="Enter Locality">
+                            </div>
+                        </div>
+
+                        <div class = "col-md-3">
+                            <button class="btn btn-primary full-width shadow search-box-fields" ng-click="getStarted()">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div >
+        <wrap-owlcarousel class="owl-carousel" data-options="{autoPlay: 5000, pagination : false ,stopOnHover: true,slideSpeed : 300, paginationSpeed : 400, singleItem : true,loop :true}">
+            <div class="main-carousel-image">
+                <img src="./images/home_1.jpg"/>
+            </div>
+            <div class="main-carousel-image">
+                <img src="./images/home_2.jpg"/>
+            </div>
+            <div class="main-carousel-image" >
+                <img src="./images/home_3.jpg"/>
+            </div>
+        </wrap-owlcarousel>
+    </div>
+</div>
+<div class="gap gap-small"></div>
+<div class="container">
+    <div class="row">
+
+        <h1 class="col-md-12 headingBig bold font45 text-middle text-dark-grey">How it works</h1>
+        <div class="gap gap-small"></div>
+        <div class="col-md-4">
+            <div class="center">
+                <div class="how-blocks">
+                    <div><img src = "./images/how1.png" ></div>
+                    <h4 class="text-grey">CHOOSE A BULK DISCOUNTED PACKAGE</h4>
+                    <p class="text-light-grey">Pick from a wide range of pre-planned meal packages from popular restaurants. Choose one or mix multiple packages for more variety.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="center">
+                <div class="how-blocks">
+                    <div class=""><img src = "./images/how2.png" ></div>
+                    <h4 class="text-grey">CUSTOMIZE TO YOUR TASTE & REQUIREMENTS</h4>
+                    <p class="text-light-grey">Customize as per your requirement. Have a special request, no problem. CaterWow ensures every package is customized to your specific requirement.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="center">
+                <div class="how-blocks">
+                    <div class=""><img src = "./images/how3.png" ></div>
+                    <h4 class="text-grey">GROUP MEALS SERVED TO PERFECTION</h4>
+                    <p class="text-light-grey">Hungry groups. On time. Every time. Be a great host and save money. Don't forget to ask a CaterWow executive to help you lay the table.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="gap"></div>
+<div class="gap"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 bg-red">
+            <h1 class="text-middle bold padding-10">Whatever the occasion is, celebrate with CaterWow</h1>
+            <h3 class="text-middle padding-10">House parties, birthdays, anniversaries, festival gatherings, office lunches,<br>
+            kitty parties or just a get together without any reason.</h3>
+            <br>
+        </div>
+    </div>
+</div>
+<div class="gap"></div>
+<div class="gap"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 margin-center-27">
+            <h2 class="text-grey" ng-class = "{'text-middle' : $root.width < 992 , 'float-left' :  $root.width > 992}" >Curated, pre-planned and online</h2>
+            <p class="cw-text text-light-grey" ng-class = "{'text-middle' : $root.width < 992 , 'float-left text-left' :  $root.width > 992}">No more calling up multiple caterers for menus, choosing 4 items from 20 page long menu booklets, or haggling for discounts. Browse through our curated pre-planned menus. Served from popular restaurants at pre-negotiated bulk discounted prices</p>
+            <div style="clear: both"></div>
+        </div>
+
+        <div class="col-md-3" ng-class="{'padding-20' : $root.width < 992}" ng-if = "$root.width > 992">
+            <div class="center">
+                <img src="./images/2.png" >
+            </div>
+        </div>
+        <div class="col-md-3" ng-class="{'padding-20' : $root.width < 992}">
+            <div class="center">
+                <img src="./images/3.png" >
+            </div>
+        </div>
+    </div>
+    <div class="gap" ng-if = "$root.width > 992"></div>
+    <div class="row">
+        <div class="col-md-3" ng-class="{'padding-20' : $root.width < 992}" >
+            <div class="center">
+                <img src="./images/4.png">
+            </div>
+        </div>
+        <div class="col-md-3" ng-class="{'padding-20' : $root.width < 992}" ng-if = "$root.width > 992">
+            <div class="center">
+                <img src="./images/1.png">
+            </div>
+        </div>
+        <div class="col-md-6 margin-center-27">
+            <h2 class="text-grey" ng-class = "{'text-middle' : $root.width < 992 , 'float-right' :  $root.width > 992}">Wide variety with affordable pricing</h2>
+            <p class="cw-text text-light-grey" ng-class = "{'text-middle' : $root.width < 992 , 'float-right text-right' :  $root.width > 992}">Choose from a variety of cuisines and package types. Authentic Chinese, Lebanese, only starters, high tea or a 5 course meal, we have it all. Get quality food from speciality restaurants. Our deep discounted packages are designed to fit every budget.</p>
+        </div>
+    </div>
+</div>
+<div class="gap"></div>
+<!--<div class="container-fluid">-->
+<section id="host-enjoy" class="parallax parallax-image light-bg" style="background-color: #ffffff; background-image:url('./images/space-desk-workspace-coworking_corpSignup.jpg');">
+    <div class="overlay"></div>
+    <div class="container animated fade_ani" id = "choose">
+        <div  class="parallax-content">
+            <div class="row">
+                <p class="text-middle padding-10 font35 bold" style="margin-top: 60px; line-height: 50px; "><span class="bg-red padding-5">We'll deliver to your office, too.</span></p>
+                <div class="center">
+                    <div class="text-middle padding-10 cw-text text-dark-grey" style="width : 700px;margin-bottom: 60px; background-color : rgba(255,255,255,0.85);">Organising lunch for the team? Need food for thought at a meeting? <br> We have a team of specialists whose mission is to take the hassle out of <br>doing just that. Just get in touch and we'll take care of it.
+                        <br>
+                        <button class="btn btn-primary my-btn margin-center-27" ui-sref="corporateSignUp">Get in touch</button>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- .parallax-content -->
+    </div>
+</section>
+<!--</div>-->
+
+<div class="gap"></div>
+<div class="container">
+    <div class="row">
+        <h1 class="col-md-12 bold font50 text-middle text-dark-grey">Choose from the best restaurants</h1>
+        <p class="text-middle cw-text text-light-grey">We're proud to work with a carefully curated selection of restaurants<br> whose food we genuinely love - and we're sure you will, too.</p>
+        <div class="gap small-gap"></div>
+        <div class="center">
+            <img src = "images/Logos.png" class="center img-responsive">
+        </div>
+    </div>
+</div>
+<div class="gap"></div>
+<section class="parallax parallax-image light-bg" style="background-color: #ffffff; background-image:url('images/home_3.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div  class="parallax-content">
+            <div class="row">
+                <p class="text-middle bold" ng-class="{'font15' : $root.width < 480,'cw-text': $root.width < 768,'font20' : $root.width > 768}" style="margin-top: 80px;"><span class="bg-red padding-5">Choose, customise and order in just 5 minutes. Delivered 15 minutes before your event starts.</span></p>
+                <p class="text-middle padding-10 bold" ng-class="{'font25' : $root.width < 480,'font35': $root.width < 768,'font45' : $root.width > 768}" style="margin-bottom: 80px; line-height: 50px; "><span class="bg-red padding-5">As a host, you should enjoy too.</span></p>
+            </div>
+        </div> <!-- .parallax-content -->
+    </div>
+</section>
+
+<div class="gap"></div>
+<ng-include src = "'./templates/footer.tpl.html'"></ng-include>
+
+
+
+

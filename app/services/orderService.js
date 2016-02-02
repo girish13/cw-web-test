@@ -52,10 +52,11 @@ app.service('orderService',function($rootScope,api,dataService){
             $rootScope.total['subTotal'] = subTotal;
             $rootScope.total['totalAmount'] = totalAmount;
             $rootScope.total['totalTax'] = totalTax;
+            //refreshOrder();
         });
         //var taxDetails = api.getTaxDetails.query({id : restaurantDetails.id },function(){
         //});
-        //this.refreshOrder();
+        this.refreshOrder();
         return true;
     };
 
@@ -112,7 +113,7 @@ app.service('orderService',function($rootScope,api,dataService){
         //var subTotal = 0;
         if($rootScope.order){
             angular.forEach($rootScope.order,function(value,key){
-                console.log(value);
+                //console.log(value);
                 var additionalPrice = 0;
                 var price = value[2].price;
                 angular.forEach(value[4],function(value1,key){

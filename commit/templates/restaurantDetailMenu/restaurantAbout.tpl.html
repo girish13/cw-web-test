@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-12 ">
+         <span class="font20 text-red bold">About {{restaurant.name}}</span>
+        <hr class="no-margin">
+        <div class="gap gap-small text-light-grey cw-text">
+            {{restaurant.long_description}}
+        </div>
+        <div class="gap gap-mini"></div>
+    </div>
+    <div class="col-md-12 ">
+        <span class="font20 text-red bold">Details</span>
+        <hr class="no-margin">
+        <div class="gap gap-small font15 text-light-grey">
+            <div class=" gap gap-tiny">
+                <span class="bold text-right col-md-3">Minimum Packages :</span>  <span class="col-md-9">{{restaurant.min_order_count}}</span>
+            </div>
+            <div class=" gap gap-tiny">
+                <span class="bold  text-right col-md-3">Delivery Fee :</span>  <span class="col-md-9"> Free delivery to {{searchDetails.selectedLocality.name}} </span>
+            </div>
+            <div class=" gap gap-tiny">
+                <span class="bold  text-right col-md-3">Earliest Order Time :</span>  <span class="col-md-9"> {{restaurant.order_before}} business hours before (<span class="italic">see restaurant operation timings below</span>) </span>
+            </div>
+            <div class=" gap gap-tiny">
+                <span class="bold  text-right col-md-3">Free Cancellation Notice :</span>  <span class="col-md-9">{{restaurant.cancel_before}} business hours before (<span class="italic">see restaurant operation timings below</span>)</span>
+            </div>
+            <!--<div class="text-light-grey">-->
+                <!--<span class="bold  text-right">Delivery Localities</span> : {{restaurant.}}-->
+            <!--</div>-->
+        </div>
+        <div class="gap gap-mini"></div>
+    </div>
+    <div class="col-md-12">
+        <span class="font20 text-red bold">Restaurant Operation Timings</span>
+        <hr class="no-margin">
+        <div class="gap gap-small text-light-grey font15 col-md-6">
+            <div class="gap gap-tiny" ng-repeat = "restaurantTimings in restaurantSchedule">
+                <span class="bold text-right col-md-6">{{restaurantTimings.days}}  :</span> <span class="col-md-6" ng-if = "restaurantTimings.open">{{restaurantTimings.open_time}} - {{restaurantTimings.close_time}}</span> <span class="col-md-6" ng-if="!restaurantTimings.open">Closed</span>
+            </div>
+        </div>
+        <div class="gap gap-mini"></div>
+    </div>
+</div>
+

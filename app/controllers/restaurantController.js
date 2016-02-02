@@ -135,10 +135,12 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
     $scope.totalAdditionalPrice = {};
     $scope.calculateAdditionalPrice = function(currentPackageId,additionalPrice){
         if($scope.totalAdditionalPrice[currentPackageId]){
-        $scope.totalAdditionalPrice[currentPackageId] += additionalPrice;
+                $scope.totalAdditionalPrice[currentPackageId] = 0 ;
+             $scope.totalAdditionalPrice[currentPackageId] += additionalPrice;
         }
         else {
-            $scope.totalAdditionalPrice[currentPackageId] = 0 ;
+            $scope.totalAdditionalPrice[currentPackageId] = 0;
+            //if(additionalPrice)
             $scope.totalAdditionalPrice[currentPackageId] += additionalPrice;
         }
     };
@@ -150,6 +152,9 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
         //$scope.totalAdditionalPrice = 0;
         angular.forEach(restaurantPackage.packageDetails,function(value,key){
             if(value.has_options){
+                //console.log($scope.package);
+                //console.log($scope.package[value.id]);
+                //console.log($scope.package[value.id][value.id]);
                 if($scope.package[value.id]){
                     $scope.selectedPackage[value.id] = $scope.package[value.id];
                     //$scope.totalAdditionalPrice += $scope.additionalPrice[value.id];
@@ -172,10 +177,15 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
                 if($scope.numberOfPackages[restaurantPackage.id] == undefined){
                     alertService.showAlert('lessPackageError',3000,'error');
                 }
-                else
+                else{
+                    if($scope.totalAdditionalPrice[restaurantPackage.id] == undefined)
+                    {
+                        $scope.totalAdditionalPrice[restaurantPackage.id] = 0;
+                    }
+                    //console.log($scope.totalAdditionalPrice[restaurantPackage.id]);
                     orderService.addOrder($scope.restaurantDetails[0],restaurantPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice[restaurantPackage.id],$scope.numberOfPackages[restaurantPackage.id],$scope.addInfo[restaurantPackage.id]);
                         $scope.isPackageCollapsed[restaurantPackage.id] = true;
-
+                }
             }
         }
         else {
@@ -210,10 +220,10 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
             size: 'md' ,
             resolve: {
                 package_item : function(){
-                    return package_item;
+                    return angular.copy(package_item);
                 },
                 pre_package : function(){
-                    return pre_package;
+                    return angular.copy(pre_package);
                 }
             }
         });
@@ -234,7 +244,8 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
             //$scope.selectedPackage[package_item.menu_id] =
 
         }, function () {
-            $log.info('Modal closed at: ' + new Date());
+
+            //$log.info('Modal closed at: ' + new Date());
         });
     };
 
@@ -250,6 +261,7 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
     $scope.selected = {};
 
     $scope.itemOptionCategoryList = [];
+    //var p_package = pre_package;
     $scope.pre_package = pre_package;
     $scope.package_item = package_item;
 
@@ -349,6 +361,7 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
     };
 
     $scope.cancel = function () {
+
         $uibModalInstance.dismiss('cancel');
     };
 });

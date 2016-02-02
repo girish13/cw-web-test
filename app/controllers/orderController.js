@@ -16,6 +16,7 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     $scope.removeItem = function(item){
         var index = $rootScope.order.indexOf(item);
         $rootScope.order.splice(index, 1);
+        orderService.refreshOrder();
     };
 
     $scope.print = function(divName){
@@ -120,9 +121,9 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
         else if($rootScope.order[index][2].type == 'package'){
             if($rootScope.order[index][6] < 50){
                 $rootScope.order[index][6]++;
-                //orderService.refreshOrder();
-            orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
-            $scope.removeItem(item);
+                orderService.refreshOrder();
+            //orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
+            //$scope.removeItem(item);
             }
         }
         //console.log(item[4]);
@@ -140,9 +141,9 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
             if($rootScope.order[index][6] > 10)
             {
                 $rootScope.order[index][6]--;
-                //orderService.refreshOrder();
-                orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
-                $scope.removeItem(item);
+                orderService.refreshOrder();
+                //orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
+                //$scope.removeItem(item);
             }
 
         }
@@ -202,6 +203,7 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
         if($rootScope.searchDetails.date && $rootScope.searchDetails.time && $rootScope.searchDetails.selectedLocality.id){
             $scope.disableOrder = true;
         orderService.checkout($scope.cust).$promise.then(function(res){
+            //console.log(res);
             $scope.response = res[0].order_id;
             if($scope.response){
                 $scope.order_id = $scope.response;
