@@ -101,7 +101,7 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.
     .controller('authController',function($rootScope){
        $rootScope.custId = 0;
     });
-app.run(function($rootScope,$state,$window){
+app.run(function($rootScope,$state,$window,orderService){
     $rootScope.$state = $state;
     $rootScope.imagePath = '';
 
@@ -110,7 +110,10 @@ app.run(function($rootScope,$state,$window){
         function(event, toState, toParams, fromState, fromParams){
             if(fromState.name == 'orderConfirmed'){
             //console.log(fromState);
+                $rootScope.total = {};
                 $rootScope.order = [];
+                orderService.order = [];
+                orderService.orderObject = [];
             //console.log(toState);
             }
         });
