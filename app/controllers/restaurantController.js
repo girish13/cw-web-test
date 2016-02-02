@@ -134,15 +134,25 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
 
     $scope.totalAdditionalPrice = {};
     $scope.calculateAdditionalPrice = function(currentPackageId,additionalPrice){
-        if($scope.totalAdditionalPrice[currentPackageId]){
-                $scope.totalAdditionalPrice[currentPackageId] = 0 ;
-             $scope.totalAdditionalPrice[currentPackageId] += additionalPrice;
-        }
-        else {
-            $scope.totalAdditionalPrice[currentPackageId] = 0;
-            //if(additionalPrice)
-            $scope.totalAdditionalPrice[currentPackageId] += additionalPrice;
-        }
+        api.getRestaurantMenuItem.query({id: $scope.restaurantId},{menu_id : currentPackageId},function(res){
+            $scope.totalAdditionalPrice[currentPackageId] = 0 ;
+            angular.forEach(res,function(value,key){
+                //if($scope.totalAdditionalPrice[currentPackageId]){
+
+                    //if($scope.totalAdditionalPrice[currentPackageId] < 25)
+                    //$scope.totalAdditionalPrice[currentPackageId] += additionalPrice;
+                    //console.log($scope.totalAdditionalPrice[currentPackageId]);
+                    //console.log($scope.additionalPrice[value.id]);
+                    $scope.totalAdditionalPrice[currentPackageId] += $scope.additionalPrice[value.id];
+                //}
+                //else {
+                //    $scope.totalAdditionalPrice[currentPackageId] = 0;
+                //    $scope.totalAdditionalPrice[currentPackageId] += $scope.additionalPrice[value.id];
+                //    //$scope.totalAdditionalPrice[currentPackageId] += additionalPrice;
+                //}
+            });
+        });
+
     };
 
     $scope.addOrder = function(restaurantPackage){
@@ -234,9 +244,27 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
             //console.log(package_item);
             $scope.package[package_item.id] = result.itemsSelected;
             $scope.itemOptionCategories[package_item.id] = result.categoriesName;
-            $scope.additionalPrice[package_item.id] = result.additionalPrice;
             //console.log($scope.additionalPrice);
-            $scope.calculateAdditionalPrice(package_item.menu_id,result.additionalPrice);
+            //console.log($scope.additionalPrice[package_item.id]);
+            //console.log($scope.additionalPrice);
+            //if($scope.additionalPrice[package_item.id])
+            //{
+            //    if(result.additionalPrice > $scope.additionalPrice[package_item.id]){
+            //        $scope.additionalPrice[package_item.id] = result.additionalPrice;
+            //        $scope.calculateAdditionalPrice(package_item.menu_id,additionalPrice);
+            //    }
+            //    else if(result.additionalPrice = $scope.additionalPrice[package_item.id]) {
+            //        //do nothing
+            //    }
+            //    else {
+            //        $scope.additionalPrice[package_item.id] = result.additionalPrice;
+            //
+            //    }
+            //}
+            //else {
+                $scope.additionalPrice[package_item.id] = result.additionalPrice;
+                $scope.calculateAdditionalPrice(package_item.menu_id,result.additionalPrice);
+            //}
             //console.log($scope.package[package_item.id]);
             //$scope.temp = [];
             //$scope.temp.push($scope.package);
