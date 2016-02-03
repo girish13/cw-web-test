@@ -28,6 +28,9 @@ app.service('orderService',function($rootScope,api,dataService){
         if(!isNaN(additionalPrice)){
             price += additionalPrice;
         }
+        else {
+            additionalPrice = 0;
+        }
         price = price * numberOfPackages;
         dataService.getTaxDetails(restaurantDetails.id).$promise.then(function(result){
             var taxDetails = result;
@@ -45,6 +48,10 @@ app.service('orderService',function($rootScope,api,dataService){
             //console.log($rootScope.order);
             angular.forEach($rootScope.order,function(value,key){
                 //console.log(value);
+                if(isNaN(value[5]))
+                {
+                    value[5] = 0;
+                }
                 //console.log(value[6]);
                 //console.log(value);
                 if(!isNaN(value[5]))
