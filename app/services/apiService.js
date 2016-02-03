@@ -1,4 +1,16 @@
-app.service('api',function($resource,$http,baseUrl,$log){
+app.service('api',function($resource,$http,baseUrl,$log,$location){
+
+    //console.log($location.$$host);
+    if($location.$$host == "www.caterwow.com"){
+        baseUrl = 'http://www.caterwow.com/cw_api/public/api/v001/';
+        //console.log(baseUrl);
+    }
+    else
+    {
+        baseUrl = 'http://caterwow.com/cw_api/public/api/v001/';
+        //console.log(baseUrl);
+    }
+
 
     //Restaurant Apis
 

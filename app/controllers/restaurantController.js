@@ -110,7 +110,7 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
 
     $scope.openM = function(package_item,package1){
         if(package_item.has_options)
-        $scope.open(package_item,package1);
+        $scope.open(package_item,package1,$rootScope.restaurantId);
     };
 
     $scope.selection = [];
@@ -252,7 +252,7 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
 
     $scope.animationsEnabled = true;
 
-    $scope.open = function (package_item,pre_package) {
+    $scope.open = function (package_item,pre_package,restId) {
 
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
@@ -265,7 +265,11 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
                 },
                 pre_package : function(){
                     return angular.copy(pre_package);
+                },
+                restId : function(){
+                    return restId;
                 }
+
             }
         });
 
@@ -310,7 +314,7 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
 
 
 });
-app.controller('packageSelectorModalController',function($scope,$rootScope,$uibModalInstance,package_item,pre_package,api,alertService){
+app.controller('packageSelectorModalController',function($scope,$rootScope,$uibModalInstance,package_item,restId,pre_package,api,alertService){
     $scope.animationsEnabled = true;
     $scope.selectedItem = {};
     //console.log(selection.ids);
@@ -321,6 +325,7 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
 
     $scope.itemOptionCategoryList = [];
     //var p_package = pre_package;
+    //console.log(package_item);
     $scope.pre_package = pre_package;
     $scope.package_item = package_item;
 
@@ -349,9 +354,9 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
         });
     };
     $scope.isChecked = {};
-    $scope.itemOptionCategories = api.getRestaurantMenuItemOptionCategory.query({id:$rootScope.restaurantId,menu_id : $scope.package_item.menu_id ,item_id : $scope.package_item.id},function(){
+    $scope.itemOptionCategories = api.getRestaurantMenuItemOptionCategory.query({id: restId,menu_id : $scope.package_item.menu_id ,item_id : $scope.package_item.id},function(){
                 angular.forEach($scope.itemOptionCategories,function(value,key){
-                    $scope.itemOptionCategoryList[value.id] = api.getRestaurantMenuItemOptionList.query({id:$rootScope.restaurantId,menu_id : $scope.package_item.menu_id ,item_id : $scope.package_item.id,menu_item_option_category : value.id},function(){
+                    $scope.itemOptionCategoryList[value.id] = api.getRestaurantMenuItemOptionList.query({id: restId,menu_id : $scope.package_item.menu_id ,item_id : $scope.package_item.id,menu_item_option_category : value.id},function(){
 
                         if($scope.pre_package[$scope.package_item.id]){
                                 $scope.selectedItem[value.id] = $scope.pre_package[$scope.package_item.id][value.id];

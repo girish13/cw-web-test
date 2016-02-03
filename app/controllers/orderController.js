@@ -79,6 +79,9 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
                 },
                 pre_package : function(){
                     return pre_package;
+                },
+                restId : function(){
+                    return order[1].id;
                 }
             }
         });

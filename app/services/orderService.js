@@ -101,7 +101,7 @@ app.service('orderService',function($rootScope,api,dataService){
             this.orderObject.push(this.temp);
         },this);
         this.orderObject.push($rootScope.searchDetails);
-        //console.log(this.orderObject);
+        console.log(this.orderObject);
 
         return api.order.save(this.orderObject);
 
