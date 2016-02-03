@@ -8,19 +8,20 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
+                <form method="get" enctype = "text/plain" action = "MAILTO:support@caterwow.com">
                 <div class=" partner-form">
                     <div class="form-group">
-                        <input type = "text" placeholder = " Name" class="form-control light-field height40" required>
+                        <input type = "text" placeholder = " Name" class="form-control light-field height40" value = "Name" name = "Name" required>
                     </div>
                     <div class="form-group">
-                        <input type = "text" placeholder = "Company Name" class="form-control light-field height40" required>
+                        <input type = "text" placeholder = "Company Name" class="form-control light-field height40" value = "Company Name" name = "Company Name" required>
                     </div>
                     <div class="form-group">
-                        <input type = "email" placeholder = "Email address" class="form-control light-field height40" required>
+                        <input type = "email" placeholder = "Email address" class="form-control light-field height40" value = "Email Address (xyz@gmail.com)" name = "Email" required>
                         <!--<input type = "text" placeholder = "Company Name" class="form-control" required>-->
                     </div>
                     <div class="form-group">
-                        <input type = "text" placeholder = "Contact Number" class="form-control light-field height40" required>
+                        <input type = "text" placeholder = "Contact Number" class="form-control light-field height40" value = "Contact Number" name = "Phone Number" required>
                     </div>
 
                     <!--<div class="form-group">-->
@@ -30,6 +31,7 @@
                     <p>By submitting the details above you authorize CaterWow and/or its representatives to contact you via phone or email for the purpose of partnering with CaterWow.
                     </p>
                 </div>
+                </form>
             </div>
             <div class="col-md-8 text-block-partner" ng-if = "$root.width > 992">
                 <!--<div class="">-->
