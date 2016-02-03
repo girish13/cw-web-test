@@ -5,7 +5,7 @@ app.service('api',function($resource,$http,baseUrl,$log,$location){
         baseUrl = 'http://www.caterwow.com/cw_api/public/api/v001/';
         //console.log(baseUrl);
     }
-    else
+    else if($location.$$host == "caterwow.com")
     {
         baseUrl = 'http://caterwow.com/cw_api/public/api/v001/';
         //console.log(baseUrl);
