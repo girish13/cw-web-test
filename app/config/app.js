@@ -21,7 +21,7 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.
         })
         .state('restaurant', {
             //parent : 'common',
-            url: '/view-restaurant/:id/',
+            url: '/view-restaurant/:id',
             templateUrl : "templates/restaurantDetail.tpl.html",
             //views : {
             //    "header" : {templateUrl : "templates/header.tpl.html"},
