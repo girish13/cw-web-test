@@ -45,8 +45,12 @@ app.service('api',function($resource,$http,baseUrl,$log,$location){
     this.getFilterByType = $resource(baseUrl+'getFilters/getFilterByType/:filter_type',{filter_type : '@filter_type'});
 
 
-    //this.order = $resource(baseUrl+'order',{isArray : true});
+    //order Apis
     this.order = $resource(baseUrl + 'order',{},{save: {method: 'POST' , isArray:true}});
+
+
+    //customer apis
+    this.getCustomerId = $resource(baseUrl + 'customer',{},{save: {method : 'POST',isArray : true}});
 
 
     //utility apis

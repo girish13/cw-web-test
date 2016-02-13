@@ -1,4 +1,4 @@
-app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api,orderService,$state,$window){
+app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api,orderService,$state,$window,dataService){
 
     $scope.restaurants = {};
     $scope.package = {};
@@ -7,16 +7,24 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     //$scope.totalPrice = 0;
     $scope.cust = {};
     $scope.error = {};
-    $scope.orders = $rootScope.order;
+    $scope.orders = orderService.bag.restaurants;
+    console.log($scope.orders);
     $scope.checkout = function(){
         $state.go('checkout');
     };
     $scope.isCollapsed = true;
 
-    $scope.removeItem = function(item){
-        var index = $rootScope.order.indexOf(item);
-        $rootScope.order.splice(index, 1);
-        orderService.refreshOrder();
+    $scope.isBagEmpty = function(){
+      return !Object.keys($scope.orders).length;
+    };
+
+    $scope.removeItem = function(menu,restMenus,restId){
+        var index = restMenus.indexOf(menu);
+        if(Object.keys(restMenus).length > 1)
+        restMenus.splice(index, 1);
+        else
+         delete orderService.bag.restaurants[restId];
+        orderService.refreshBag();
     };
 
     $scope.print = function(divName){
@@ -38,36 +46,15 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
             link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elHtml));
             link.click();
     };
+
     $scope.calculateTotalPrice = function(){
         orderService.calculateTotalPrice();
     };
 
-    //if($rootScope.total){
-    //    $scope.totalAmount = $rootScope.total.totalAmount;
-    //    $scope.subTotal = $rootScope.total.subTotal;
-    //    $scope.totalTax = $rootScope.total.totalTax;
-    //}
-    //
-    //$scope.$watch($rootScope.total,function(newVal,oldVal){
-    //    $scope.totalAmount = $rootScope.total.totalAmount;
-    //    $scope.subTotal = $rootScope.total.subTotal;
-    //    $scope.totalTax = $rootScope.total.totalTax;
-    //    console.log($rootScope.total);
-    //},true);
-    //$scope.calculateTotalPrice();
-
-
-
-    //$scope.$watch('orders',function(newVal,oldVal){
-    //    orderService.refreshOrder();
-    //},true);
-
-    $scope.openEditItemModal = function (package_item,pre_package,order) {
-
-        //console.log(order);
-        //console.log(package_item);
-        //console.log(pre_package);
-        //var price = ;
+    $scope.openEditItemModal = function (menu_item,menu_item_id,menu_id,pre_package,restId) {
+         var package_item = menu_item;
+         package_item['id'] = menu_item_id;
+         package_item['menu_id'] = menu_id;
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
             templateUrl: 'packageSelector.html',
@@ -77,87 +64,42 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
                 package_item : function(){
                     return package_item;
                 },
-                pre_package : function(){
+                selectedMenuItemOptions : function(){
                     return pre_package;
                 },
                 restId : function(){
-                    return order[1].id;
+                    return restId;
                 }
             }
         });
 
 
         modalInstance.result.then(function (result) {
-            //console.log(result);
-            //console.log(this);
-            //order[5] =  result.additionalPrice;
-            orderService.refreshOrder();
-            //$scope.itemsSelected = itemsSelected;
-            //console.log(package_item);
-            //$scope.package[package_item.id] = result.itemsSelected;
-            //$scope.itemOptionCategories[package_item.id] = result.categoriesName;
-            //$scope.additionalPrice[package_item.id] = result.additionalPrice;
-            ////console.log($scope.additionalPrice);
-            //$scope.calculateAdditionalPrice(package_item.menu_id,result.additionalPrice);
-            //console.log($scope.package[package_item.id]);
-            //$scope.temp = [];
-            //$scope.temp.push($scope.package);
-            //
-            //$scope.selectedPackage[package_item.menu_id] =
-
+            pre_package[package_item.id].categories[Object.keys(result.category)[0]] = result.category[Object.keys(result.category)[0]];
+            orderService.refreshBag();
         }, function () {
-            $log.info('Modal closed at: ' + new Date());
         });
     };
 
 
 
-
-
-
-    $scope.increaseQty = function(item){
-        var index = $rootScope.order.indexOf(item);
-        if($rootScope.order[index][2].type == 'a-la-carte'){
-            //if($rootScope.order[index][4] > 1)
-            $rootScope.order[index][4]++;
-        }
-        else if($rootScope.order[index][2].type == 'package'){
-            if($rootScope.order[index][6] < 50){
-                $rootScope.order[index][6]++;
-                orderService.refreshOrder();
-            //orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
-            //$scope.removeItem(item);
+    $scope.increaseQty = function(menu){
+            if(menu.order_package_count < 200){
+                menu.order_package_count++;
+                orderService.refreshBag();
             }
-        }
-        //console.log(item[4]);
     };
 
 
-    $scope.decreaseQty = function(item){
-        //console.log();
-        var index = $rootScope.order.indexOf(item);
-        if($rootScope.order[index][2].type == 'a-la-carte'){
-            if($rootScope.order[index][4] > 1)
-                $rootScope.order[index][4]--;
+    $scope.decreaseQty = function(menu){
+        if(menu.order_package_count > 10){
+            menu.order_package_count--;
+            orderService.refreshBag();
         }
-        else if($rootScope.order[index][2].type == 'package'){
-            if($rootScope.order[index][6] > 10)
-            {
-                $rootScope.order[index][6]--;
-                orderService.refreshOrder();
-                //orderService.addOrder(item[1],item[2],item[3],item[4],item[5],item[6],item[7]);
-                //$scope.removeItem(item);
-            }
-
-        }
-
-        //console.log(item[4]);
     };
 
     $scope.editItem = function(item){
         var index = $rootScope.order.indexOf(item);
-        console.log(item);
-        console.log(index);
     };
 
     $scope.editOrder = function(){
@@ -174,26 +116,9 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
         return type == 'package';
     };
 
-
-    //
-    //$scope.calculateTotalPrice = function(){
-    //    if($scope.orders.length > 1)
-    //    {
-    //        angular.forEach($scope.orders,function(value,key){
-    //            $scope.tempTaxDetails    = api.getTaxDetails.query({id : value[1].id },function(){
-    //                value.push($scope.tempTaxDetails);
-    //                console.log(value);
-    //            });
-    //        });
-    //    }
-    //};
-
-    //$scope.orderNow = orderService.checkout();
     $scope.orderObject = orderService.orderObject;
 
     $scope.placeOrder = function(){
-        //$scope.disableOrder = true;
-        //console.log($scope.cust);
         if(isNaN($scope.cust.phone)){
             $scope.error.phone = 'Your number is invalid';
             return false;
@@ -213,16 +138,6 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
                 console.log($scope.order_id);
                 $rootScope.order_id = $scope.order_id;
                 $state.go('orderConfirmed');
-                //var modalInstance = $uibModal.open({
-                //    animation: $scope.animationsEnabled,
-                //    templateUrl: 'orderCompletion.html',
-                //    controller: 'orderResponseModalInstanceController',
-                //    resolve: {
-                //        order_id : function(){
-                //            return $scope.response;
-                //        }
-                //    }
-                //});
             }
             else {
 
@@ -238,9 +153,6 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
                 });
             }
         });
-        //$scope.response = orderService.response;
-        //console.log($scope.response);
-        //console.log($scope.response.order_id);
         }
     };
 

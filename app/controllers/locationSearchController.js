@@ -6,8 +6,6 @@ app.controller('locationSearchController',function($rootScope,$scope,$state,aler
     };
 
 
-
-
     $scope.getTimeList = function(){
         if(!$scope.times){
             dataService.getTimeList().$promise.then(function(res){
@@ -40,23 +38,23 @@ app.controller('locationSearchController',function($rootScope,$scope,$state,aler
     };
 
 
-
-    $scope.getStarted =function(){
-        if($rootScope.searchDetails.selectedLocality.id){
-            $state.go('search');
-        }
-        else if($rootScope.searchDetails.selectedLocality == '') {
-            alertService.showAlert('noLocationError',3000,'error');
-        }
-        else
-        {
-            alertService.showAlert('locationInvalid',3000,'error')
-        }
-    };
+    //
+    //$scope.getStarted =function(){
+    //    if($rootScope.searchDetails.selectedLocality.id){
+    //        $state.go('search',{stateName : 'gurgaon' , localityName : $rootScope.searchDetails.selectedLocality.name });
+    //    }
+    //    else if($rootScope.searchDetails.selectedLocality == '') {
+    //        alertService.showAlert('noLocationError',3000,'error');
+    //    }
+    //    else
+    //    {
+    //        alertService.showAlert('locationInvalid',3000,'error')
+    //    }
+    //};
 
     $scope.updateLocation = function(){
         if($rootScope.searchDetails.selectedLocality.id){
-            $state.go('search');
+            $state.go('search',{stateName : 'gurgaon' , localityName : $rootScope.searchDetails.selectedLocality.name});
         }
         else if($rootScope.searchDetails.selectedLocality == '') {
             alertService.showAlert('noLocationError',3000,'error');

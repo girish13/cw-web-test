@@ -15,13 +15,13 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.
             controller: 'homeController as home'
         })
         .state('search',{
-            url:'/search',
+            url:'/search-restaurants',
             templateUrl : 'templates/restaurantSearch.tpl.html',
             controller : 'restaurantSearchController'
         })
         .state('restaurant', {
             //parent : 'common',
-            url: '/restaurant/:id',
+            url: '/view-restaurant/:id/',
             templateUrl : "templates/restaurantDetail.tpl.html",
             //views : {
             //    "header" : {templateUrl : "templates/header.tpl.html"},

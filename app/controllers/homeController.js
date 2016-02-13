@@ -20,12 +20,6 @@ app.controller('homeController', function ($state,$scope,$uibModal,dataService,a
 
     $scope.getStarted =function(){
         if($rootScope.searchDetails.selectedLocality.id){
-            //dataService.getRestaurants().$promise.then(function(res){
-            //    console.log('here');
-            //    $scope.restaurants = res;
-            //    $scope.$watch('selectedFilters',$scope.filterRestaurants(),true);
-            //    $scope.$watch('slider',$scope.filterRestaurants(),true);
-            //});
             $state.go('search');
         }
         else if($rootScope.searchDetails.selectedLocality == '') {

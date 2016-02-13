@@ -42,12 +42,15 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
     $scope.isPackageCollapsed = {};
     $scope.loadingPackage = {};
     $scope.restaurantId = $stateParams.id;
+    $scope.menu = {};
+    $scope.menu_item = {};
     //loading wheels
 
     $scope.getRestaurantPackages = function(){
         $scope.loadingRestaurantPackages = true;
         dataService.getRestaurantPackages($scope.restaurantId).$promise.then(function(res){
             $scope.restaurantPackages = res;
+            //console.log(res);
             angular.forEach($scope.restaurantPackages,function(value,key) {
                 if (value.pricing.length == 1) {
                     value.price = value.pricing[0].price_per_person;
@@ -63,50 +66,27 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
                     value.price_min = value.pricing[0].price_per_person;
                     value.price_max = value.pricing[value.pricing.length - 1].price_per_person;
                 }
-                //console.log($scope.restaurantPackages);
-                //$scope.restaurantPackages[key].packageDetails = api.getRestaurantMenuItem.query({id: $scope.restaurantId},{menu_id : value.id},function(){
-                //                $scope.loadingRestaurantPackages = false;
-                //            });
+                $scope.menu[value.id] = {};
+                //$scope.
             });
             $scope.loadingRestaurantPackages = false;
         });
     };
 
-    //$scope.getPaxs = function(){
-        $scope.getRestaurantPackages();
-    //};
+    $scope.getRestaurantPackages();
 
     $scope.openPackage = function(id){
         $scope.isPackageCollapsed[id] = !$scope.isPackageCollapsed[id];
-        if(!this.restaurantPackage.packageDetails){
-                this.restaurantPackage.packageDetails = api.getRestaurantMenuItem.query({id: $scope.restaurantId},{menu_id : id},function(){
-                        $scope.loadingPackage[id] = false;
-                });
-        }
+        //console.log(this.restaurantPackage);
+        dataService.getMenuItem($scope.restaurantId,id).$promise.then(function(res){
+            angular.forEach($scope.restaurantPackages,function(value,key){
+                if(value.id == id){
+                    value.packageDetails = res;
+                }
+            });
+        });
+
     };
-
-
-
-    //
-    //$scope.restaurantPackages = api.getRestaurantMenuPackage.query({id: $rootScope.restaurantId},{packages : 'package'},function(){
-    //    angular.forEach($scope.restaurantPackages,function(value,key){
-    //        if(value.pricing.length == 1){
-    //            value.price = value.pricing[0].price_per_person;
-    //        }
-    //        else if($rootScope.searchDetails && $rootScope.searchDetails.pax){
-    //            angular.forEach(value.pricing,function(value1,key){
-    //               if($rootScope.searchDetails.pax >= value1.min_pax && $rootScope.searchDetails.pax <=  value1.max_pax){
-    //                   value.price = value1.price_per_person;
-    //               }
-    //            });
-    //        }
-    //        else{
-    //            value.price_min = value.pricing[0].price_per_person;
-    //            value.price_max = value.pricing[value.pricing.length - 1].price_per_person;
-    //        }
-    //
-    //    });
-    //});
 
     $scope.openM = function(package_item,package1){
         if(package_item.has_options)
@@ -137,19 +117,7 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
         api.getRestaurantMenuItem.query({id: $scope.restaurantId},{menu_id : currentPackageId},function(res){
             $scope.totalAdditionalPrice[currentPackageId] = 0 ;
             angular.forEach(res,function(value,key){
-                //if($scope.totalAdditionalPrice[currentPackageId]){
-
-                    //if($scope.totalAdditionalPrice[currentPackageId] < 25)
-                    //$scope.totalAdditionalPrice[currentPackageId] += additionalPrice;
-                    //console.log($scope.totalAdditionalPrice[currentPackageId]);
-                    //console.log($scope.additionalPrice[value.id]);
                     $scope.totalAdditionalPrice[currentPackageId] += $scope.additionalPrice[value.id];
-                //}
-                //else {
-                //    $scope.totalAdditionalPrice[currentPackageId] = 0;
-                //    $scope.totalAdditionalPrice[currentPackageId] += $scope.additionalPrice[value.id];
-                //    //$scope.totalAdditionalPrice[currentPackageId] += additionalPrice;
-                //}
             });
         });
 
@@ -159,31 +127,30 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
         $scope.selectedPackage = {};
         $scope.selectedItemOptionCategories = {};
         $scope.packageError = {};
-        //$scope.totalAdditionalPrice = 0;
+        $scope.current_menu_item = {};
         angular.forEach(restaurantPackage.packageDetails,function(value,key){
             if(value.has_options){
-                //console.log($scope.package);
-                //console.log($scope.package[value.id]);
-                //console.log($scope.package[value.id][value.id]);
                 if($scope.package[value.id]){
                     $scope.selectedPackage[value.id] = $scope.package[value.id];
-                    //$scope.totalAdditionalPrice += $scope.additionalPrice[value.id];
                     $scope.selectedItemOptionCategories[value.id] = $scope.itemOptionCategories[value.id];
-                }
+                    $scope.current_menu_item[value.id] = $scope.menu_item[value.id];
+                 }
                 else
                 {
                     $scope.selectedPackage[value.id] = "not Selected";
+                    $scope.current_menu_item[value.id] = "not Selected";
                     $scope.packageError[value.id] = "You forgot this one!!";
                 }
             }
             else {
                 $scope.selectedPackage[value.id] = {};
+                $scope.current_menu_item[value.id] = {};
+                $scope.current_menu_item[value.id]['name'] = value.name;
             }
         });
 
         if($rootScope.searchDetails.selectedLocality && $rootScope.searchDetails.date && $rootScope.searchDetails.time){
             if(angular.equals({}, $scope.packageError)){
-                //console.log($scope.numberOfPackages[restaurantPackage.id]);
                 if($scope.numberOfPackages[restaurantPackage.id] == undefined){
                     alertService.showAlert('lessPackageError',3000,'error');
                 }
@@ -192,8 +159,19 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
                     {
                         $scope.totalAdditionalPrice[restaurantPackage.id] = 0;
                     }
-                    //console.log($scope.totalAdditionalPrice[restaurantPackage.id]);
-                    orderService.addOrder($scope.restaurantDetails[0],restaurantPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice[restaurantPackage.id],$scope.numberOfPackages[restaurantPackage.id],$scope.addInfo[restaurantPackage.id]);
+                    $scope.menu = {};
+                    $scope.menu['id'] = restaurantPackage.id;
+                    $scope.menu['name'] = restaurantPackage.name;
+                    $scope.menu['price_per_package'] = restaurantPackage.price;
+                    $scope.menu['order_package_count'] =  $scope.numberOfPackages[restaurantPackage.id];
+                    if($scope.addInfo[restaurantPackage.id])
+                        $scope.menu['additional_instruction'] = $scope.addInfo[restaurantPackage.id];
+                    else
+                        $scope.menu['additional_instruction'] = '';
+
+                    $scope.menu['items'] = angular.copy($scope.current_menu_item);
+                    orderService.addToBag($scope.restaurantDetails[0],$scope.menu);
+                    //orderService.addOrder($scope.restaurantDetails[0],restaurantPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice[restaurantPackage.id],$scope.numberOfPackages[restaurantPackage.id],$scope.addInfo[restaurantPackage.id]);
                         $scope.isPackageCollapsed[restaurantPackage.id] = true;
                 }
             }
@@ -201,8 +179,6 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
         else {
             if($rootScope.searchDetails.selectedLocality)
             {
-                //alertService.showAlert('NoDateTime',3000,'error');
-
                 var modalInstance = $uibModal.open({
                     animation : true,
                     templateUrl : 'dateTime.html',
@@ -212,7 +188,6 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
 
                 modalInstance.result.then(function(){
                     if(angular.equals({}, $scope.packageError)){
-                        //console.log($scope.numberOfPackages[restaurantPackage.id]);
                         if($scope.numberOfPackages[restaurantPackage.id] == undefined){
                             alertService.showAlert('lessPackageError',3000,'error');
                         }
@@ -221,8 +196,18 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
                             {
                                 $scope.totalAdditionalPrice[restaurantPackage.id] = 0;
                             }
-                            //console.log($scope.totalAdditionalPrice[restaurantPackage.id]);
-                            orderService.addOrder($scope.restaurantDetails[0],restaurantPackage,$scope.selectedItemOptionCategories,$scope.selectedPackage,$scope.totalAdditionalPrice[restaurantPackage.id],$scope.numberOfPackages[restaurantPackage.id],$scope.addInfo[restaurantPackage.id]);
+                            $scope.menu = {};
+                            $scope.menu['id'] = restaurantPackage.id;
+                            $scope.menu['name'] = restaurantPackage.name;
+                            $scope.menu['price_per_package'] = restaurantPackage.price;
+                            $scope.menu['order_package_count'] =  $scope.numberOfPackages[restaurantPackage.id];
+                            if($scope.addInfo[restaurantPackage.id])
+                                $scope.menu['additional_instruction'] = $scope.addInfo[restaurantPackage.id];
+                            else
+                                $scope.menu['additional_instruction'] = '';
+                            $scope.menu['items'] = angular.copy($scope.current_menu_item);
+                            orderService.addToBag($scope.restaurantDetails[0],$scope.menu);
+                            //orderService.addOrder($scope.restaurantDetails[0],restaurantPackage,$scope.selectedItemOptionCategories,angular.copy($scope.selectedPackage),$scope.totalAdditionalPrice[restaurantPackage.id],$scope.numberOfPackages[restaurantPackage.id],$scope.addInfo[restaurantPackage.id]);
                             $scope.isPackageCollapsed[restaurantPackage.id] = true;
                         }
                     }
@@ -253,7 +238,8 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
     $scope.animationsEnabled = true;
 
     $scope.open = function (package_item,pre_package,restId) {
-
+        console.log(package_item);
+        console.log($scope.menu_item);
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
             templateUrl: 'packageSelector.html',
@@ -263,70 +249,47 @@ app.controller('restaurantPackagesController',function($scope, $uibModal, $log, 
                 package_item : function(){
                     return angular.copy(package_item);
                 },
-                pre_package : function(){
-                    return angular.copy(pre_package);
+                //pre_package : function(){
+                //    return angular.copy(pre_package);
+                //},
+                selectedMenuItemOptions : function(){
+                    return angular.copy($scope.menu_item);
                 },
                 restId : function(){
                     return restId;
                 }
-
             }
         });
 
 
         modalInstance.result.then(function (result) {
-            //$scope.itemsSelected = itemsSelected;
-            //console.log(package_item);
+            //console.log(result);
             $scope.package[package_item.id] = result.itemsSelected;
+            var temp = {};
+            temp['price_per_item'] = 0;
+            temp['order_count'] = 0;
+            temp['categories'] = {};
+            temp['name'] = package_item.name;
+            temp.categories[Object.keys(result.category)[0]] = result.category[Object.keys(result.category)[0]];
+            $scope.menu_item[package_item.id] = temp;
             $scope.itemOptionCategories[package_item.id] = result.categoriesName;
-            //console.log($scope.additionalPrice);
-            //console.log($scope.additionalPrice[package_item.id]);
-            //console.log($scope.additionalPrice);
-            //if($scope.additionalPrice[package_item.id])
-            //{
-            //    if(result.additionalPrice > $scope.additionalPrice[package_item.id]){
-            //        $scope.additionalPrice[package_item.id] = result.additionalPrice;
-            //        $scope.calculateAdditionalPrice(package_item.menu_id,additionalPrice);
-            //    }
-            //    else if(result.additionalPrice = $scope.additionalPrice[package_item.id]) {
-            //        //do nothing
-            //    }
-            //    else {
-            //        $scope.additionalPrice[package_item.id] = result.additionalPrice;
-            //
-            //    }
-            //}
-            //else {
-                $scope.additionalPrice[package_item.id] = result.additionalPrice;
-                $scope.calculateAdditionalPrice(package_item.menu_id,result.additionalPrice);
-            //}
-            //console.log($scope.package[package_item.id]);
-            //$scope.temp = [];
-            //$scope.temp.push($scope.package);
-            //
-            //$scope.selectedPackage[package_item.menu_id] =
-
+            $scope.additionalPrice[package_item.id] = result.additionalPrice;
+            $scope.calculateAdditionalPrice(package_item.menu_id,result.additionalPrice);
         }, function () {
-
-            //$log.info('Modal closed at: ' + new Date());
         });
     };
 
 
 });
-app.controller('packageSelectorModalController',function($scope,$rootScope,$uibModalInstance,package_item,restId,pre_package,api,alertService){
+app.controller('packageSelectorModalController',function($scope,$rootScope,$uibModalInstance,package_item,restId,api,alertService,dataService,selectedMenuItemOptions){
     $scope.animationsEnabled = true;
     $scope.selectedItem = {};
-    //console.log(selection.ids);
     $scope.count = {};
     $scope.max_choice = {};
     $scope.min_choice = {};
     $scope.selected = {};
 
     $scope.itemOptionCategoryList = [];
-    //var p_package = pre_package;
-    //console.log(package_item);
-    $scope.pre_package = pre_package;
     $scope.package_item = package_item;
 
     //loading wheels
@@ -354,51 +317,68 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
         });
     };
     $scope.isChecked = {};
-    $scope.itemOptionCategories = api.getRestaurantMenuItemOptionCategory.query({id: restId,menu_id : $scope.package_item.menu_id ,item_id : $scope.package_item.id},function(){
-                angular.forEach($scope.itemOptionCategories,function(value,key){
-                    $scope.itemOptionCategoryList[value.id] = api.getRestaurantMenuItemOptionList.query({id: restId,menu_id : $scope.package_item.menu_id ,item_id : $scope.package_item.id,menu_item_option_category : value.id},function(){
 
-                        if($scope.pre_package[$scope.package_item.id]){
-                                $scope.selectedItem[value.id] = $scope.pre_package[$scope.package_item.id][value.id];
-                                $scope.count[value.id] = $scope.pre_package[$scope.package_item.id][value.id].length;
-                                angular.forEach($scope.itemOptionCategoryList[value.id],function(value1,key){
-                                    angular.forEach($scope.selectedItem[value.id],function(value2,key){
-                                        if(value1.id == value2.id){
-                                            $scope.isChecked[value1.id]  =  true;
-                                        }
-                                    });
-                                });
+    $scope.getItemOptionCategories = function(){
+        dataService.getItemOptionCategories(restId,$scope.package_item.menu_id,$scope.package_item.id).$promise.then(function(res){
+            $scope.itemOptionCategories = res;
+            //console.log(res);
+            angular.forEach($scope.itemOptionCategories,function(value,key){
+                dataService.getItemOptionList(restId,$scope.package_item.menu_id,$scope.package_item.id,value.id).$promise.then(function(res){
+                    $scope.itemOptionCategoryList[value.id] = res;
+                    if(selectedMenuItemOptions[$scope.package_item.id]){
+                        $scope.count[value.id] = Object.keys(selectedMenuItemOptions[$scope.package_item.id].categories[value.id].options).length;
+                        var temp = [];
+                        angular.forEach($scope.itemOptionCategoryList[value.id],function(value1,key){
+                            if(selectedMenuItemOptions[$scope.package_item.id].categories[value.id].options[value1.id]){
+                                 $scope.isChecked[value1.id]  =  true;
+                                 temp.push(value1);
                             }
-                            else{
-                                $scope.selectedItem[value.id] = [];
-                                $scope.count[value.id] = 0;
-                                $scope.isChecked = {};
-                            }
-                        $scope.max_choice[value.id] = value.max_choice;
-                        $scope.min_choice[value.id] = value.min_choice;
-                    });
-                    $scope.loadingModal = false;
+                        });
+                        $scope.selectedItem[value.id] = temp;
+                    }
+                    else{
+                        $scope.selectedItem[value.id] = [];
+                        $scope.count[value.id] = 0;
+                        $scope.isChecked = {};
+                    }
+                    $scope.max_choice[value.id] = value.max_choice;
+                    $scope.min_choice[value.id] = value.min_choice;
                 });
+                $scope.loadingModal = false;
+            });
+        });
+    };
 
-    });
-
+    $scope.getItemOptionCategories();
     $scope.addModalItem = function() {
         if(!angular.equals({}, $scope.selectedItem)) {
             $scope.additionalPrice = 0;
+            //console.log();
+            var temp = {};
+            //temp[] = {};
+                //console.log($scope.selectedItem[Object.keys($scope.selectedItem)[0]]);
             angular.forEach($scope.itemOptionCategories, function (value, key) {
+                temp[value.id] = {};
+                temp[value.id]['name'] = value.name;
+                temp[value.id]['options'] = {};
                 $scope.itemsSelected[value.id] = $scope.selectedItem[value.id];
                 $scope.categoriesName[value.id] = value.name;
                 angular.forEach($scope.selectedItem[value.id], function (value1, key) {
+                    temp[value.id].options[value1.id] = {};
+                    temp[value.id].options[value1.id]['price'] = value1.price;
+                    temp[value.id].options[value1.id]['name'] = value1.name;
                     if (value1.price)
                         $scope.additionalPrice += value1.price;
                 });
             });
 
+            //console.log(temp);
 
             $uibModalInstance.close({
                 'itemsSelected': $scope.itemsSelected,
                 'categoriesName': $scope.categoriesName,
-                'additionalPrice': $scope.additionalPrice
+                'additionalPrice': $scope.additionalPrice,
+                'category' : temp
             });
         }
     };
@@ -406,10 +386,7 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
     $scope.add = function () {
         $scope.error = {};
         $scope.categoriesName = {};
-        //console.log($scope.selectedItem);
         $scope.itemsSelected = {};
-        //$scope.itemsSelected.push($scope.package_item.id);
-
         angular.forEach($scope.itemOptionCategories,function(value,key){
             if($scope.count[value.id] < $scope.min_choice[value.id]) {
                 //console.log(value);
@@ -420,7 +397,6 @@ app.controller('packageSelectorModalController',function($scope,$rootScope,$uibM
         });
         if(angular.equals({}, $scope.error)) {
             $scope.addModalItem();
-            //do something
         }
     };
 

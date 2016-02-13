@@ -12,6 +12,9 @@ app.service('dataService',function(api,$rootScope,$filter){
     this.taxDetails = {};
     this.filters = {};
     this.packages = {};
+    this.menuItem = {};
+    this.itemOptionCategories = {};
+    this.itemOptionList = {};
     this.getTimeList = function(){
         if(!this.timeList){
             return (this.timeList = api.getTime.query(function(res){
@@ -80,15 +83,31 @@ app.service('dataService',function(api,$rootScope,$filter){
             return ( this.packages[id] =  api.getRestaurantMenuPackage.query({id: id},{packages : 'package'},function(res){
                 return res;
             }) );
-
         }
         else
             return this.packages[id];
+    };
 
-        //
-        //return api.getRestaurantMenuPackage.query({id: id},{packages : 'package'},function(){
-        //
-        //});
+    this.getPackagePricing = function(restId,packageId){
+       if(this.packages[restId]){
+           angular.forEach(this.packages[restId],function(value,key){
+               if(value.id == packageId){
+                   return value.pricing;
+               }
+           });
+       }
+    };
+
+
+    this.getMenuItem = function(restId,packageId){
+        if(!this.menuItem[packageId]){
+            return(this.menuItem[packageId] = api.getRestaurantMenuItem.query({id: restId},{menu_id : packageId},function(res){
+                return res;
+            }));
+        }
+        else
+            return this.menuItem[packageId];
+
     };
 
     this.getTaxDetails = function(id){
@@ -102,9 +121,23 @@ app.service('dataService',function(api,$rootScope,$filter){
             return this.taxDetails[id];
     };
 
-    //this.getTimeList();
-    //this.getLocalities();
+    this.getItemOptionCategories = function(restaurantId,packageId,itemId){
+        if(!this.itemOptionCategories[itemId]){
+            return( this.itemOptionCategories[itemId] = api.getRestaurantMenuItemOptionCategory.query({id: restaurantId,menu_id : packageId ,item_id : itemId},function(res){
+                return res;
+            }) );
+        }
+        else
+            return this.itemOptionCategories[itemId];
+    };
 
-
-
+    this.getItemOptionList = function(restaurantId,packageId,itemId,categoryId){
+        if(!this.itemOptionList[categoryId]){
+            return( this.itemOptionList[categoryId] = api.getRestaurantMenuItemOptionList.query({id: restaurantId,menu_id : packageId ,item_id : itemId,menu_item_option_category : categoryId},function(res){
+                       return res;
+                }) );
+        }
+        else
+        return this.itemOptionList[categoryId];
+    };
 });
