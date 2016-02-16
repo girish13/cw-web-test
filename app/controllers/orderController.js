@@ -119,8 +119,8 @@ app.controller('orderController',function($rootScope,$scope, $uibModal, $log,api
     $scope.orderObject = orderService.orderObject;
 
     $scope.placeOrder = function(){
-        if(isNaN($scope.cust.phone)){
-            $scope.error.phone = 'Your number is invalid';
+        if(isNaN($scope.cust.mobile)){
+            $scope.error.mobile = 'Your number is invalid';
             return false;
         }
         if(isNaN($scope.cust.pincode)){

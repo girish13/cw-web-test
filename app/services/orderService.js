@@ -84,6 +84,8 @@ app.service('orderService',function($rootScope,api,dataService){
         orderObject['delivery_landmark'] = cust.landmark;
         orderObject['additional_instructions'] = cust.instruction;
         orderObject['payable_amount'] = $rootScope.total.totalAmount;
+        orderObject['date'] = $rootScope.searchDetails.date;
+        orderObject['time'] = $rootScope.searchDetails.time;
         console.log(cust);
         console.log(orderObject);
         return  (api.getCustomerId.save(cust).$promise.then(function(res){

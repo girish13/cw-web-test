@@ -1,4 +1,6 @@
-app.controller('restaurantSearchController',function($filter,$scope,api,$stateParams,$rootScope,alertService,dataService,$state){
+app.controller('restaurantSearchController',function($filter,$scope,api,$stateParams,$rootScope,alertService,dataService,$state,locationService){
+    $scope.localities = locationService.localities;
+    $scope.times = locationService.times;
     $scope.tags = [];
     $scope.imagesPath = $rootScope.imagePath;
     $scope.loadingRestaurants = true;
@@ -23,9 +25,8 @@ app.controller('restaurantSearchController',function($filter,$scope,api,$statePa
     $scope.isFilterBoxCollapsed = true;
     $scope.isSearchBoxCollapsed = true;
 
-
-
     $scope.getRestaurants = function(){
+
         dataService.getRestaurants().$promise.then(function(res){
                     $scope.restaurants = res;
                     $scope.loadingRestaurants = false;
@@ -42,6 +43,17 @@ app.controller('restaurantSearchController',function($filter,$scope,api,$statePa
             });
     };
 
+    $scope.setParamsAndGetRestaurants = function(){
+        if($stateParams.localityId && !$rootScope.searchDetails.selectedLocality){
+            locationService.setLocality($stateParams.localityId).then(function(res){
+                $scope.getRestaurants();
+                locationService.searchDetails.selectedLocality  = res;
+            });
+        }
+        else
+            $scope.getRestaurants();
+    };
+
 
     $scope.removeFilter = function(ob){
         $scope.isFilterChecked[ob.filter.id] = false;
@@ -55,6 +67,12 @@ app.controller('restaurantSearchController',function($filter,$scope,api,$statePa
          $scope.isFilterChecked = {};
          $scope.slider.min = 0;
          $scope.slider.max = 2000;
+     };
+
+     $scope.viewPackages = function(id,restaurantName){
+            var str = restaurantName + ' ' + $rootScope.searchDetails.selectedLocality.name + ' gurgaon';
+                str = str.replace(/\s+/g, '-').toLowerCase();
+           $state.go('restaurant.packages',{id : id, restaurantName : str, localityId : $rootScope.searchDetails.selectedLocality.id});
      };
 
 
@@ -101,7 +119,6 @@ app.controller('restaurantSearchController',function($filter,$scope,api,$statePa
                     if(!$scope.filters[value.type]){
                         dataService.getFilters(value.type).$promise.then(function(res){
                             $scope.filters[value.type] = res;
-                            //console.log(res);
                             $scope.loadingFilters[value.type] = false;
                         });
                     }
@@ -135,30 +152,10 @@ app.controller('restaurantSearchController',function($filter,$scope,api,$statePa
 
 
 
-
-    $scope.getTimeList = function(){
-        if(!$scope.times){
-           dataService.getTimeList().$promise.then(function(res){
-                $scope.times = res;
-            });
-        }
-    };
-
-
     $scope.openDatePicker = function($event) {
         $scope.datePickerStatus.opened = true;
     };
 
-
-
-    $scope.getLocalities = function(){
-        if(!$scope.localities){
-            dataService.getLocalities().$promise.then(function(res){
-                //console.log(res);
-                $scope.localities = res;
-            });
-        }
-    };
 
     $scope.setDate = function(){
         var today = new Date();
@@ -169,38 +166,9 @@ app.controller('restaurantSearchController',function($filter,$scope,api,$statePa
         $scope.minDate = new Date(yyyy, mm, (dd+1));
 
     };
-    //
-    //$scope.getStarted =function(){
-    //    if($rootScope.searchDetails.selectedLocality.id){
-    //        dataService.getRestaurants().$promise.then(function(res){
-    //            console.log('here');
-    //            $scope.restaurants = res;
-    //            $scope.$watch('selectedFilters',function(newVal,oldVal){
-    //                    $scope.filterRestaurants();
-    //                },true
-    //            );
-    //            $scope.$watch('slider',$scope.filterRestaurants(),true);
-    //            console.log($scope.restaurants);
-    //            $state.go('search');
-    //            $scope.loadingRestaurants = false;
-    //            console.log('after search');
-    //        });
-    //    }
-    //    else if($rootScope.searchDetails.selectedLocality == '') {
-    //        alertService.showAlert('noLocationError',3000,'error');
-    //    }
-    //    else
-    //    {
-    //        alertService.showAlert('locationInvalid',3000,'error')
-    //    }
-    //};
 
-
-
-    $scope.getTimeList();
-    $scope.getLocalities();
     $scope.setDate();
     $scope.getFilterTypes();
-    $scope.getRestaurants();
-
+    $scope.setParamsAndGetRestaurants();
+    //$scope.getRestaurants();
 });

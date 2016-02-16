@@ -30,7 +30,7 @@
     <!--<div class = "row">-->
     <ol class="breadcrumb" style="margin-top: 10px;">
         <li class="bold pointer" ui-sref="home" >Home</li>
-        <li class="bold pointer" ui-sref="search">Browse Restaurants & Caterers in {{searchDetails.selectedLocality.name}}</li>
+        <li class="bold pointer" ng-click="goToSearch()">Browse Restaurants & Caterers in {{searchDetails.selectedLocality.name}}</li>
         <li class="text-red">Customize packages from {{restaurant.name}}</li>
         <li>Confirm Order</li>
     </ol>

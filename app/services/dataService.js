@@ -1,13 +1,5 @@
 app.service('dataService',function(api,$rootScope,$filter){
 
-    $rootScope.searchDetails = {
-        selectedState : '3',
-        selectedCity : '1',
-        selectedLocality : '',
-        pax : '',
-        date : '',
-        time : ''
-    };
 
     this.taxDetails = {};
     this.filters = {};
@@ -38,6 +30,7 @@ app.service('dataService',function(api,$rootScope,$filter){
             else
              return this.localities;
     };
+
 
     this.getRestaurants = function(sortType,pageNumber,filter_string,price_max,price_min){
         return api.searchRestaurants.query({

@@ -1,5 +1,8 @@
-app.controller('homeController', function ($state,$scope,$uibModal,dataService,alertService,$rootScope) {
+app.controller('homeController', function ($state,$scope,$uibModal,dataService,alertService,$rootScope,locationService) {
+
+    $scope.localities = locationService.localities;
     $scope.mobileSite = false;
+
     $scope.openContactUs = function(){
         var modalInstance = $uibModal.open({
             animation: true,
@@ -20,7 +23,9 @@ app.controller('homeController', function ($state,$scope,$uibModal,dataService,a
 
     $scope.getStarted =function(){
         if($rootScope.searchDetails.selectedLocality.id){
-            $state.go('search');
+            var locationString = $rootScope.searchDetails.selectedLocality.name + ' gurgaon';
+            locationString = locationString.replace(/\s+/g, '-').toLowerCase();
+            $state.go('search',{localityString : locationString,localityId : $rootScope.searchDetails.selectedLocality.id});
         }
         else if($rootScope.searchDetails.selectedLocality == '') {
             alertService.showAlert('noLocationError',3000,'error');
@@ -30,18 +35,5 @@ app.controller('homeController', function ($state,$scope,$uibModal,dataService,a
             alertService.showAlert('locationInvalid',3000,'error')
         }
     };
-
-
-    $scope.getLocalities = function(){
-        if(!$scope.localities){
-           dataService.getLocalities().$promise.then(function(res){
-               //console.log(res);
-                $scope.localities = res;
-            });
-        }
-    };
-
-    //console.log('here');
-    $scope.getLocalities();
 
 });

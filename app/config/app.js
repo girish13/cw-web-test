@@ -15,13 +15,13 @@ var app = angular.module('app', ['checklist-model','ui.router','ui.filters','ui.
             controller: 'homeController as home'
         })
         .state('search',{
-            url:'/search-restaurants',
+            url:'/search-restaurants-in-:localityString?:localityId',
             templateUrl : 'templates/restaurantSearch.tpl.html',
             controller : 'restaurantSearchController'
         })
         .state('restaurant', {
             //parent : 'common',
-            url: '/view-restaurant/:id',
+            url: '/view-restaurant/:id/:restaurantName?:localityId',
             templateUrl : "templates/restaurantDetail.tpl.html",
             //views : {
             //    "header" : {templateUrl : "templates/header.tpl.html"},
@@ -141,15 +141,15 @@ app.run(function($rootScope,$state,$window,orderService){
 
 
 });
-app.directive('wrapOwlcarousel', function () {
-    return {
-        restrict: 'E',
-        link: function (scope, element, attrs) {
-            var options = scope.$eval($(element).attr('data-options'));
-            $(element).owlCarousel(options);
-        }
-    };
-});
+//app.directive('wrapOwlcarousel', function () {
+//    return {
+//        restrict: 'E',
+//        link: function (scope, element, attrs) {
+//            var options = scope.$eval($(element).attr('data-options'));
+//            $(element).owlCarousel(options);
+//        }
+//    };
+//});
 app.filter('range', function() {
     return function(input, min, max) {
         min = parseInt(min);

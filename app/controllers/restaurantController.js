@@ -1,4 +1,4 @@
-app.controller('restaurantController',function($rootScope,$scope,$stateParams,api,dataService){
+app.controller('restaurantController',function($rootScope,$scope,$stateParams,api,dataService,locationService,$state){
     $rootScope.custId = 0; // to be removed
     $scope.imagesPath = $rootScope.imagePath;
     $scope.isOrderBoxCollpsed = true;
@@ -27,6 +27,21 @@ app.controller('restaurantController',function($rootScope,$scope,$stateParams,ap
         }
     };
 
+    $scope.goToSearch = function(){
+        var locationString = $rootScope.searchDetails.selectedLocality.name + ' gurgaon';
+        locationString = locationString.replace(/\s+/g, '-').toLowerCase();
+        $state.go('search',{localityString : locationString,localityId : $rootScope.searchDetails.selectedLocality.id});
+    };
+
+    $scope.setParams = function(){
+        if($stateParams.localityId && !$rootScope.searchDetails.selectedLocality){
+            locationService.setLocality($stateParams.localityId).then(function(res){
+                locationService.searchDetails.selectedLocality  = res;
+            });
+        }
+    };
+
+    $scope.setParams();
     $scope.getRestaurantDetails();
     $scope.getRestaurantSchedule();
 });

@@ -158,7 +158,7 @@
                      <div class="" ng-if = "$root.width > 992"><hr class="bg-light-grey" style="margin-top: 5px;margin-bottom: 5px;"></div>
                      <div class="">
                          <div class="float-left text-dark-grey" style="line-height: 30px;font-size: 14px">{{restaurant.min_order_count}} packages min. | <span class="text-green">FREE Delivery</span></div>
-                          <div class="float-right"><button class="btn bg-red my-btn view-restaurant-btn" ui-sref="restaurant.packages({id : restaurant.id})">View Packages</button></div>
+                          <div class="float-right"><button class="btn bg-red my-btn view-restaurant-btn" ng-click = "viewPackages(restaurant.id,restaurant.name)">View Packages</button></div>
                      </div>
 
                  </div>
